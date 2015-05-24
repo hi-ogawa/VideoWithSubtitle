@@ -11,7 +11,6 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 
 -->
 
-
 <style>
   div{
   font-family: Sans-Serif;
@@ -21,6 +20,7 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
   margin-right: auto;
   width: 75%;
   }
+
   #video {
   position: relative;
   width: 100%;
@@ -30,31 +30,48 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
   }
 
   .div-scripts {
-  font-size: 18px;
+  font-size: 16px;
   position: absolute;
   top: 10px; left: 180px;
   width: 30%;
   height: 100px;
-  overflow: scroll;
   z-index: 1;
   background-color: #ffffff;
   opacity: 0.7;
   filter:alpha(opacity=60); /* For IE8 and earlier */
   }
 
+  .div-scripts-wrap {
+  height: 100px;
+  overflow: scroll;
+  overflow-x:hidden;
+  }
+
   .div-scripts p{
-  margin: 4px;
+  margin: 10px;
   color: #000000;
   }
 
   .div-form{
-  font-size: 16px;
+  font-size: 13px;
   position: absolute;
-  width: 150px;
+  width: 17%
   height: 100px;
   top: 10px;
   left: 10px;
   }
+
+  #nwgrip, #negrip, #swgrip, #segrip, #ngrip, #egrip, #sgrip, #wgrip {
+      width: 12px;
+      height: 12px;
+      background-color: #ffffff;
+      border: 1px solid #000000;
+  }
+  #segrip {
+      right: -5px;
+      bottom: -5px;
+  }
+  .ui-resizable-helper { border: 2px dotted #00F; }
 </style>
 
 
@@ -64,15 +81,24 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 
 
 <div class="div-scripts">
-<p class="p-scripts" > <%== @scripts_text %> </p>
+ <div class="div-scripts-wrap">
+  <p class="p-scripts" > <%== @scripts_text %> </p>
+ </div>
+ <div class="ui-resizable-handle ui-resizable-nw" id="nwgrip"></div>
+ <div class="ui-resizable-handle ui-resizable-ne" id="negrip"></div>
+ <div class="ui-resizable-handle ui-resizable-sw" id="swgrip"></div>
+ <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
 </div>
+
 
 <div class="div-form">
 
   <p> modern family </p>
   <%= form_tag({controller: "top", action: "index"}, method: "get") do %> 
-    <%= label_tag(:season, "season number") %>  <%= text_field_tag(:season) %> <br>
-    <%= label_tag(:espisode, "episode number") %> <%= text_field_tag(:episode) %> <br>
+    <%= label_tag(:season, "season number") %>  <br>
+    <%= text_field_tag(:season) %> <br>
+    <%= label_tag(:espisode, "episode number") %>  <br>
+    <%= text_field_tag(:episode) %> <br>
     <%= submit_tag "go1" %>
   <% end %>
 
@@ -80,14 +106,18 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 
   <p> specify urls directly </p>
   <%= form_tag({controller: "top", action: "index"}, method: "get") do %> 
-    <a href="http://www.tvonline.tw/"> tvonline url </a>
+    <a href="http://www.tvonline.tw/"> tvonline url </a> <br>
     <%= text_field_tag(:tvonline_url) %> <br>
+    <span> index of the video </span> <br>
+    <%= text_field_tag(:index) %> <br>
     <!-- <%= label_tag(:video_url, "video url") %> <%= text_field_tag(:video_url) %> <br> -->
-    <a href="http://www.springfieldspringfield.co.uk"> scripts url </a>
+    <a href="http://www.springfieldspringfield.co.uk"> scripts url </a> <br>
     <%= text_field_tag(:scripts_url) %> <br>
     <%= submit_tag "go2" %>
   <% end %>
 
+  <!-- <input class="fontsize" value=""> -->
+  <!-- <button > </button> -->
   <!-- <button onclick="disableRD()"> disable resize and drag </button> -->
   <!-- <button onclick="enableRD()"> enable resize and drag </button> -->
   <!-- <button onclick="scroll_start()"> start scroll scripts </button> -->
@@ -97,8 +127,38 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 <script>
   $( function() {
     $(".div-scripts").draggable();
-    $(".div-scripts").resizable();
+    $(".div-scripts").resizable({
+     handles: {
+        'ne': '#negrip',
+        'se': '#segrip',
+        'sw': '#swgrip',
+        'nw': '#nwgrip'
+     },
+     helper: "ui-resizable-helper",
+     stop: function(){
+        var h = $(".div-scripts").css("height");
+        $(".div-scripts-wrap").css("height", h);
+     }
+    });
   });
+
+  <!-- function dest() { -->
+  <!--   $(".div-scripts").resizable( "destroy" ); -->
+  <!-- } -->
+
+  <!-- $(document).ready(function(){ -->
+  <!--   $(".div-scripts").click(function(){ -->
+  <!--      $( "iframe" ).trigger( "click" ); -->
+  <!--   }); -->
+  <!-- }); -->
+
+  <!-- $(document).ready(function(){ -->
+  <!--   $("iframe").click(function(){ -->
+  <!--    alert("iframe clicked!!") -->
+  <!--      <\!-- $( "iframe" ).trigger( "click" ); -\-> -->
+  <!--   }); -->
+  <!-- }); -->
+
   <!-- function disableRD(){ -->
   <!--   $(".div-scripts").draggable( "disable" ) -->
   <!--                    .resizable( "disable" ); -->
@@ -117,5 +177,3 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
   <!--   $(".div-scripts").stop() -->
   <!-- }; -->
 </script>
-
-<!-- <iframe id="scripts" width="600" height="480" frameborder="0" src="http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s03e12" scrolling="yes"></iframe> -->
