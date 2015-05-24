@@ -32,7 +32,7 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
   .div-scripts {
   font-size: 18px;
   position: absolute;
-  top: 10px; left: 170px;
+  top: 10px; left: 180px;
   width: 30%;
   height: 100px;
   overflow: scroll;
@@ -64,7 +64,7 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 
 
 <div class="div-scripts">
-<p> <%== @scripts_text %> </p>
+<p class="p-scripts" > <%== @scripts_text %> </p>
 </div>
 
 <div class="div-form">
@@ -90,21 +90,32 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 
   <!-- <button onclick="disableRD()"> disable resize and drag </button> -->
   <!-- <button onclick="enableRD()"> enable resize and drag </button> -->
+  <!-- <button onclick="scroll_start()"> start scroll scripts </button> -->
+  <!-- <button onclick="scroll_stop()"> stop scroll scripts </button> -->
 </div>
 
 <script>
   $( function() {
-    $(".div-scripts").draggable()
-                     .resizable();
+    $(".div-scripts").draggable();
+    $(".div-scripts").resizable();
   });
-  function disableRD(){
-    $(".div-scripts").draggable( "disable" )
-                     .resizable( "disable" );
-  };
-  function enableRD(){
-    $(".div-scripts").draggable( "enable" )
-                     .resizable( "enable" );
-  }
+  <!-- function disableRD(){ -->
+  <!--   $(".div-scripts").draggable( "disable" ) -->
+  <!--                    .resizable( "disable" ); -->
+  <!-- }; -->
+  <!-- function enableRD(){ -->
+  <!--   $(".div-scripts").draggable( "enable" ) -->
+  <!--                    .resizable( "enable" ); -->
+  <!-- }; -->
+
+  <!-- function scroll_start(){ -->
+  <!--   var height = parseInt($(".p-scripts").height()) + ''; -->
+  <!--   $(".div-scripts").animate({scrollTop: height}, 600000); -->
+  <!-- }; -->
+
+  <!-- function scroll_stop(){ -->
+  <!--   $(".div-scripts").stop() -->
+  <!-- }; -->
 </script>
 
 <!-- <iframe id="scripts" width="600" height="480" frameborder="0" src="http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s03e12" scrolling="yes"></iframe> -->
