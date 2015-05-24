@@ -15,10 +15,20 @@
 //= require turbolinks
 //= require_tree .
 
-
-// function shutAd(){
-//     var y = $("iframe#frame1").contentDocument;
-//     return $.body.style.backgroundColor;
-//     // $("iframe#embededVideoweed").contentWindow.clicked_first_btn();
-//     // return 1;
-// }
+$( function() {
+    $(".div-scripts").draggable();
+    $(".div-scripts").resizable({
+	handles: {
+            'ne': '#negrip',
+            'se': '#segrip',
+            'sw': '#swgrip',
+            'nw': '#nwgrip'
+	},
+	helper: "ui-resizable-helper",
+	stop: function(){
+            var h = $(".div-scripts").css("height");
+            $(".div-scripts-wrap").css("height", h);
+	}
+    });
+    $(".div-form").sidebar();
+});

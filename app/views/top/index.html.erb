@@ -1,84 +1,13 @@
-<!-- 
-
-- videoweed website url
-http://www.videoweed.es/file/9727734301dfa
-
-- embed video url
-http://embed.videoweed.es/embed.php?v=5b8bcca2f63da
-
-- scripts website url
-http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s03e12
-
--->
-
-<style>
-  div{
-  font-family: Sans-Serif;
-  }
-  .div-video{
-  margin-left: auto;
-  margin-right: auto;
-  width: 75%;
-  }
-
-  #video {
-  position: relative;
-  width: 100%;
-  height: 95vh;
-  overflow: hidden;
-  border: 0px;
-  }
-
-  .div-scripts {
-  font-size: 16px;
-  position: absolute;
-  top: 10px; left: 180px;
-  width: 30%;
-  height: 100px;
-  z-index: 1;
-  background-color: #ffffff;
-  opacity: 0.65;
-  filter:alpha(opacity=60); /* For IE8 and earlier */
-  }
-
-  .div-scripts-wrap {
-  height: 100px;
-  overflow: scroll;
-  overflow-x:hidden;
-  }
-
-  .div-scripts p{
-  margin: 10px;
-  color: #000000;
-  }
-
-  .div-form{
-  font-size: 13px;
-  position: absolute;
-  width: 17%
-  height: 100px;
-  top: 10px;
-  left: 10px;
-  }
-
-  #nwgrip, #negrip, #swgrip, #segrip, #ngrip, #egrip, #sgrip, #wgrip {
-      width: 12px;
-      height: 12px;
-      background-color: #ffffff;
-      border: 1px solid #000000;
-  }
-  #segrip {
-      right: -5px;
-      bottom: -5px;
-  }
-  .ui-resizable-helper { border: 2px dotted #00F; }
-</style>
-
+<div class="div-header">
+  <div class="d1" > sciprts url: <%= @scripts_url %>   </div>
+  <div class="d2" > tvonline url: <%= @tvonline_url %> </div> <br>
+  <div class="d3" > index: <%= @index %>               </div>
+  <div class="d4" > embed video url: <%= @video_url %> </div>
+</div>
 
 <div class="div-video">
 <iframe id="video" src="<%= @video_url %>" scrolling="no"></iframe>
 </div>
-
 
 <div class="div-scripts">
  <div class="div-scripts-wrap">
@@ -94,7 +23,7 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
 <div class="div-form">
 
   <p> modern family </p>
-  <%= form_tag({controller: "top", action: "index"}, method: "get") do %> 
+  <%= form_tag({controller: "top", action: "index"}, method: "post") do %> 
     <%= label_tag(:season, "season number") %>  <br>
     <%= text_field_tag(:season) %> <br>
     <%= label_tag(:espisode, "episode number") %>  <br>
@@ -105,74 +34,13 @@ http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-
   <br>
 
   <p> specify urls directly </p>
-  <%= form_tag({controller: "top", action: "index"}, method: "get") do %> 
+  <%= form_tag({controller: "top", action: "index"}, method: "post") do %> 
     <a href="http://www.tvonline.tw/"> tvonline url </a> <br>
     <%= text_field_tag(:tvonline_url) %> <br>
     <span> index of the video </span> <br>
     <%= text_field_tag(:index) %> <br>
-    <!-- <%= label_tag(:video_url, "video url") %> <%= text_field_tag(:video_url) %> <br> -->
     <a href="http://www.springfieldspringfield.co.uk"> scripts url </a> <br>
     <%= text_field_tag(:scripts_url) %> <br>
     <%= submit_tag "go2" %>
   <% end %>
-
-  <!-- <input class="fontsize" value=""> -->
-  <!-- <button > </button> -->
-  <!-- <button onclick="disableRD()"> disable resize and drag </button> -->
-  <!-- <button onclick="enableRD()"> enable resize and drag </button> -->
-  <!-- <button onclick="scroll_start()"> start scroll scripts </button> -->
-  <!-- <button onclick="scroll_stop()"> stop scroll scripts </button> -->
 </div>
-
-<script>
-  $( function() {
-    $(".div-scripts").draggable();
-    $(".div-scripts").resizable({
-     handles: {
-        'ne': '#negrip',
-        'se': '#segrip',
-        'sw': '#swgrip',
-        'nw': '#nwgrip'
-     },
-     helper: "ui-resizable-helper",
-     stop: function(){
-        var h = $(".div-scripts").css("height");
-        $(".div-scripts-wrap").css("height", h);
-     }
-    });
-  });
-  <!-- function dest() { -->
-  <!--   $(".div-scripts").resizable( "destroy" ); -->
-  <!-- } -->
-
-  <!-- $(document).ready(function(){ -->
-  <!--   $(".div-scripts").click(function(){ -->
-  <!--      $( "iframe" ).trigger( "click" ); -->
-  <!--   }); -->
-  <!-- }); -->
-
-  <!-- $(document).ready(function(){ -->
-  <!--   $("iframe").click(function(){ -->
-  <!--    alert("iframe clicked!!") -->
-  <!--      <\!-- $( "iframe" ).trigger( "click" ); -\-> -->
-  <!--   }); -->
-  <!-- }); -->
-
-  <!-- function disableRD(){ -->
-  <!--   $(".div-scripts").draggable( "disable" ) -->
-  <!--                    .resizable( "disable" ); -->
-  <!-- }; -->
-  <!-- function enableRD(){ -->
-  <!--   $(".div-scripts").draggable( "enable" ) -->
-  <!--                    .resizable( "enable" ); -->
-  <!-- }; -->
-
-  <!-- function scroll_start(){ -->
-  <!--   var height = parseInt($(".p-scripts").height()) + ''; -->
-  <!--   $(".div-scripts").animate({scrollTop: height}, 600000); -->
-  <!-- }; -->
-
-  <!-- function scroll_stop(){ -->
-  <!--   $(".div-scripts").stop() -->
-  <!-- }; -->
-</script>

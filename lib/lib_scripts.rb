@@ -25,6 +25,6 @@ module LibScripts
     s = "0" + s if s.length == 1
     e = "0" + e if e.length == 1
     url = "http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s" + s + "e" + e
-    return self.get_scripts(url)
+    return url
   end
 end

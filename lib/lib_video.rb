@@ -18,6 +18,6 @@ module LibVideo
 
   def self.get_video_url_modern_family(s, e)
     url = "http://www.tvonline.tw/modern-family-2009/season-" + s + "-episode-" + e + "/"
-    return self.get_video_url(url, 0)
+    return url
   end
 end
