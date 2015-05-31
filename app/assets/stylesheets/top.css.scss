@@ -3,7 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body{
-    background: url("bg.gif") repeat;    
+    background: url("bg.gif") repeat;
+    /* background: black; */
 }
 
 div{ font-family: Sans-Serif; }
@@ -64,6 +65,25 @@ div{ font-family: Sans-Serif; }
     color: rgb(238, 127, 61);
 }
 
+.div-dictionary {
+    font-size: 17px;
+    position: absolute;
+    top: 10%; left: 75%;
+    width: 25%;
+    height: 30%;
+    z-index: 1;
+    background-color: black;
+    border: 1px dotted white;
+    opacity: 0.7;
+    color: rgb(238, 127, 61);
+}
+
+.div-dictionary-wrap {
+    height: 30vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
 .div-form{
     font-size: 15px;
     position: absolute;
@@ -87,4 +107,17 @@ div{ font-family: Sans-Serif; }
     right: -5px;
     bottom: -5px;
 }
+
+#nwgrip-drag {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 12px;
+    height: 12px;
+    background-color: green;
+    border: 1px solid #000000;
+    cursor: move;
+    z-index: 100;
+}
+
 .ui-resizable-helper { border: 2px dotted #00F; }
