@@ -30,5 +30,5 @@ $( function() {
             $(".div-scripts-wrap").css("height", h);
 	}
     });
-    $(".div-form").sidebar();
+    // $(".div-form").sidebar();
 });

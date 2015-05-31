@@ -45,16 +45,16 @@ div{ font-family: Sans-Serif; }
 .div-scripts {
     font-size: 17px;
     position: absolute;
-    top: 60px; left: 190px;
+    top: 80%; left: 35%;
     width: 30%;
-    height: 100px;
+    height: 18vh;
     z-index: 1;
     background-color: black;
     opacity: 0.7;
 }
 
 .div-scripts-wrap {
-    height: 100px;
+    height: 18vh;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -67,9 +67,14 @@ div{ font-family: Sans-Serif; }
 .div-form{
     font-size: 15px;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 300px;
+    top: 50px;
+    left: 5px;
+    width: 130px;
+    background: rgb(28, 190, 190);
+}
+
+.div-form a{
+    color: rgb(0, 0, 0);
 }
 
 #nwgrip, #negrip, #swgrip, #segrip, #ngrip, #egrip, #sgrip, #wgrip {

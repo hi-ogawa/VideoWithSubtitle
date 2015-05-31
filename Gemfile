@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'haml-rails', '>= 0.3.4', :group => :development
+
 gem 'simple-rss'
 gem 'nokogiri'
 
