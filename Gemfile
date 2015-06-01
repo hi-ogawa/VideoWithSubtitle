@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'haml-rails', '>= 0.3.4', :group => :development
+#gem 'haml-rails', '>= 0.3.4', :group => :development
+gem 'haml-rails', '>= 0.3.4'
 
 gem 'simple-rss'
 gem 'nokogiri'
@@ -43,3 +44,5 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+# gem 'rack-mini-profiler'
