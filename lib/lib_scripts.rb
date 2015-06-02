@@ -14,13 +14,13 @@ episode_url = "http://www.springfieldspringfield.co.uk/view_episode_scripts.php?
 
 module LibScripts
 
-  def self.search(inq) # return titles
-    url = "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + CGI.escape(inq)
-    xs = Nokogiri::HTML(open(url)) . css(".script-list-item")
-    xs.map do |a|
-      a.attr("href").match(/.*tv-show=(.*)/)[1]
-    end
-  end
+  # def self.search(inq) # return titles
+  #   url = "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + CGI.escape(inq)
+  #   xs = Nokogiri::HTML(open(url)) . css(".script-list-item")
+  #   xs.map do |a|
+  #     a.attr("href").match(/.*tv-show=(.*)/)[1]
+  #   end
+  # end
 
   def self.get_scripts_url(name, s, e)
     s = "0" + s if s.length == 1

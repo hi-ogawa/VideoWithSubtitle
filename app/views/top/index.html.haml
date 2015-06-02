@@ -32,15 +32,26 @@
 
 .div-form
 
-  -# %p modern family
+  %button{:onclick => "searchTitles()"} search!!
+
   = form_tag({controller: "top", action: "index"}, method: "post") do
-    - if @titles_video != nil
+    .div-search
+      %p search for titles
+      %input{:id => "title_inquiry"}
+      %br
+   
       %p titles in tvonline
-      = select_tag(:title_video, options_for_select(@titles_video))
+      %select{:id => "video_titles", :name => "video_titles"}
+        %option{:value => @video_titles }
+          = @video_titles
       %br
    
       %p titles in springfield
-      = select_tag(:title_scripts, options_for_select(@titles_scripts))
+      %select{:id => "scripts_titles", :name => "scripts_titles"}
+        %option{:value => @scripts_titles }
+          = @scripts_titles
+      %br
+   
       %br
 
     %p season number
@@ -52,7 +63,6 @@
     %br
 
     = submit_tag "go1"
-
   %br
 
   %p specify urls directly
@@ -73,21 +83,3 @@
     %br
 
     = submit_tag "go2"
-
-
-  %br
-
-  = form_tag({controller: "top", action: "index"}, method: "post") do
-    %p search for titles
-    = text_field_tag(:title_inquery)
-    %br
-
-    -# %p titles in tvonline
-    -# = select_tag(:title_video, options_for_select(@titles_video))
-    -# %br
-
-    -# %p titles in springfield
-    -# = select_tag(:title_scripts, options_for_select(@titles_scripts))
-    -# %br
-
-    = submit_tag "go3"

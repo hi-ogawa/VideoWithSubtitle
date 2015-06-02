@@ -68,12 +68,12 @@ div{ font-family: Sans-Serif; }
 .div-dictionary {
     font-size: 17px;
     position: absolute;
-    top: 10%; left: 75%;
+    top: 15%; left: 73%;
     width: 25%;
     height: 30%;
     z-index: 1;
     background-color: black;
-    border: 1px dotted white;
+    /* border: 1px dotted white; */
     opacity: 0.7;
     color: rgb(238, 127, 61);
 }
@@ -84,6 +84,10 @@ div{ font-family: Sans-Serif; }
     overflow-x: hidden;
 }
 
+.div-dictionary p {
+    text-align: center;
+}
+
 .div-form{
     font-size: 15px;
     position: absolute;
@@ -91,6 +95,10 @@ div{ font-family: Sans-Serif; }
     left: 5px;
     width: 130px;
     background: rgb(28, 190, 190);
+}
+
+#video_titles, #scripts_titles {
+    width: 127px;
 }
 
 .div-form a{
