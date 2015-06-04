@@ -43,7 +43,6 @@ $( function() {
     // $(".div-form").sidebar();
 });
 
-
 function selectWord() {
     var div_name = ".div-dictionary-wrap";
     var voc = window.getSelection().toString().trim();
@@ -81,6 +80,10 @@ function selectWord() {
 	    $(div_name).append("</ul>");
 	}
     });
+
+    // alc iframe
+    var l = "http://eow.alc.co.jp/search?q=" + voc;
+    $(".div-alc #alc").attr("src", l);
 }
 
 function searchTitles() {
@@ -133,14 +136,19 @@ function set_title_tvonline_url(){
     $("#para_title_tvonline").attr({"href": l});
 }
 
+function toggleShowHideMenu(){
+    $(".div-form").toggle();
+}
+
 $(document).ready(function (){
     set_title_springfield_url();
     set_title_tvonline_url();
+    $(".div-dictionary").hide();
 
     $(".div-scripts p, .div-dictionary").dblclick(function (){
 	selectWord();
     })
-    $(".div-scripts #nwgrip-drag").click(function (){
+    $(".div-scripts p").mouseup(function (){
 	selectWord();
     })
 

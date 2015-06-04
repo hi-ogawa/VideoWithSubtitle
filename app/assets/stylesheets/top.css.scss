@@ -3,8 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body{
-    background: url("bg.gif") repeat;
-    /* background: black; */
+    /* background: url("bg.gif") repeat; */
+    background: black;
 }
 
 a {
@@ -13,7 +13,6 @@ a {
 }
 
 div{ font-family: Sans-Serif; }
-
 
 .div-header {
     top: 0px;
@@ -26,7 +25,7 @@ div{ font-family: Sans-Serif; }
 
 .div-header .para {
     float: left;
-    width: 16.5%;
+    width: 14.2%;
     text-align: center;
     color: white;
     font-size: 13px;
@@ -34,8 +33,6 @@ div{ font-family: Sans-Serif; }
 
 .div-video{
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
     width: 75%;
 }
 
@@ -45,6 +42,31 @@ div{ font-family: Sans-Serif; }
     height: 95vh;
     overflow: hidden;
     border: 0px;
+    float: left;
+}
+
+.div-alc{
+    position: relative;
+    width: 24.8%;
+    height: 95vh;
+    overflow: hidden;
+}
+
+#alc {
+    position: relative;
+    width: 133%;
+    height: 133vh;
+    border: 0px;
+    -moz-transform: scale(0.75, 0.75);
+    -webkit-transform: scale(0.75, 0.75);
+    -o-transform: scale(0.75, 0.75);
+    -ms-transform: scale(0.75, 0.75);
+    transform: scale(0.75, 0.75);
+    -moz-transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    transform-origin: top left;
 }
 
 .div-scripts {

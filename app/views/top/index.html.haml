@@ -1,5 +1,7 @@
 .div-header
   .para
+    %button{:onclick => "toggleShowHideMenu()"} show/hide menu
+  .para
     %a{:id => "para_title_springfield"} title in springfield
   .para
     %a{:id => "para_title_tvonline"} title in tvlinline
@@ -16,6 +18,8 @@
 .div-video
   %iframe#video{:scrolling => "no", :src => "#{@video_url}"}
 
+.div-alc
+  %iframe#alc{:scrolling => "yes"}
 
 .div-scripts
   .div-scripts-wrap
@@ -29,6 +33,7 @@
   .div-dictionary-wrap
   #nwgrip-drag
   #segrip.ui-resizable-handle.ui-resizable-se
+
 
 .div-form
 
