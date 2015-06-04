@@ -149,30 +149,35 @@ $(function (){ // short for document.ready
 
     var words = "";
 
-    $(".div-scripts p, .div-dictionary").dblclick(function (){
-	var w = window.getSelection().toString().trim();
-	words = words + " " + w;
-	selectWord(words);
-	words = "";
-	$(".div-scripts p span strong").contents().unwrap();
-    });
-
-    $(".div-scripts p span").mouseup(function (evt){
-	
-	var b = evt.altKey;
-	var w = window.getSelection().toString().trim();
-	words = words + " " + w;
-	if (w != ""){
-	    if (b){
+    // some trick to have both mouseup and dblclick events
+    var clicks = 0, delay = 300;
+    $(".div-scripts p span").on('mouseup', function(event) {
+        event.preventDefault();
+        clicks++;
+        setTimeout(function() {
+            clicks = 0;
+        }, delay);
+        if (clicks === 2) {
+	    // double click handler : start //
+	    var w = window.getSelection().toString().trim();
+	    words = words + " " + w;
+	    selectWord(words);
+	    words = "";
+	    $(".div-scripts p span strong").contents().unwrap();
+	    // double click handler : end //
+            clicks = 0;
+            return;
+        } else {
+	    // mouseup handler : start //
+	    var w = window.getSelection().toString().trim();
+	    words = words + " " + w;
+	    if (w != ""){
 		var r = new RegExp(w, 'g');
-		var t = $(this).text().replace(r, "<strong>" + w + "</strong>")
+		var t = $(this).html().replace(r, "<strong>" + w + "</strong>");
 		$(this).html(t);
-	    }else{
-		selectWord(words);
-		words = "";
-		$(".div-scripts p span strong").contents().unwrap();
 	    }
-	}
+	    // mouseup handler : end //
+        }
     });
 
     $("select#scripts_titles").change(function (){
