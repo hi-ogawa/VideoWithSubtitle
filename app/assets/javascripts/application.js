@@ -16,36 +16,12 @@
 //= require_tree .
 
 $( function() {
-    $(".div-scripts").draggable({ handle: "#nwgrip-drag" });
-    $(".div-scripts").resizable({
-	handles: {
-            'se': '.div-scripts #segrip',
-	},
-	helper: "ui-resizable-helper",
-	stop: function(){
-            var h = $(".div-scripts").css("height");
-            $(".div-scripts-wrap").css("height", h);
-	}
-    });
-
-    $(".div-dictionary").draggable({ handle: "#nwgrip-drag" });
-    $(".div-dictionary").resizable({
-	handles: {
-            'se': '.div-dictionary #segrip',
-	},
-	helper: "ui-resizable-helper",
-	stop: function(){
-            var h = $(".div-dictionary").css("height");
-            $(".div-dictionary-wrap").css("height", h);
-	}
-    });
-
-    // $(".div-form").sidebar();
+    
 });
 
-function selectWord() {
+function selectWord(voc) {
     var div_name = ".div-dictionary-wrap";
-    var voc = window.getSelection().toString().trim();
+    // var voc = window.getSelection().toString().trim();
     var req_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/"
                   + encodeURIComponent(voc) + "?key=c4c815db-b3ae-4d2f-8e31-2e556ec300bd";
     var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
@@ -140,17 +116,64 @@ function toggleShowHideMenu(){
     $(".div-form").toggle();
 }
 
-$(document).ready(function (){
+
+
+$(function (){ // short for document.ready
+    $(".div-scripts").draggable({ handle: "#nwgrip-drag" });
+    $(".div-scripts").resizable({
+	handles: {
+            'se': '.div-scripts #segrip',
+	},
+	helper: "ui-resizable-helper",
+	stop: function(){
+            var h = $(".div-scripts").css("height");
+            $(".div-scripts-wrap").css("height", h);
+	}
+    });
+    $(".div-dictionary").draggable({ handle: "#nwgrip-drag" });
+    $(".div-dictionary").resizable({
+	handles: {
+            'se': '.div-dictionary #segrip',
+	},
+	helper: "ui-resizable-helper",
+	stop: function(){
+            var h = $(".div-dictionary").css("height");
+            $(".div-dictionary-wrap").css("height", h);
+	}
+    });
+    // $(".div-form").sidebar();
+
     set_title_springfield_url();
     set_title_tvonline_url();
     $(".div-dictionary").hide();
 
+    var words = "";
+
     $(".div-scripts p, .div-dictionary").dblclick(function (){
-	selectWord();
-    })
-    $(".div-scripts p").mouseup(function (){
-	selectWord();
-    })
+	var w = window.getSelection().toString().trim();
+	words = words + " " + w;
+	selectWord(words);
+	words = "";
+	$(".div-scripts p span strong").contents().unwrap();
+    });
+
+    $(".div-scripts p span").mouseup(function (evt){
+	
+	var b = evt.altKey;
+	var w = window.getSelection().toString().trim();
+	words = words + " " + w;
+	if (w != ""){
+	    if (b){
+		var r = new RegExp(w, 'g');
+		var t = $(this).text().replace(r, "<strong>" + w + "</strong>")
+		$(this).html(t);
+	    }else{
+		selectWord(words);
+		words = "";
+		$(".div-scripts p span strong").contents().unwrap();
+	    }
+	}
+    });
 
     $("select#scripts_titles").change(function (){
 	set_title_springfield_url();

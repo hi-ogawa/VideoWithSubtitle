@@ -34,11 +34,11 @@ module LibScripts
     x = Nokogiri::HTML(open(url)) . css("div.scrolling-script-container")
     str = (x.children.map do |n|
              if n.name == "br"
-             then "<br>"
+             then "</span> <br> <span>"
              else n.text
              end
            end).join
-    self.to_utf8(str)
+    self.to_utf8("<span>" + str + "</span>")
   end
 
   def self.get_scripts_modern_family(s, e)
