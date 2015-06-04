@@ -1,13 +1,16 @@
 .div-header
-  .d1
-    sciprts url: #{@scripts_url}
-  .d2
-    tvonline url: #{@tvonline_url}
-  %br/
-  .d3
+  .para
+    %a{:id => "para_title_springfield"} title in springfield
+  .para
+    %a{:id => "para_title_tvonline"} title in tvlinline
+  .para
+    %a{:href => @scripts_url} sciprts url 
+  .para
+    %a{:href => @tvonline_url} tvonline url
+  .para
     index: #{@index}
-  .d4
-    embed video url: #{@video_url}
+  .para
+    %a{:href => @video_url} embed video url
 
 
 .div-video
@@ -19,9 +22,6 @@
     %p 
       != @scripts_text
   #nwgrip-drag
-  -# #nwgrip.ui-resizable-handle.ui-resizable-nw
-  -# #negrip.ui-resizable-handle.ui-resizable-ne
-  -# #swgrip.ui-resizable-handle.ui-resizable-sw
   #segrip.ui-resizable-handle.ui-resizable-se
 
 
@@ -32,7 +32,7 @@
 
 .div-form
 
-  %button{:onclick => "searchTitles()"} search!!
+  %button{:id =>"search_button", :onclick => "searchTitles()"} search!!
 
   = form_tag({controller: "top", action: "index"}, method: "post") do
     .div-search
@@ -42,13 +42,13 @@
    
       %p titles in tvonline
       %select{:id => "video_titles", :name => "video_titles"}
-        %option{:value => @video_titles }
+        %option{:value => @video_titles}
           = @video_titles
       %br
    
       %p titles in springfield
       %select{:id => "scripts_titles", :name => "scripts_titles"}
-        %option{:value => @scripts_titles }
+        %option{:value => @scripts_titles}
           = @scripts_titles
       %br
    

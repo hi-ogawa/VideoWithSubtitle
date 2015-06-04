@@ -19,10 +19,7 @@ $( function() {
     $(".div-scripts").draggable({ handle: "#nwgrip-drag" });
     $(".div-scripts").resizable({
 	handles: {
-            'ne': '#negrip',
-            'se': '#segrip',
-            'sw': '#swgrip',
-            // 'nw': '#nwgrip'
+            'se': '.div-scripts #segrip',
 	},
 	helper: "ui-resizable-helper",
 	stop: function(){
@@ -34,7 +31,7 @@ $( function() {
     $(".div-dictionary").draggable({ handle: "#nwgrip-drag" });
     $(".div-dictionary").resizable({
 	handles: {
-            'se': '#segrip',
+            'se': '.div-dictionary #segrip',
 	},
 	helper: "ui-resizable-helper",
 	stop: function(){
@@ -49,9 +46,9 @@ $( function() {
 
 function selectWord() {
     var div_name = ".div-dictionary-wrap";
-    var voc = window.getSelection().toString();
+    var voc = window.getSelection().toString().trim();
     var req_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/"
-                  + voc + "?key=c4c815db-b3ae-4d2f-8e31-2e556ec300bd";
+                  + encodeURIComponent(voc) + "?key=c4c815db-b3ae-4d2f-8e31-2e556ec300bd";
     var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
                + encodeURIComponent('select * from xml where url="' + req_url + '"')
                + '&format=xml&callback=?';    
@@ -86,12 +83,6 @@ function selectWord() {
     });
 }
 
-$(document).ready(function (){
-   $(".div-scripts p, .div-dictionary").dblclick(function (){
-       selectWord();
-   })
-});
-
 function searchTitles() {
     var inq = $("#title_inquiry").val();
 
@@ -109,6 +100,7 @@ function searchTitles() {
 	    $("#video_titles").append(
 		$("<option>").val(l).append(l));
 	});
+	set_title_tvonline_url();
     });
 
     // search in springfield
@@ -126,5 +118,36 @@ function searchTitles() {
 	    $("#scripts_titles").append(
 		$("<option>").val(l).append(l));
 	});
+	set_title_springfield_url();
     });
 }
+
+function set_title_springfield_url(){
+    var l = "http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show="
+	    + $("select#scripts_titles").val();
+    $("#para_title_springfield").attr({"href": l});
+}
+
+function set_title_tvonline_url(){
+    var l = "http://www.tvonline.tw/" + $("select#video_titles").val() + "/";
+    $("#para_title_tvonline").attr({"href": l});
+}
+
+$(document).ready(function (){
+    set_title_springfield_url();
+    set_title_tvonline_url();
+
+    $(".div-scripts p, .div-dictionary").dblclick(function (){
+	selectWord();
+    })
+    $(".div-scripts #nwgrip-drag").click(function (){
+	selectWord();
+    })
+
+    $("select#scripts_titles").change(function (){
+	set_title_springfield_url();
+    });
+    $("select#video_titles").change(function (){
+	set_title_tvonline_url();
+    });
+});
