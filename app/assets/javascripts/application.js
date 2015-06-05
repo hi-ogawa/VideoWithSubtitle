@@ -141,43 +141,50 @@ $(function (){ // short for document.ready
             $(".div-dictionary-wrap").css("height", h);
 	}
     });
-    // $(".div-form").sidebar();
 
     set_title_springfield_url();
     set_title_tvonline_url();
     $(".div-dictionary").hide();
 
     var words = "";
-
-    // some trick to have both mouseup and dblclick events
-    var clicks = 0, delay = 300;
-    $(".div-scripts p span").on('mouseup', function(event) {
-        event.preventDefault();
+    // //// some trick to handle both single <1> and double <2> click events ////
+    var DELAY = 200, clicks = 0, timer = null;
+    $(".div-scripts p span").on("mouseup", function(e){
         clicks++;
-        setTimeout(function() {
-            clicks = 0;
-        }, delay);
-        if (clicks === 2) {
-	    // double click handler : start //
-	    var w = window.getSelection().toString().trim();
-	    words = words + " " + w;
-	    selectWord(words);
-	    words = "";
-	    $(".div-scripts p span strong").contents().unwrap();
-	    // double click handler : end //
-            clicks = 0;
-            return;
+    	var w = window.getSelection().toString().trim();
+	var $obj = $(this);
+        if(clicks === 1) {
+            timer = setTimeout(function() {
+    		//// single click hander <1> ////
+    		if (w != ""){
+    		    words = words + " " + w;
+    		    var r = new RegExp(w, 'g');
+    		    var t = $obj.html().replace(r, "<strong>" + w + "</strong>");
+    		    $obj.html(t);
+    		}else{
+		    if (words != ""){
+    			selectWord(words);
+    			words = "";
+    			$(".div-scripts p span strong").contents().unwrap();
+		    }
+    		}
+    		//// single click hander ////
+                clicks = 0;
+            }, DELAY);
         } else {
-	    // mouseup handler : start //
-	    var w = window.getSelection().toString().trim();
-	    words = words + " " + w;
-	    if (w != ""){
-		var r = new RegExp(w, 'g');
-		var t = $(this).html().replace(r, "<strong>" + w + "</strong>");
-		$(this).html(t);
-	    }
-	    // mouseup handler : end //
+            clearTimeout(timer);
+    	    //// double click handler <2> ////
+    	    words = words + " " + w;
+    	    if (w != ""){
+    		var r = new RegExp(w, 'g');
+    		var t = $(this).html().replace(r, "<strong>" + w + "</strong>");
+    		$(this).html(t);
+    	    }
+    	    //// double click handler ////
+            clicks = 0;
         }
+    }).on("dblclick", function(e){
+        e.preventDefault();
     });
 
     $("select#scripts_titles").change(function (){
