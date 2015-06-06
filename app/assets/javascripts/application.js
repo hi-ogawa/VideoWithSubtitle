@@ -118,6 +118,65 @@ function toggleShowHideMenu(){
 
 
 
+function set_embed_video_url(url, i){
+    $("a#vurl").attr("href", url);
+    $(".para span").text("index: " + i.toString());
+    var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
+                + encodeURIComponent('select * from html where url="' + url + '"')
+                + '&format=xml&callback=?';
+    $.getJSON(yql, function(data){
+	var html_str = data.results[0];
+	var html = $.parseHTML(html_str);
+        var a = $(html).find("#linkname_nav a")[i];
+	$("iframe#video").attr("src", $(a).attr("onclick").match(/'(.*)'/)[1]);
+    });
+}
+
+function set_scripts(url){
+    $("a#surl").attr("href", url);
+    var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
+                + encodeURIComponent('select * from html where url="' + url + '"')
+                + '&format=xml&callback=?';
+    $.getJSON(yql, function(data){
+	var html_str = data.results[0];
+	var html = $.parseHTML(html_str);
+	$(".div-scripts p").html($(html).find("div.scrolling-script-container"));
+    });
+}
+
+function update1(){
+    var url1 = $("input#tvonline_url").val();
+    var i = parseInt($("input#index").val());
+    var url2 = $("input#scripts_url").val();
+
+    set_embed_video_url(url1, i);
+    set_scripts(url2);
+}
+
+function set_embed_video_url2(vtitle, s, e){
+    var url = "http://www.tvonline.tw/" + vtitle + "/season-" + s + "-episode-" + e + "/"
+    set_embed_video_url(url, 0);
+}
+
+function set_scripts2(stitle, s, e){
+    if(s.length == 1){s = "0" + s;}
+    if(e.length == 1){e = "0" + e;}
+    var url = "http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show="
+	      + stitle + "&episode=s" + s + "e" + e
+    set_scripts(url);
+}
+
+function update2(){
+    var vtitle = $("#video_titles").val();
+    var stitle = $("#scripts_titles").val();
+    var sea = $("input#season").val();
+    var epi = $("input#episode").val();
+
+    set_embed_video_url2(vtitle, sea, epi);
+    set_scripts2(stitle, sea, epi);
+}
+
+
 $(function (){ // short for document.ready
     $(".div-scripts").draggable({ handle: "#nwgrip-drag" });
     $(".div-scripts").resizable({
@@ -149,7 +208,7 @@ $(function (){ // short for document.ready
     var words = "";
     // //// some trick to handle both single <1> and double <2> click events ////
     var DELAY = 200, clicks = 0, timer = null;
-    $(".div-scripts p span").on("mouseup", function(e){
+    $(".div-scripts p").on("mouseup", function(e){
         clicks++;
     	var w = window.getSelection().toString().trim();
 	var $obj = $(this);
@@ -165,7 +224,7 @@ $(function (){ // short for document.ready
 		    if (words != ""){
     			selectWord(words);
     			words = "";
-    			$(".div-scripts p span strong").contents().unwrap();
+    			$(".div-scripts p strong").contents().unwrap();
 		    }
     		}
     		//// single click hander ////

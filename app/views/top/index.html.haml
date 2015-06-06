@@ -6,11 +6,12 @@
   .para
     %a{:id => "para_title_tvonline"} title in tvlinline
   .para
-    %a{:href => @scripts_url} sciprts url 
+    %a#surl{:href => @scripts_url} sciprts url 
   .para
-    %a{:href => @tvonline_url} tvonline url
+    %a#vurl{:href => @tvonline_url} tvonline url
   .para
-    index: #{@index}
+    %span
+      index: #{@index}
   .para
     %a{:href => @video_url} embed video url
 
@@ -37,54 +38,56 @@
 
 .div-form
 
-  %button{:id =>"search_button", :onclick => "searchTitles()"} search!!
 
-  = form_tag({controller: "top", action: "index"}, method: "post") do
-    .div-search
-      %p search for titles
-      %input{:id => "title_inquiry"}
-      %br
-   
-      %p titles in tvonline
-      %select{:id => "video_titles", :name => "video_titles"}
-        %option{:value => @video_titles}
-          = @video_titles
-      %br
-   
-      %p titles in springfield
-      %select{:id => "scripts_titles", :name => "scripts_titles"}
-        %option{:value => @scripts_titles}
-          = @scripts_titles
-      %br
-   
-      %br
+  .div-search
+    %p search for titles
+    %input#title_inquiry
+    %br
+    
+    %button#search_button{:onclick => "searchTitles()"} search!!
+
+    %p titles in tvonline
+    %select#video_titles{:name => "video_titles"}
+      %option{:value => @video_titles}
+        = @video_titles
+    %br
+
+    %p titles in springfield
+    %select#scripts_titles{:name => "scripts_titles"}
+      %option{:value => @scripts_titles}
+        = @scripts_titles
+    %br
+
+    %br
 
     %p season number
-    = text_field_tag(:season)
+    %input#season
     %br
 
     %p episode number
-    = text_field_tag(:episode)
+    %input#episode
     %br
 
-    = submit_tag "go1"
-  -# %br
+    %button#update2_button{:onclick => "update2()"} update2
+    %br
 
-  -# %p specify urls directly
-  -# = form_tag({controller: "top", action: "index"}, method: "post") do
+  %br
 
-  -#   %a{:href => "http://www.tvonline.tw/"} tvonline url
-  -#   %br
-  -#   = text_field_tag(:tvonline_url)
-  -#   %br
+  %p specify urls directly
 
-  -#   %p index of the video
-  -#   = text_field_tag(:index)
-  -#   %br
+  %a{:href => "http://www.tvonline.tw/"} tvonline url
+  %br
+  %input#tvonline_url
+  %br
 
-  -#   %a{:href => "http://www.springfieldspringfield.co.uk"} scripts url
-  -#   %br
-  -#   = text_field_tag(:scripts_url)
-  -#   %br
+  %p index of the video
+  %input#index
+  %br
 
-  -#   = submit_tag "go2"
+  %a{:href => "http://www.springfieldspringfield.co.uk"} scripts url
+  %br
+  %input#scripts_url
+  %br
+
+  %button#update1_button{:onclick => "update1()"} update1
+
