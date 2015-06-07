@@ -13,7 +13,7 @@
     %span
       index: #{@index}
   .para
-    %a{:href => @video_url} embed video url
+    %a#eurl{:href => @video_url} embed video url
 
 
 .div-video
@@ -25,7 +25,6 @@
 .div-scripts
   .div-scripts-wrap
     %p 
-      != @scripts_text
   #nwgrip-drag
   #segrip.ui-resizable-handle.ui-resizable-se
 
@@ -68,7 +67,7 @@
     %input#episode
     %br
 
-    %button#update2_button{:onclick => "update2()"} update2
+    %button#update2_button{:onclick => "update2()"} watch!
     %br
 
   %br
@@ -89,5 +88,5 @@
   %input#scripts_url
   %br
 
-  %button#update1_button{:onclick => "update1()"} update1
+  %button#update1_button{:onclick => "update1()"} watch!
 

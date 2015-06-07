@@ -60,7 +60,12 @@ function selectWord(voc) {
     // alc iframe
     var l = "http://eow.alc.co.jp/search?q=" + voc;
     $(".div-alc #alc").attr("src", l);
+    
+    $(".div-alc #alc").load( function() {
+	$( ".div-alc" ).scrollTop(350);
+    } );
 }
+
 
 function searchTitles() {
     var inq = $("#title_inquiry").val();
@@ -128,7 +133,9 @@ function set_embed_video_url(url, i){
 	var html_str = data.results[0];
 	var html = $.parseHTML(html_str);
         var a = $(html).find("#linkname_nav a")[i];
-	$("iframe#video").attr("src", $(a).attr("onclick").match(/'(.*)'/)[1]);
+	var eurl = $(a).attr("onclick").match(/'(.*)'/)[1];
+	$("iframe#video").attr("src", eurl);
+	$("a#eurl").attr("href", eurl);
     });
 }
 
@@ -140,7 +147,12 @@ function set_scripts(url){
     $.getJSON(yql, function(data){
 	var html_str = data.results[0];
 	var html = $.parseHTML(html_str);
-	$(".div-scripts p").html($(html).find("div.scrolling-script-container"));
+	var scripts = $(html).find("div.scrolling-script-container").html().split("<br>")
+	              .map(function(s){
+                        return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim() + "</span>";
+		      }).join("<br>");
+	$(".div-scripts p").html(scripts);
+	scriptsLoaded()
     });
 }
 
@@ -155,7 +167,9 @@ function update1(){
 
 function set_embed_video_url2(vtitle, s, e){
     var url = "http://www.tvonline.tw/" + vtitle + "/season-" + s + "-episode-" + e + "/"
-    set_embed_video_url(url, 0);
+    var i = parseInt($("input#index").val());
+    if(isNaN(i)){i = 0;}
+    set_embed_video_url(url, i);
 }
 
 function set_scripts2(stitle, s, e){
@@ -176,6 +190,66 @@ function update2(){
     set_scripts2(stitle, sea, epi);
 }
 
+var w_apple = "";
+var s_apple = "";
+function toAppleScript(){ // return the pair of a word (or words) and its whole sentense
+    var t = $("select#scripts_titles").val();
+    var s = $("input#season").val();
+    var e = $("input#episode").val();
+    if(t == ""){t = "hoge"}
+    if(s == ""){s = "0"}
+    if(e == ""){e = "0"}
+    if(w_apple.trim() == ""){s = "foo"}
+    if(s_apple.trim() == ""){e = "bar"}
+    return [t, s, e, w_apple.trim(), s_apple.trim()];
+}
+
+
+function scriptsLoaded(){
+    var words = "";
+    // //// some trick to handle both single <1> and double <2> click events ////
+    var DELAY = 200, clicks = 0, timer = null;
+    $(".div-scripts p span").on("mouseup", function(e){
+        clicks++;
+    	var w = window.getSelection().toString().trim();
+	var $obj = $(this);
+        if(clicks === 1) {
+            timer = setTimeout(function() {
+    		//// single click hander <1> ////
+    		if (w != ""){
+		    s_apple = $obj.text();
+    		    words = words + " " + w;
+    		    var r = new RegExp(w, 'g');
+    		    var t = $obj.html().replace(r, "<strong>" + w + "</strong>");
+    		    $obj.html(t);
+    		}else{
+		    if (words != ""){
+			w_apple = words;
+    			selectWord(words);
+    			words = "";
+    			$(".div-scripts p span strong").contents().unwrap();
+		    }
+    		}
+    		//// single click hander ////
+                clicks = 0;
+            }, DELAY);
+        } else {
+            clearTimeout(timer);
+    	    //// double click handler <2> ////
+    	    if (w != ""){
+    		words = words + " " + w;
+		s_apple = $obj.text();
+    		var r = new RegExp(w, 'g');
+    		var t = $obj.html().replace(r, "<strong>" + w + "</strong>");
+    		$obj.html(t);
+    	    }
+    	    //// double click handler ////
+            clicks = 0;
+        }
+    }).on("dblclick", function(e){
+        e.preventDefault();
+    });
+}
 
 $(function (){ // short for document.ready
     $(".div-scripts").draggable({ handle: "#nwgrip-drag" });
@@ -204,47 +278,6 @@ $(function (){ // short for document.ready
     set_title_springfield_url();
     set_title_tvonline_url();
     $(".div-dictionary").hide();
-
-    var words = "";
-    // //// some trick to handle both single <1> and double <2> click events ////
-    var DELAY = 200, clicks = 0, timer = null;
-    $(".div-scripts p").on("mouseup", function(e){
-        clicks++;
-    	var w = window.getSelection().toString().trim();
-	var $obj = $(this);
-        if(clicks === 1) {
-            timer = setTimeout(function() {
-    		//// single click hander <1> ////
-    		if (w != ""){
-    		    words = words + " " + w;
-    		    var r = new RegExp(w, 'g');
-    		    var t = $obj.html().replace(r, "<strong>" + w + "</strong>");
-    		    $obj.html(t);
-    		}else{
-		    if (words != ""){
-    			selectWord(words);
-    			words = "";
-    			$(".div-scripts p strong").contents().unwrap();
-		    }
-    		}
-    		//// single click hander ////
-                clicks = 0;
-            }, DELAY);
-        } else {
-            clearTimeout(timer);
-    	    //// double click handler <2> ////
-    	    words = words + " " + w;
-    	    if (w != ""){
-    		var r = new RegExp(w, 'g');
-    		var t = $(this).html().replace(r, "<strong>" + w + "</strong>");
-    		$(this).html(t);
-    	    }
-    	    //// double click handler ////
-            clicks = 0;
-        }
-    }).on("dblclick", function(e){
-        e.preventDefault();
-    });
 
     $("select#scripts_titles").change(function (){
 	set_title_springfield_url();

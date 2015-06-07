@@ -48,13 +48,13 @@ div{ font-family: Sans-Serif; }
     position: relative;
     width: 24.8%;
     height: 95vh;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 #alc {
     position: relative;
     width: 133%;
-    height: 133vh;
+    height: 300vh;
     border: 0px;
     -moz-transform: scale(0.75, 0.75);
     -webkit-transform: scale(0.75, 0.75);
