@@ -15,10 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-$( function() {
-    
-});
-
 function selectWord(voc) {
     var div_name = ".div-dictionary-wrap";
     // var voc = window.getSelection().toString().trim();
@@ -199,9 +195,22 @@ function toAppleScript(){ // return the pair of a word (or words) and its whole 
     if(t == ""){t = "hoge"}
     if(s == ""){s = "0"}
     if(e == ""){e = "0"}
-    if(w_apple.trim() == ""){s = "foo"}
-    if(s_apple.trim() == ""){e = "bar"}
-    return [t, s, e, w_apple.trim(), s_apple.trim()];
+
+    if(w_apple.trim() != ""){
+	// return [t, s, e, w_apple.trim(), s_apple.trim()];
+	$.ajax({
+	    url: "/top/record",
+	    type: "POST",
+	    data: {vocab: {title: t,
+			   season: s,
+			   episode: e,
+			   word: w_apple.trim(),
+			   sentence: s_apple.trim()}},
+	    success: function(events){ console.log("success");},
+	    error: function(){ console.log("error");}
+	});
+    }
+
 }
 
 

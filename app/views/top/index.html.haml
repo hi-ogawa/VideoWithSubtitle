@@ -6,18 +6,18 @@
   .para
     %a{:id => "para_title_tvonline"} title in tvlinline
   .para
-    %a#surl{:href => @scripts_url} sciprts url 
+    %a#surl{:href => ""} sciprts url 
   .para
-    %a#vurl{:href => @tvonline_url} tvonline url
+    %a#vurl{:href => ""} tvonline url
   .para
     %span
-      index: #{@index}
+      index: 
   .para
-    %a#eurl{:href => @video_url} embed video url
+    %a#eurl{:href => ""} embed video url
 
 
 .div-video
-  %iframe#video{:scrolling => "no", :src => "#{@video_url}"}
+  %iframe#video{:scrolling => "no", :src => ""}
 
 .div-alc
   %iframe#alc{:scrolling => "yes"}
@@ -47,14 +47,12 @@
 
     %p titles in tvonline
     %select#video_titles{:name => "video_titles"}
-      %option{:value => @video_titles}
-        = @video_titles
+      %option
     %br
 
     %p titles in springfield
     %select#scripts_titles{:name => "scripts_titles"}
-      %option{:value => @scripts_titles}
-        = @scripts_titles
+      %option
     %br
 
     %br
