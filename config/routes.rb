@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   post 'top/record'
   root 'top#index'
+
+  get 'top/view'
+
+  get 'top/ajax_titles'
+  post 'top/ajax_numbers'
+  post 'top/ajax_vocabs'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

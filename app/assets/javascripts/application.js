@@ -201,11 +201,11 @@ function toAppleScript(){ // return the pair of a word (or words) and its whole 
 	$.ajax({
 	    url: "/top/record",
 	    type: "POST",
-	    data: {vocab: {title: t,
-			   season: s,
-			   episode: e,
-			   word: w_apple.trim(),
-			   sentence: s_apple.trim()}},
+	    data: {returns: {title: t,
+			     season: s,
+			     episode: e,
+			     word: w_apple.trim(),
+			     sentence: s_apple.trim()}},
 	    success: function(events){ console.log("success");},
 	    error: function(){ console.log("error");}
 	});
@@ -295,3 +295,80 @@ $(function (){ // short for document.ready
 	set_title_tvonline_url();
     });
 });
+
+
+
+// for top/view
+
+function get_titles(){
+    $.ajax({
+	url: "/top/ajax_titles",
+	type: "GET",
+	dataType: "xml",
+	success: function(xml){
+	    $("#select_title").empty();
+	    $(xml).find("object").each(function(){
+		var i = $(this).find("id").text();
+		var t = $(this).find("name").text();
+		$("#select_title").append(
+		    $("<option>").val(i).append(t));
+	    });
+	    get_numbers();
+	},
+	error: function(){ console.log("error");}
+    });
+}
+
+
+function get_numbers(){
+    t = $("select#select_title").val()
+    $.ajax({
+	url: "/top/ajax_numbers",
+	type: "POST",
+	data: {returns: {title: t}},
+	dataType: "xml",
+	success: function(xml){
+	    $("#select_number").empty();
+	    $(xml).find("object").each(function(){
+		var i = $(this).find("id").text();
+		var s = $(this).find("season").text();
+		var e = $(this).find("episode").text();
+		$("#select_number").append(
+		    $("<option>").val(i).append(s + " - " + e));
+	    });
+	    get_vocabs()
+	},
+	error: function(){ console.log("error");}
+    });
+}
+
+function get_vocabs(){
+    n = $("select#select_number").val()
+    $.ajax({
+	url: "/top/ajax_vocabs",
+	type: "POST",
+	data: {returns: {number: n}},
+	dataType: "xml",
+	success: function(xml){
+	    console.log("success");
+	    $(".vocabularies").empty();
+	    $(xml).find("object").each(function(){
+	    	var i = $(this).find("id").text();
+	    	var w = $(this).find("word").text();
+	    	var s = $(this).find("sentence").text();
+	    	var p = $(this).find("picture").text();
+	    	$(".vocabularies").append(
+	    	    $("<div>").attr("class", "vocabulary")
+			.append($("<span>").attr("class", "word").text(w))
+			.append($("<span>").attr("class", "sentence").text(s))
+			.append($("<img>").attr("src", "/screenshots/" + p).hide())
+		);
+	    });
+	},
+	error: function(){ console.log("error");}
+    });
+}
+
+$(function (){ // short for document.ready
+    get_titles();
+})
