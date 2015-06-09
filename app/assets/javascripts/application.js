@@ -389,7 +389,7 @@ function set_scripts4(url){
 	var scripts = $(html).find("div.scrolling-script-container").html().split("<br>")
 	              .map(function(s){
                         return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim()
-			       + "<button> open! </button>"  + "</span>";
+			        + "</span>";
 		      }).join("<br>");
 	$(".div-blank p").html(scripts);
     });
@@ -461,6 +461,7 @@ function blanky(){
 	    if(i % 3 != 0  && ws[i].length > 2 )
 	    { rw.push( ws[i] ); }
 	}
+	if(rw.length == 0){ return 0; }
 	console.log(rw);
 	var r = new RegExp(rw.join("|"), 'g');
 	console.log(r);
@@ -475,21 +476,21 @@ function blanky(){
 	    }
 	});
 	var $span = $(this);
-	$span.find("button").click(function(){
-	    if( $span.find("ins").css("color") == "rgb(0, 0, 0)" )
-	    {
-		$span.find("ins").css("color", "rgb(238, 127, 61)");
-	    }else{
-		$span.find("ins").css("color", "rgb(0, 0, 0)");
-	    }
-	});
+	$span.append(
+	    $("<button>").text("open!").click(function(){
+		if( $span.find("ins").css("color") == "rgb(0, 0, 0)" )
+		{
+		    $span.find("ins").css("color", "rgb(238, 127, 61)");
+		}else{
+		    $span.find("ins").css("color", "rgb(0, 0, 0)");
+		}
+	    }));
     });
-    $(".div-blank button").show();
 }
 
 function unblanky(){
     $(".div-blank p span ins").contents().unwrap();
-    $(".div-blank button").hide();
+    $(".div-blank button").remove();
 }
 
 
