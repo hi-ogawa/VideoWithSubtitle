@@ -388,7 +388,8 @@ function set_scripts4(url){
 	var html = $.parseHTML(html_str);
 	var scripts = $(html).find("div.scrolling-script-container").html().split("<br>")
 	              .map(function(s){
-                        return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim() + "</span>";
+                        return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim()
+			       + "<button> open! </button>"  + "</span>";
 		      }).join("<br>");
 	$(".div-blank p").html(scripts);
     });
@@ -453,8 +454,6 @@ var ignores = ["NNP", "PRP", "DT", ".", ",", ":"];
 
 function blanky(){
     $(".div-blank p span").each(function (){
-	// ws = $(this).text().match(/[^\.!\?]+[\.!\?]+/g); // into sentences
-	// ws = _.uniq($(this).text().match(/[^\.!\?\s\,\-]+/g));
 	ws = ($(this).text().match(/(\w|')+/g));
 	console.log(ws);
 	var rw = [];
@@ -475,11 +474,22 @@ function blanky(){
 		$(this).css("color", "black");
 	    }
 	});
+	var $span = $(this);
+	$span.find("button").click(function(){
+	    if( $span.find("ins").css("color") == "rgb(0, 0, 0)" )
+	    {
+		$span.find("ins").css("color", "rgb(238, 127, 61)");
+	    }else{
+		$span.find("ins").css("color", "rgb(0, 0, 0)");
+	    }
+	});
     });
+    $(".div-blank button").show();
 }
 
 function unblanky(){
     $(".div-blank p span ins").contents().unwrap();
+    $(".div-blank button").hide();
 }
 
 
@@ -488,10 +498,4 @@ $(function (){
 	$("<option>").val("modern-family").text("modern-family"));
     $("input#season").val("1");
     $("input#episode").val("1");
-    // update3();
-    // $(".div-blank p").empty();
-    // $(".div-blank p").append(
-    // 	$("<span>").text("That is so, Kids, get down here! Why are you guys yelling at us, when we're way upstairs, just text me.")
-    // );
-
 })
