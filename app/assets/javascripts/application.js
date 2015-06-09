@@ -467,12 +467,21 @@ function blanky(){
 	console.log(r);
 	var t = $(this).html().replace(r, function(w){return "<ins>" + w  + "</ins>";});
 	$(this).html(t);
+	$(this).find("ins").click(function(){
+	    if( $(this).css("color") == "rgb(0, 0, 0)" )
+	    {
+		$(this).css("color", "rgb(238, 127, 61)");		
+	    }else{
+		$(this).css("color", "black");
+	    }
+	});
     });
 }
 
 function unblanky(){
     $(".div-blank p span ins").contents().unwrap();
 }
+
 
 $(function (){
     $("select#scripts_titles").append(
@@ -484,4 +493,5 @@ $(function (){
     // $(".div-blank p").append(
     // 	$("<span>").text("That is so, Kids, get down here! Why are you guys yelling at us, when we're way upstairs, just text me.")
     // );
+
 })
