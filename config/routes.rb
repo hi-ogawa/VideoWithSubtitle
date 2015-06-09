@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'lesson/scripts'
+
   post 'top/record'
   root 'top#index'
 

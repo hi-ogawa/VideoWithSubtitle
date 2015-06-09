@@ -1,0 +1,29 @@
+// Place all the styles related to the Lesson controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.div-blank {
+    font-size: 17px;
+    position: absolute;
+    top:  50px;
+    left: 150px;
+    width: 400px;
+    height: 500px;
+    border: 1px solid white;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.div-blank p{
+    font-size: 17px;
+    margin: 10px;
+    color: rgb(238, 127, 61);
+}
+
+.div-blank p span ins{
+    /* text-decoration: underline; */
+    /* -moz-text-decoration-color: rgb(238, 127, 61); /\* Code for Firefox *\/ */
+    /* text-decoration-color: rgb(238, 127, 61); */
+    color: black;
+    border-bottom: 1px solid rgb(238, 127, 61);
+}

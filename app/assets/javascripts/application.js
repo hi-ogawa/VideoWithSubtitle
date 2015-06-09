@@ -369,6 +369,119 @@ function get_vocabs(){
     });
 }
 
-$(function (){ // short for document.ready
+$(function (){
     get_titles();
+})
+
+
+////////////////////////
+// for lesson/scripts //
+////////////////////////
+
+function set_scripts4(url){
+    $("a#surl").attr("href", url);
+    var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
+                + encodeURIComponent('select * from html where url="' + url + '"')
+                + '&format=xml&callback=?';
+    $.getJSON(yql, function(data){
+	var html_str = data.results[0];
+	var html = $.parseHTML(html_str);
+	var scripts = $(html).find("div.scrolling-script-container").html().split("<br>")
+	              .map(function(s){
+                        return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim() + "</span>";
+		      }).join("<br>");
+	$(".div-blank p").html(scripts);
+    });
+}
+
+function set_scripts3(stitle, s, e){
+    if(s.length == 1){s = "0" + s;}
+    if(e.length == 1){e = "0" + e;}
+    var url = "http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show="
+	      + stitle + "&episode=s" + s + "e" + e
+    set_scripts4(url);
+}
+
+function update3(){
+    var stitle = $("#scripts_titles").val();
+    var sea = $("input#season").val();
+    var epi = $("input#episode").val();
+
+    set_scripts3(stitle, sea, epi);
+}
+
+// http://nlp.naturalparsing.com/documentation/jstutorial
+var ignores = ["NNP", "PRP", "DT", ".", ",", ":"];
+// function nlp_test(){
+//     var s1 = "That is so, Kids, get down here! Mr. Dunphy is smart. You're such a dork. Why are you guys yelling at us, when we're way upstairs, just text me.";
+//     var s2 = "Alright, That's not gonna happen, and, wow, you're not wearing that outfit.";
+//     nlp.getParse(s1 + "- I'm hungry.",
+// 		 function(data){ console.log(JSON.stringify(data, null, 2));
+// 				 var ws = data.words;
+// 				 ws = _.filter(ws,
+// 					       function(w){
+// 						   return  _.every(ignores, 
+// 								   function(t){ return w.tag != t})
+// 					       });
+// 				 console.log(ws.map(function(w){return w.value;}));
+// 		                 // console.log(data.words[3].value);
+// 		                 // console.log(data.words[3].tag);
+// 			       });
+// }
+
+// tag lists -- http://www.comp.leeds.ac.uk/amalgam/tagsets/upenn.html
+// var ignores = ["NNP", "PRP", "DT", ".", ",", ":"];
+// var $nlp_obj = $();
+// function cbf(data){
+//     var ws = data.words;
+//     ws = _.filter(ws,
+// 		  function(w){
+// 		      return  _.every(ignores, 
+// 				      function(t){ return w.tag != t;});
+// 		  })
+//     ws = _.uniq(ws.map(function(w){return w.value;}));
+//     // console.log(ws);
+//     console.log("nlp_obj:" + $nlp_obj.html());
+//     ws.forEach(function(w){
+//     	var r = new RegExp(w, 'g');
+// 	// console.log($nlp_obj.html());
+// 	console.log("here2: replace");
+//     	var t = $nlp_obj.html().replace(r, "<ins>" + w + "</ins>");
+//     	$nlp_obj.html(t);
+//     });
+// }
+
+function blanky(){
+    $(".div-blank p span").each(function (){
+	// ws = $(this).text().match(/[^\.!\?]+[\.!\?]+/g); // into sentences
+	// ws = _.uniq($(this).text().match(/[^\.!\?\s\,\-]+/g));
+	ws = ($(this).text().match(/(\w|')+/g));
+	console.log(ws);
+	var rw = [];
+	for(var i = 0; i < ws.length; i++){
+	    if(i % 3 != 0  && ws[i].length > 2 )
+	    { rw.push( ws[i] ); }
+	}
+	console.log(rw);
+	var r = new RegExp(rw.join("|"), 'g');
+	console.log(r);
+	var t = $(this).html().replace(r, function(w){return "<ins>" + w  + "</ins>";});
+	$(this).html(t);
+    });
+}
+
+function unblanky(){
+    $(".div-blank p span ins").contents().unwrap();
+}
+
+$(function (){
+    $("select#scripts_titles").append(
+	$("<option>").val("modern-family").text("modern-family"));
+    $("input#season").val("1");
+    $("input#episode").val("1");
+    // update3();
+    // $(".div-blank p").empty();
+    // $(".div-blank p").append(
+    // 	$("<span>").text("That is so, Kids, get down here! Why are you guys yelling at us, when we're way upstairs, just text me.")
+    // );
 })
