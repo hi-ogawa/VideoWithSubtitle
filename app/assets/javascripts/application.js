@@ -452,19 +452,22 @@ var ignores = ["NNP", "PRP", "DT", ".", ",", ":"];
 //     });
 // }
 
+"Kids, breakfast! Kids? Phil, would you get them? Yeah, just a sec.".match(/\W((\w|')+)\W/g)
+
 function blanky(){
     $(".div-blank p span").each(function (){
 	ws = ($(this).text().match(/(\w|')+/g));
-	console.log(ws);
+	if(! ws){ return 0; }
+	// console.log(ws);
 	var rw = [];
 	for(var i = 0; i < ws.length; i++){
 	    if(i % 3 != 0  && ws[i].length > 2 )
 	    { rw.push( ws[i] ); }
 	}
 	if(rw.length == 0){ return 0; }
-	console.log(rw);
+	// console.log(rw);
 	var r = new RegExp(rw.join("|"), 'g');
-	console.log(r);
+	// console.log(r);
 	var t = $(this).html().replace(r, function(w){return "<ins>" + w  + "</ins>";});
 	$(this).html(t);
 	$(this).find("ins").click(function(){
