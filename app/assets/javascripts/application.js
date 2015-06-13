@@ -16,42 +16,42 @@
 //= require_tree .
 
 function selectWord(voc) {
-    var div_name = ".div-dictionary-wrap";
-    // var voc = window.getSelection().toString().trim();
-    var req_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/"
-                  + encodeURIComponent(voc) + "?key=c4c815db-b3ae-4d2f-8e31-2e556ec300bd";
-    var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
-               + encodeURIComponent('select * from xml where url="' + req_url + '"')
-               + '&format=xml&callback=?';    
+    // var div_name = ".div-dictionary-wrap";
+    // // var voc = window.getSelection().toString().trim();
+    // var req_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/"
+    //               + encodeURIComponent(voc) + "?key=c4c815db-b3ae-4d2f-8e31-2e556ec300bd";
+    // var yql = 'http://query.yahooapis.com/v1/public/yql?q=' 
+    //            + encodeURIComponent('select * from xml where url="' + req_url + '"')
+    //            + '&format=xml&callback=?';    
 
-    $.getJSON(yql, function(data){
+    // $.getJSON(yql, function(data){
 
-	// xml parser - https://api.jquery.com/jQuery.parseXML/
-	var xml_str = data.results[0];
-	var xml = $.parseXML(xml_str);
+    // 	// xml parser - https://api.jquery.com/jQuery.parseXML/
+    // 	var xml_str = data.results[0];
+    // 	var xml = $.parseXML(xml_str);
 
-	$(div_name).empty();
-	if( $(xml).find("dt").size() != 0 ){
+    // 	$(div_name).empty();
+    // 	if( $(xml).find("dt").size() != 0 ){
 
-	    // listing of possible definitions of a input word
-	    $(div_name).append( $("<p>").append("[meanings - " + voc + "]") );
-	    $(div_name).append("<ul>");
-	    $(xml).find("dt").each(function(){
-		$(div_name).append("<li>" + $(this).text() + "</li>");
-	    });
-	    $(div_name).append("</ul>");
+    // 	    // listing of possible definitions of a input word
+    // 	    $(div_name).append( $("<p>").append("[meanings - " + voc + "]") );
+    // 	    $(div_name).append("<ul>");
+    // 	    $(xml).find("dt").each(function(){
+    // 		$(div_name).append("<li>" + $(this).text() + "</li>");
+    // 	    });
+    // 	    $(div_name).append("</ul>");
 
-	}else{
+    // 	}else{
 
-	    // if the word doesn't match, return suggestions
-	    $(div_name).append( $("<p>").append("[suggestions - " + voc + "]") );
-	    $(div_name).append("<ul>");
-	    $(xml).find("suggestion").each(function(){
-		$(div_name).append("<li>" + $(this).text() + "</li>");		
-	    });
-	    $(div_name).append("</ul>");
-	}
-    });
+    // 	    // if the word doesn't match, return suggestions
+    // 	    $(div_name).append( $("<p>").append("[suggestions - " + voc + "]") );
+    // 	    $(div_name).append("<ul>");
+    // 	    $(xml).find("suggestion").each(function(){
+    // 		$(div_name).append("<li>" + $(this).text() + "</li>");		
+    // 	    });
+    // 	    $(div_name).append("</ul>");
+    // 	}
+    // });
 
     // alc iframe
     var l = "http://eow.alc.co.jp/search?q=" + voc;
@@ -148,7 +148,7 @@ function set_scripts(url){
                         return "<span>" + s.replace(/(\r\n|\n|\r)/gm, "").trim() + "</span>";
 		      }).join("<br>");
 	$(".div-scripts p").html(scripts);
-	scriptsLoaded()
+	// scriptsLoaded()
     });
 }
 
@@ -452,7 +452,7 @@ var ignores = ["NNP", "PRP", "DT", ".", ",", ":"];
 //     });
 // }
 
-"Kids, breakfast! Kids? Phil, would you get them? Yeah, just a sec.".match(/\W((\w|')+)\W/g)
+// "Kids, breakfast! Kids? Phil, would you get them? Yeah, just a sec.".match(/\W((\w|')+)\W/g)
 
 function blanky(){
     $(".div-blank p span").each(function (){

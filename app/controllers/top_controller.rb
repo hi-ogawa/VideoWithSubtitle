@@ -15,8 +15,7 @@ class TopController < ApplicationController
     rb_t_s_e.vocabs.create(:word     => returns[:word],
                            :sentence => returns[:sentence],
                            :picture  => pic)
-
-    redirect_to "/"
+    render :text => "nice work!"
   end
 
   def view
