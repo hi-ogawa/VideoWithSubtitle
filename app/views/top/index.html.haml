@@ -2,25 +2,25 @@
   .para
     %button{:onclick => "toggleShowHideMenu()"} show/hide menu
   .para
-    %a{:id => "para_title_springfield"} title in springfield
+    %a#para_title_springfield title in springfield
   .para
-    %a{:id => "para_title_tvonline"} title in tvlinline
+    %a#para_title_tvonline title in tvlinline
   .para
-    %a#surl{:href => ""} sciprts url 
+    %a#surl sciprts url 
   .para
-    %a#vurl{:href => ""} tvonline url
+    %a#vurl tvonline url
   .para
     %span
       index: 
   .para
-    %a#eurl{:href => ""} embed video url
+    %a#eurl embed video url
 
 
 .div-video
-  %iframe#video{:scrolling => "no", :src => ""}
+  %iframe#video
 
 .div-alc
-  %iframe#alc{:scrolling => "yes"}
+  %iframe#alc
 
 .div-scripts
   .div-scripts-wrap
@@ -29,39 +29,26 @@
   #segrip.ui-resizable-handle.ui-resizable-se
 
 
-.div-dictionary
-  .div-dictionary-wrap
-  #nwgrip-drag
-  #segrip.ui-resizable-handle.ui-resizable-se
-
-
 .div-form
 
-
   .div-search
-    %p search for titles
+    %span search for titles
     %input#title_inquiry
-    %br
-    
     %button#search_button{:onclick => "searchTitles()"} search!!
 
-    %p titles in tvonline
-    %select#video_titles{:name => "video_titles"}
-      %option
     %br
-
-    %p titles in springfield
-    %select#scripts_titles{:name => "scripts_titles"}
-      %option
-    %br
+    %span titles in tvonline
+    %select#video_titles
 
     %br
+    %span titles in springfield
+    %select#scripts_titles
 
-    %p season number
+    %span season number
     %input#season
     %br
 
-    %p episode number
+    %span episode number
     %input#episode
     %br
 
@@ -70,14 +57,14 @@
 
   %br
 
-  %p specify urls directly
+  %span specify urls directly
 
   %a{:href => "http://www.tvonline.tw/"} tvonline url
   %br
   %input#tvonline_url
   %br
 
-  %p index of the video
+  %span index of the video
   %input#index
   %br
 

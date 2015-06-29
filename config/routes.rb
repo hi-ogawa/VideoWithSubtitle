@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'lesson/scripts'
-
-  post 'top/record'
+  get 'top/index'
   root 'top#index'
 
   get 'top/view'
