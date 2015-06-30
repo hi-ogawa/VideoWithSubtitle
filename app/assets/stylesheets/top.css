@@ -50,7 +50,8 @@ div { font-family: Sans-Serif; }
     position: relative;
     width: 25%;
     height: 95vh;
-    overflow: hidden;
+    overflow: auto;
+    /* overflow: hidden; */
 }
 
 #alc {

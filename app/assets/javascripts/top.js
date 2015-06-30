@@ -28,17 +28,6 @@ function set_from_cookie(){
     $("#scripts_url	").val(Cookies.get('7')); 
 }
 
-function selectWord(voc) {
-    // alc iframe
-    var l = "http://eow.alc.co.jp/search?q=" + voc;
-    $("#alc").attr("src", l);
-    
-    $("#alc").load( function() {
-	$( ".div-alc" ).scrollTop(350);
-    } );
-}
-
-
 function searchTitles() {
     var inq = $("#title_inquiry").val();
 
