@@ -1,11 +1,10 @@
-
 # Video With Subtitles
 
-You can watch a lot of TV shows with english subtitles. Come here http://video-with-subtitles.herokuapp.com.
+You can watch a lot of TV shows with english subtitles. Come here [http://video-with-subtitles.herokuapp.com](http://video-with-subtitles.herokuapp.com).
 
 ## Motivation
 
-I'm a real TV-show freak, but unfortunately I'm not so good at English as I could watch TV shows or movies without subtitles (for the record, I hate a dubbed style). So I made up this website, combining the two great websites, [Springfield! Springfield"](http://www.springfieldspringfield.co.uk) and [Tvonline](http://www.tvonline.tw). 
+I'm a real TV-show freak, but unfortunately I'm not so good at English as I could watch TV shows or movies without subtitles (for the record, I hate a dubbed style). So I made up this website, combining the two great websites, [Springfield! Springfield!](http://www.springfieldspringfield.co.uk) and [Tvonline](http://www.tvonline.tw). 
 
 ## How it works
 
@@ -22,9 +21,10 @@ TODO: write this part one day.
 - Keep what TV shows are watched on the server side (this could be the reason to use Ruby on Rails).
 - A bad thing is you need to scroll subtitle while watching. So I'm thinking how to automatically scroll it in a convenient way (but, maybe it seems like impossible to implement).
 
-## Credits, Acknowledgements
+## Credits
 
-I must give acknowledgements to these two websites.
+I must give credits to these two amazing websites.
+
 - [Springfield! Springfield!](http://www.springfieldspringfield.co.uk),
 - [Tvonline](http://www.tvonline.tw).
 
