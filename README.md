@@ -25,9 +25,5 @@ TODO: write this part one day.
 
 I must give credits to these two amazing websites.
 
-- [Springfield! Springfield!](http://www.springfieldspringfield.co.uk),
-- [Tvonline](http://www.tvonline.tw).
-
-## License
-
-I don't know much about License. Probably, I even already broke some copyright things.
+- [Springfield! Springfield!](http://www.springfieldspringfield.co.uk)
+- [Tvonline](http://www.tvonline.tw)
