@@ -8,11 +8,8 @@ I'm a real TV-show freak, but unfortunately I'm not so good at English as I coul
 
 ## How it works
 
-TODO: I will give some pictures or videos to show how it could be used. I should mension the collaboration with [WordCollector](http://github.com/hi-ogawa/wordCollector).
+[![Alt text for your video](http://img.youtube.com/vi/vaiGsEFACNU/0.jpg)](https://youtu.be/vaiGsEFACNU)
 
-## How it is implemented
-
-TODO: write this part one day.
 
 ## Futue functions or fixes
 
