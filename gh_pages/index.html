@@ -2,10 +2,90 @@
 <html>
   <head>
     <script src='vendor/javascripts/jquery.js'></script>
-    <link href='index.css'>
+    <script src='vendor/javascripts/jquery-ui.js'></script>
+    <script src='vendor/javascripts/bootstrap.js'></script>
+    <script src='vendor/javascripts/bootstrap-toggle.js'></script>
+    <script src='vendor/javascripts/underscore.js'></script>
+    <script src='vendor/javascripts/js.cookie.js'></script>
+    <link href='vendor/stylesheets/jquery-ui.css' rel='stylesheet' type='text/css'>
+    <link href='vendor/stylesheets/bootstrap.css' rel='stylesheet' type='text/css'>
+    <link href='vendor/stylesheets/bootstrap-toggle.css' rel='stylesheet' type='text/css'>
+    <link href='index.css' rel='stylesheet' type='text/css'>
     <script src='index.js'></script>
   </head>
   <body>
-    <p>Hello World</p>
+    <div class='div-header'>
+      <div class='para'>
+        <button onclick='toggleShowHideMenu()'>show/hide menu</button>
+      </div>
+      <div class='para'>
+        <a id='para_title_springfield'>title in springfield</a>
+      </div>
+      <div class='para'>
+        <a id='para_title_tvonline'>title in tvlinline</a>
+      </div>
+      <div class='para'>
+        <a id='surl'>sciprts url</a>
+      </div>
+      <div class='para'>
+        <a id='vurl'>tvonline url</a>
+      </div>
+      <div class='para'>
+        <span>
+          index:
+        </span>
+      </div>
+      <div class='para'>
+        <a id='eurl'>embed video url</a>
+      </div>
+    </div>
+    <div class='div-video'>
+      <iframe id='video'></iframe>
+    </div>
+    <div class='div-alc'>
+      <iframe id='alc'></iframe>
+    </div>
+    <div class='div-scripts'>
+      <div class='div-scripts-wrap'>
+        <p></p>
+      </div>
+      <div id='nwgrip-drag'></div>
+      <div class='ui-resizable-handle ui-resizable-se' id='segrip'></div>
+    </div>
+    <div class='div-form'>
+      <div class='div-search'>
+        <span>search for titles</span>
+        <input id='title_inquiry'>
+        <button id='search_button' onclick='searchTitles()'>search!!</button>
+        <br>
+        <span>titles in tvonline</span>
+        <select id='video_titles'></select>
+        <br>
+        <span>titles in springfield</span>
+        <select id='scripts_titles'></select>
+        <span>season number</span>
+        <input id='season'>
+        <br>
+        <span>episode number</span>
+        <input id='episode'>
+        <br>
+        <button id='update2_button' onclick='update2()'>watch!</button>
+        <br>
+      </div>
+      <br>
+      <span>specify urls directly</span>
+      <a href='http://www.tvonline.tw/'>tvonline url</a>
+      <br>
+      <input id='tvonline_url'>
+      <br>
+      <span>index of the video</span>
+      <input id='index'>
+      <br>
+      <a href='http://www.springfieldspringfield.co.uk'>scripts url</a>
+      <br>
+      <input id='scripts_url'>
+      <br>
+      <button id='update1_button' onclick='update1()'>watch!</button>
+    </div>
   </body>
 </html>

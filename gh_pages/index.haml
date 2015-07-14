@@ -1,8 +1,13 @@
 !!!
 %html
   %head
-    %script{src: 'vendor/javascripts/jquery.js'}
-    %link{href: 'index.css'}
+    - jss  = %W[jquery jquery-ui bootstrap bootstrap-toggle underscore js.cookie]
+    - csss = %W[jquery-ui bootstrap bootstrap-toggle]
+    - jss.each do |js|
+      %script{src: "vendor/javascripts/#{js}.js"}
+    - csss.each do |css|
+      %link{rel: 'stylesheet', type: 'text/css', href: "vendor/stylesheets/#{css}.css"}
+    %link{rel: 'stylesheet', type: 'text/css', href: 'index.css'}
     %script{src: 'index.js'}
   %body
-    %p Hello World
+    = File.read 'body.html'

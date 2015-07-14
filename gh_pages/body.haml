@@ -1,0 +1,76 @@
+.div-header
+  .para
+    %button{:onclick => "toggleShowHideMenu()"} show/hide menu
+  .para
+    %a#para_title_springfield title in springfield
+  .para
+    %a#para_title_tvonline title in tvlinline
+  .para
+    %a#surl sciprts url 
+  .para
+    %a#vurl tvonline url
+  .para
+    %span
+      index: 
+  .para
+    %a#eurl embed video url
+
+
+.div-video
+  %iframe#video
+
+.div-alc
+  %iframe#alc
+
+.div-scripts
+  .div-scripts-wrap
+    %p 
+  #nwgrip-drag
+  #segrip.ui-resizable-handle.ui-resizable-se
+
+
+.div-form
+
+  .div-search
+    %span search for titles
+    %input#title_inquiry
+    %button#search_button{:onclick => "searchTitles()"} search!!
+
+    %br
+    %span titles in tvonline
+    %select#video_titles
+
+    %br
+    %span titles in springfield
+    %select#scripts_titles
+
+    %span season number
+    %input#season
+    %br
+
+    %span episode number
+    %input#episode
+    %br
+
+    %button#update2_button{:onclick => "update2()"} watch!
+    %br
+
+  %br
+
+  %span specify urls directly
+
+  %a{:href => "http://www.tvonline.tw/"} tvonline url
+  %br
+  %input#tvonline_url
+  %br
+
+  %span index of the video
+  %input#index
+  %br
+
+  %a{:href => "http://www.springfieldspringfield.co.uk"} scripts url
+  %br
+  %input#scripts_url
+  %br
+
+  %button#update1_button{:onclick => "update1()"} watch!
