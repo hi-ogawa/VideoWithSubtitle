@@ -54,14 +54,11 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
   $scope.$watch 'tvonlineEpisode', (newValue, oldValue) ->
 
     getHTMLwithYQL(url3(newValue)).then (html) ->
-      items = parsers.getEmbedVideos html
+      comp = (i, j) ->
+        if i.name is 'nowvideo' or i.name is 'movshare' then -1 else 1
+      items = parsers.getEmbedVideos(html).sort comp
       $scope.embedVideoUrls = items
-      goodProviders = items.filter((i) -> i.name is 'nowvideo' or i.name is 'movshare')
-      # console.log goodProviders
-      # $scope.embedVideoUrls = goodProviders
-      # $scope.embedVideoUrl = goodProviders[0].val
-      # console.log goodProviders[0].val
-      # console.log $scope.embedVideoUrl
+      $scope.embedVideoUrl  = items[0].val
 
   # show subtitle of certain episode on Springfield
   $scope.$watch 'springfieldEpisode', (newValue, oldValue) ->

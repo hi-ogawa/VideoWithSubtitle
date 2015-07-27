@@ -58,12 +58,17 @@
       });
       $scope.$watch('tvonlineEpisode', function(newValue, oldValue) {
         return getHTMLwithYQL(url3(newValue)).then(function(html) {
-          var goodProviders, items;
-          items = parsers.getEmbedVideos(html);
+          var comp, items;
+          comp = function(i, j) {
+            if (i.name === 'nowvideo' || i.name === 'movshare') {
+              return -1;
+            } else {
+              return 1;
+            }
+          };
+          items = parsers.getEmbedVideos(html).sort(comp);
           $scope.embedVideoUrls = items;
-          return goodProviders = items.filter(function(i) {
-            return i.name === 'nowvideo' || i.name === 'movshare';
-          });
+          return $scope.embedVideoUrl = items[0].val;
         });
       });
       return $scope.$watch('springfieldEpisode', function(newValue, oldValue) {
