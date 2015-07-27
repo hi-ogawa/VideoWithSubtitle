@@ -13,7 +13,7 @@ yqlService.factory 'getHTMLwithYQL', ['$q', ($q) ->
       dataType: 'json'
       url: yql
       success: (data) ->
-        deferred.resolve data.results[0]
+        deferred.resolve $.parseHTML(data.results[0])
 
     deferred.promise
 

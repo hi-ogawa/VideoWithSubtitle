@@ -27,27 +27,16 @@
             %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
               %span.glyphicon.glyphicon-search
 
-          // async value update test
-          %p {{ httpPromisedValue }}
-          %p {{ testValue }}
-          %p {{ watchedValue }}
-          %button{'ng-click' => 'updateModels()'}
-          // async value update test
-
-
           %label Titles from Springfield:
           %select.form-control{'ng-model' => 'springfieldTitle'}
             %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
                     'value'     => '{{ title.val }}'} {{ title.name }}
-
 
           %label Titles from TVOnline:
           %select.form-control{'ng-model' => 'tvonlineTitle'}
             %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
                     'value'     => '{{ title.val }}'} {{ title.name }}
 
-          %a.btn.btn-default{'ng-click' => 'searchEpisodes()'}
-            Search Episodes
 
           %label Episodes from Springfield:
           %select.form-control{'ng-model' => 'springfieldEpisode'}
@@ -59,21 +48,17 @@
             %option{'ng-repeat' => 'episode in tvonlineEpisodes',
                     'value'     => '{{ episode.val }}'} {{ episode.name }}
           
-          %a.btn.btn-default{'ng-click' => 'showVideo()'}
-            Show Available Videos
-
           %label Available Videos:
           %select.form-control{'ng-model' => 'embedVideoUrl'}
             %option{'ng-repeat' => 'video in embedVideoUrls',
                     'value'     => '{{ video.val }}'} {{ video.name }}
 
-
-          %p titleQuery: {{titleQuery}}
-          %p springfieldTitle: {{springfieldTitle}}
-          %p tvonlineTitle: {{tvonlineTitle}}
-          %p springfieldEpisode: {{springfieldEpisode}}
-          %p tvonlineEpisode: {{tvonlineEpisode}}
-          %p embedVideoUrl: {{embedVideoUrl}}
+          -# %p titleQuery: {{titleQuery}}
+          -# %p springfieldTitle: {{springfieldTitle}}
+          -# %p tvonlineTitle: {{tvonlineTitle}}
+          -# %p springfieldEpisode: {{springfieldEpisode}}
+          -# %p tvonlineEpisode: {{tvonlineEpisode}}
+          -# %p embedVideoUrl: {{embedVideoUrl}}
 
         .col-xs-5
 

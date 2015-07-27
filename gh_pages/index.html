@@ -23,12 +23,6 @@
               <span class='glyphicon glyphicon-search'></span>
             </a>
           </div>
-          <!-- / async value update test -->
-          <p>{{ httpPromisedValue }}</p>
-          <p>{{ testValue }}</p>
-          <p>{{ watchedValue }}</p>
-          <button ng-click='updateModels()'></button>
-          <!-- / async value update test -->
           <label>Titles from Springfield:</label>
           <select class='form-control' ng-model='springfieldTitle'>
             <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
@@ -37,9 +31,6 @@
           <select class='form-control' ng-model='tvonlineTitle'>
             <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
           </select>
-          <a class='btn btn-default' ng-click='searchEpisodes()'>
-            Search Episodes
-          </a>
           <label>Episodes from Springfield:</label>
           <select class='form-control' ng-model='springfieldEpisode'>
             <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
@@ -48,19 +39,10 @@
           <select class='form-control' ng-model='tvonlineEpisode'>
             <option ng-repeat='episode in tvonlineEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
           </select>
-          <a class='btn btn-default' ng-click='showVideo()'>
-            Show Available Videos
-          </a>
           <label>Available Videos:</label>
           <select class='form-control' ng-model='embedVideoUrl'>
             <option ng-repeat='video in embedVideoUrls' value='{{ video.val }}'>{{ video.name }}</option>
           </select>
-          <p>titleQuery: {{titleQuery}}</p>
-          <p>springfieldTitle: {{springfieldTitle}}</p>
-          <p>tvonlineTitle: {{tvonlineTitle}}</p>
-          <p>springfieldEpisode: {{springfieldEpisode}}</p>
-          <p>tvonlineEpisode: {{tvonlineEpisode}}</p>
-          <p>embedVideoUrl: {{embedVideoUrl}}</p>
         </div>
         <div class='col-xs-5'>
           <div class='tvonline'>

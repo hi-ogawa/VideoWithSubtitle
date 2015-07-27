@@ -8,12 +8,11 @@
     function() {
       var parsers;
       parsers = {};
-      parsers.getTitlesFromSpringfield = function(htmlStr) {
-        var html, jQitems;
-        html = $.parseHTML(htmlStr);
+      parsers.getTitlesFromSpringfield = function(html) {
+        var jQitems;
         jQitems = $(html).find('.script-list-item').map(function() {
           var name, val;
-          val = $(this).attr('href').match(/.*tv-show=(.*)/)[1];
+          val = $(this).attr('href');
           name = $(this).text();
           return {
             'val': val,
@@ -21,6 +20,65 @@
           };
         });
         return jQitems.toArray();
+      };
+      parsers.getTitlesFromTVOnline = function(html) {
+        var jQitems;
+        jQitems = $(html).find('.found a').map(function() {
+          var name, val;
+          val = $(this).attr('href');
+          name = $(this).text();
+          return {
+            'val': val,
+            'name': name
+          };
+        });
+        return jQitems.toArray();
+      };
+      parsers.getEpisodesFromSpringfield = function(html) {
+        var jQitems;
+        jQitems = $(html).find('.season-episode-title').map(function() {
+          var e, name, s, val;
+          val = $(this).attr('href');
+          s = parseInt(val.match(/\&episode\=s(\d*)/)[1]).toString();
+          e = parseInt(val.match(/\&episode\=s\d*e(\d*)/)[1]).toString();
+          name = $(this).text().match(/\-\ (.*)$/)[1];
+          return {
+            'val': val,
+            'name': "s" + s + " e" + e + " - " + name
+          };
+        });
+        return jQitems.toArray();
+      };
+      parsers.getEpisodesFromTVOnline = function(html) {
+        var jQitems;
+        jQitems = $(html).find('.Season ul a').map(function() {
+          var e, name, s, val;
+          val = $(this).attr('href');
+          s = val.match(/season-([^\-]*)-/)[1];
+          e = val.match(/episode-(.*)\/$/)[1];
+          name = $(this).text().match(/\-\ (.*)$/)[1];
+          return {
+            'val': val,
+            'name': "s" + s + " e" + e + " - " + name
+          };
+        });
+        return jQitems.toArray();
+      };
+      parsers.getEmbedVideos = function(html) {
+        var jQitems;
+        jQitems = $(html).find('#linkname_nav a').map(function() {
+          var name, val;
+          val = $(this).attr('onclick').match(/'(.*)'/)[1];
+          name = $(this).text();
+          return {
+            'val': val,
+            'name': name
+          };
+        });
+        return jQitems.toArray();
+      };
+      parsers.getSubtitle = function(html) {
+        return $(html).find('.scrolling-script-container').text();
       };
       return parsers;
     }

@@ -6,55 +6,71 @@
 
   videosubApp.controller('videosubCtrl', [
     '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
-      var url;
-      $scope.titleQuery = 'modern';
+      var url0, url1, url2, url3, url5;
+      $scope.titleQuery = 'thrones';
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
       };
-      url = 'http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=modern';
-      getHTMLwithYQL(url).then(function(htmlStr) {
-        var items;
-        items = parsers.getTitlesFromSpringfield(htmlStr);
-        $scope.springfieldTitleSuggestions = items;
-        return $scope.springfieldTitle = items[0].val;
-      });
-      $scope.searchTitles = function() {
-        getTitlesFromSpringfield($scope.titleQuery, function(items) {
+      url0 = function(query) {
+        return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
+      };
+      url1 = function(query) {
+        return "http://tvonline.tw/search.php?key=" + query;
+      };
+      url2 = function(path) {
+        return "http://www.springfieldspringfield.co.uk" + path;
+      };
+      url3 = function(path) {
+        return "http://tvonline.tw/" + path;
+      };
+      url5 = function(path) {
+        return "http://www.springfieldspringfield.co.uk/" + path;
+      };
+      $scope.$watch('titleQuery', function(newValue, oldValue) {
+        getHTMLwithYQL(url0(newValue)).then(function(html) {
+          var items;
+          items = parsers.getTitlesFromSpringfield(html);
           $scope.springfieldTitleSuggestions = items;
-          $scope.springfieldTitle = items[0].val;
-          return $scope.$apply();
+          return $scope.springfieldTitle = items[0].val;
         });
-        return getTitlesFromTVOnline($scope.titleQuery, function(items) {
+        return getHTMLwithYQL(url1(newValue)).then(function(html) {
+          var items;
+          items = parsers.getTitlesFromTVOnline(html);
           $scope.tvonlineTitleSuggestions = items;
-          $scope.tvonlineTitle = items[0].val;
-          return $scope.$apply();
+          return $scope.tvonlineTitle = items[0].val;
         });
-      };
-      $scope.searchEpisodes = function() {
-        getEpisodesFromSpringfield($scope.springfieldTitle, function(items) {
+      });
+      $scope.$watch('springfieldTitle', function(newValue, oldValue) {
+        return getHTMLwithYQL(url2(newValue)).then(function(html) {
+          var items;
+          items = parsers.getEpisodesFromSpringfield(html);
           $scope.springfieldEpisodes = items;
-          $scope.springfieldEpisode = items[0].val;
-          return $scope.$apply();
+          return $scope.springfieldEpisode = items[0].val;
         });
-        return getEpisodesFromTVOnline($scope.tvonlineTitle, function(items) {
+      });
+      $scope.$watch('tvonlineTitle', function(newValue, oldValue) {
+        return getHTMLwithYQL(url3(newValue)).then(function(html) {
+          var items;
+          items = parsers.getEpisodesFromTVOnline(html);
           $scope.tvonlineEpisodes = items;
-          $scope.tvonlineEpisode = items[0].val;
-          return $scope.$apply();
+          return $scope.tvonlineEpisode = items[0].val;
         });
-      };
-      $scope.showVideo = function() {
-        return getEmbedVideos($scope.tvonlineEpisode, function(items) {
+      });
+      $scope.$watch('tvonlineEpisode', function(newValue, oldValue) {
+        return getHTMLwithYQL(url3(newValue)).then(function(html) {
+          var goodProviders, items;
+          items = parsers.getEmbedVideos(html);
           $scope.embedVideoUrls = items;
-          $scope.embedVideoUrl = items[0].val;
-          return $scope.$apply();
+          return goodProviders = items.filter(function(i) {
+            return i.name === 'nowvideo' || i.name === 'movshare';
+          });
         });
-      };
-      return $scope.showSubtitle = function() {
-        return getSubtitle($scope.springfieldEpisode, function(text) {
-          $scope.subtitle = text;
-          return $scope.$apply();
+      });
+      return $scope.$watch('springfieldEpisode', function(newValue, oldValue) {
+        return getHTMLwithYQL(url5(newValue)).then(function(html) {
+          return $scope.subtitle = parsers.getSubtitle(html);
         });
-      };
+      });
     }
   ]);
 

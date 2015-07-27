@@ -15,7 +15,7 @@
           dataType: 'json',
           url: yql,
           success: function(data) {
-            return deferred.resolve(data.results[0]);
+            return deferred.resolve($.parseHTML(data.results[0]));
           }
         });
         return deferred.promise;
