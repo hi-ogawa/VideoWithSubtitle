@@ -4,6 +4,21 @@
 
   videosubApp = angular.module('videosubApp', []);
 
-  videosubApp.controller('videosubCtrl', ['$scope', '$http', function($scope, $http) {}]);
+  videosubApp.controller('videosubCtrl', [
+    '$scope', '$http', function($scope, $http) {
+      return $scope.searchTitle = function() {
+        getTitlesFromSpringfield($scope.titleQuery, function(items) {
+          $scope.springfieldTitleSuggestions = items;
+          $scope.springfieldTitle = items[0].val;
+          return $scope.$apply();
+        });
+        return getTitlesFromTVOnline($scope.titleQuery, function(items) {
+          $scope.tvonlineTitleSuggestions = items;
+          $scope.tvonlineTitle = items[0].val;
+          return $scope.$apply();
+        });
+      };
+    }
+  ]);
 
 }).call(this);

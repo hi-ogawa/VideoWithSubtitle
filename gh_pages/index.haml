@@ -1,10 +1,10 @@
-!!!
+!!! 5
 %html{'ng-app' => 'videosubApp'}
 %html
   %head
     // jquery, bootstrap
-    %script{src: 'bower_components/jquery/dist/jquery.js'}
     %link{href: 'bower_components/bootstrap/dist/css/bootstrap.css', rel: 'stylesheet', type: 'text/css'}
+    %script{src: 'bower_components/jquery/dist/jquery.js'}
     %script{src: 'bower_components/bootstrap/dist/js/bootstrap.js'}
 
     // angular
@@ -12,6 +12,8 @@
 
     // app specific
     %script{src: 'js/controllers.js'}
+
+    %script{src: 'js/crossOriginHTML.js'}
   
   %body{'ng-controller' => 'videosubCtrl'}
     .container-fluid
@@ -25,14 +27,26 @@
             %a.btn.input-group-addon{'ng-click' => 'searchTitle()'}
               %span.glyphicon.glyphicon-search
 
-          %label Titles from TVOnline:
-          %select.form-control{'ng-model' => 'titlesTVOnline'}
-     
-          %label Titles from Springfield:
-          %select.form-control{'ng-model' => 'titlesSpringfield'}     
 
-   
-          %p titleQuery: {{ titleQuery }}
+          %label Titles from Springfield:
+          %select.form-control{'ng-model' => 'springfieldTitle'}
+            %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
+                    'value'     => '{{ title.val }}'} {{ title.name }}
+
+
+          %label Titles from TVOnline:
+          %select.form-control{'ng-model' => 'tvonlineTitle'}
+            %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
+                    'value'     => '{{ title.val }}'} {{ title.name }}
+
+
+          %label Episodes from Springfield:
+          %select.form-control{'ng-model' => 'episodesSpringfield'}
+
+          %label Episodes from TVOnline:
+          %select.form-control{'ng-model' => 'episodesTVOnline'}
+          
+          %label Available Video Providers:
+          %select.form-control{'ng-model' => 'videoProviders'}
 
         .col-xs-10
-   

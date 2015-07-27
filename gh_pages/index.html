@@ -2,11 +2,15 @@
 <html ng-app='videosubApp'></html>
 <html>
   <head>
-    <script src='bower_components/jquery/dist/jquery.js'></script>
+    <!-- / jquery, bootstrap -->
     <link href='bower_components/bootstrap/dist/css/bootstrap.css' rel='stylesheet' type='text/css'>
+    <script src='bower_components/jquery/dist/jquery.js'></script>
     <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
+    <!-- / angular -->
     <script src='bower_components/angularjs/angular.js'></script>
+    <!-- / app specific -->
     <script src='js/controllers.js'></script>
+    <script src='js/crossOriginHTML.js'></script>
   </head>
   <body ng-controller='videosubCtrl'>
     <div class='container-fluid'>
@@ -18,11 +22,20 @@
               <span class='glyphicon glyphicon-search'></span>
             </a>
           </div>
-          <label>Titles from TVOnline:</label>
-          <select class='form-control' ng-model='titlesTVOnline'></select>
           <label>Titles from Springfield:</label>
-          <select class='form-control' ng-model='titlesSpringfield'></select>
-          <p>titleQuery: {{ titleQuery }}</p>
+          <select class='form-control' ng-model='springfieldTitle'>
+            <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
+          </select>
+          <label>Titles from TVOnline:</label>
+          <select class='form-control' ng-model='tvonlineTitle'>
+            <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
+          </select>
+          <label>Episodes from Springfield:</label>
+          <select class='form-control' ng-model='episodesSpringfield'></select>
+          <label>Episodes from TVOnline:</label>
+          <select class='form-control' ng-model='episodesTVOnline'></select>
+          <label>Available Video Providers:</label>
+          <select class='form-control' ng-model='videoProviders'></select>
         </div>
         <div class='col-xs-10'></div>
       </div>
