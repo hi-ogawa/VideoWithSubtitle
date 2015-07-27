@@ -13,6 +13,7 @@
     // app specific
     %script{src: 'js/controllers.js'}
     %script{src: 'js/yqlService.js'}
+    %script{src: 'js/parseService.js'}
   
   %body{'ng-controller' => 'videosubCtrl'}
     .container-fluid
@@ -52,9 +53,6 @@
           %select.form-control{'ng-model' => 'springfieldEpisode'}
             %option{'ng-repeat' => 'episode in springfieldEpisodes',
                     'value'     => '{{ episode.val }}'} {{ episode.name }}
-
-          %a.btn.btn-default{'ng-click' => 'showSubtitle()'}
-            Show Subtitle
 
           %label Episodes from TVOnline:
           %select.form-control{'ng-model' => 'tvonlineEpisode'}

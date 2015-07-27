@@ -1,17 +1,19 @@
-videosubApp = angular.module 'videosubApp', ['yqlService']
+videosubApp = angular.module 'videosubApp', ['yqlService', 'parseService']
 
-videosubApp.controller 'videosubCtrl', ['$scope', '$http', '$sce', 'getHTMLwithYQL', ($scope, $http, $sce, getHTMLwithYQL) ->
+videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'parsers', ($scope, $sce, getHTMLwithYQL, parsers) ->
+
+  $scope.titleQuery = 'modern'
 
   $scope.trustSrc = (src) ->
     $sce.trustAsResourceUrl src
 
-  $scope.titleQuery = 'modern'
 
   ## yql from service with promise
   url = 'http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=modern'
   getHTMLwithYQL(url).then (htmlStr) ->
-    console.log htmlStr
-
+    items = parsers.getTitlesFromSpringfield htmlStr
+    $scope.springfieldTitleSuggestions = items
+    $scope.springfieldTitle = items[0].val
 
   $scope.searchTitles = ->
     getTitlesFromSpringfield $scope.titleQuery, (items) ->

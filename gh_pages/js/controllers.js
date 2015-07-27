@@ -2,18 +2,21 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', ['yqlService']);
+  videosubApp = angular.module('videosubApp', ['yqlService', 'parseService']);
 
   videosubApp.controller('videosubCtrl', [
-    '$scope', '$http', '$sce', 'getHTMLwithYQL', function($scope, $http, $sce, getHTMLwithYQL) {
+    '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
       var url;
+      $scope.titleQuery = 'modern';
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
       };
-      $scope.titleQuery = 'modern';
       url = 'http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=modern';
       getHTMLwithYQL(url).then(function(htmlStr) {
-        return console.log(htmlStr);
+        var items;
+        items = parsers.getTitlesFromSpringfield(htmlStr);
+        $scope.springfieldTitleSuggestions = items;
+        return $scope.springfieldTitle = items[0].val;
       });
       $scope.searchTitles = function() {
         getTitlesFromSpringfield($scope.titleQuery, function(items) {
