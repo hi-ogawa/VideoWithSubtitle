@@ -17,18 +17,19 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
     "http://www.springfieldspringfield.co.uk#{path}"
   url3 = (path) ->
     "http://tvonline.tw/#{path}"
-  url5 = (path) ->
+  url4 = (path) ->
     "http://www.springfieldspringfield.co.uk/#{path}"
 
-  # show searched tvshow titles
-  $scope.$watch 'titleQuery', (newValue, oldValue) ->
 
-    getHTMLwithYQL(url0(newValue)).then (html) ->
+  # show searched tvshow titles
+  $scope.searchTitles = () ->
+
+    getHTMLwithYQL(url0($scope.titleQuery)).then (html) ->
       items = parsers.getTitlesFromSpringfield html
       $scope.springfieldTitleSuggestions = items
       $scope.springfieldTitle = items[0].val
 
-    getHTMLwithYQL(url1(newValue)).then (html) ->
+    getHTMLwithYQL(url1($scope.titleQuery)).then (html) ->
       items = parsers.getTitlesFromTVOnline html
       $scope.tvonlineTitleSuggestions = items
       $scope.tvonlineTitle = items[0].val
@@ -63,6 +64,6 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
   # show subtitle of certain episode on Springfield
   $scope.$watch 'springfieldEpisode', (newValue, oldValue) ->
 
-    getHTMLwithYQL(url5(newValue)).then (html) ->
+    getHTMLwithYQL(url4(newValue)).then (html) ->
       $scope.subtitle = parsers.getSubtitle html
 ]

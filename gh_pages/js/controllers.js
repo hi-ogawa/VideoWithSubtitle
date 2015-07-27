@@ -6,7 +6,7 @@
 
   videosubApp.controller('videosubCtrl', [
     '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
-      var url0, url1, url2, url3, url5;
+      var url0, url1, url2, url3, url4;
       $scope.titleQuery = 'thrones';
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
@@ -23,23 +23,23 @@
       url3 = function(path) {
         return "http://tvonline.tw/" + path;
       };
-      url5 = function(path) {
+      url4 = function(path) {
         return "http://www.springfieldspringfield.co.uk/" + path;
       };
-      $scope.$watch('titleQuery', function(newValue, oldValue) {
-        getHTMLwithYQL(url0(newValue)).then(function(html) {
+      $scope.searchTitles = function() {
+        getHTMLwithYQL(url0($scope.titleQuery)).then(function(html) {
           var items;
           items = parsers.getTitlesFromSpringfield(html);
           $scope.springfieldTitleSuggestions = items;
           return $scope.springfieldTitle = items[0].val;
         });
-        return getHTMLwithYQL(url1(newValue)).then(function(html) {
+        return getHTMLwithYQL(url1($scope.titleQuery)).then(function(html) {
           var items;
           items = parsers.getTitlesFromTVOnline(html);
           $scope.tvonlineTitleSuggestions = items;
           return $scope.tvonlineTitle = items[0].val;
         });
-      });
+      };
       $scope.$watch('springfieldTitle', function(newValue, oldValue) {
         return getHTMLwithYQL(url2(newValue)).then(function(html) {
           var items;
@@ -72,7 +72,7 @@
         });
       });
       return $scope.$watch('springfieldEpisode', function(newValue, oldValue) {
-        return getHTMLwithYQL(url5(newValue)).then(function(html) {
+        return getHTMLwithYQL(url4(newValue)).then(function(html) {
           return $scope.subtitle = parsers.getSubtitle(html);
         });
       });
