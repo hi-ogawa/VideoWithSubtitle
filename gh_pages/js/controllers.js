@@ -2,49 +2,19 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', []);
+  videosubApp = angular.module('videosubApp', ['yqlService']);
 
   videosubApp.controller('videosubCtrl', [
-    '$scope', '$http', '$sce', '$q', function($scope, $http, $sce, $q) {
-      var httpPromise, p, url, yql;
+    '$scope', '$http', '$sce', 'getHTMLwithYQL', function($scope, $http, $sce, getHTMLwithYQL) {
+      var url;
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
       };
       $scope.titleQuery = 'modern';
       url = 'http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=modern';
-      yql = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent("select * from html where url='" + url + "'") + "&format=xml&callback=?";
-      console.log(yql);
-      $http.get(yql).success(function(data, status, headers, config) {
-        console.log('success');
-        console.log(status);
-        console.log(data);
-        console.log(headers);
-        return console.log(config);
-      }).error(function(data, status, headers, config) {
-        console.log('error');
-        console.log(status);
-        return console.log(data);
+      getHTMLwithYQL(url).then(function(htmlStr) {
+        return console.log(htmlStr);
       });
-      httpPromise = $http.get('index.haml').then(function(result) {
-        console.log('http is resolved, but the model is not updated');
-        return result.data;
-      });
-      $scope.httpPromisedValue = httpPromise;
-      $scope.$watch('titleQuery', function(newVal, oldVal) {
-        return $scope.watchedValue = $scope.titleQuery + ': watched';
-      });
-      p = $q(function(resolve, reject) {
-        return setTimeout(function() {
-          return resolve("resolve");
-        }, 3000);
-      });
-      $scope.promisedValue = p.then(function(suc) {
-        console.log("$q promise is resolved, but the model is not updated");
-        return "resolve: " + suc;
-      });
-      $scope.updateModels = function() {
-        return $scope.$apply();
-      };
       $scope.searchTitles = function() {
         getTitlesFromSpringfield($scope.titleQuery, function(items) {
           $scope.springfieldTitleSuggestions = items;
