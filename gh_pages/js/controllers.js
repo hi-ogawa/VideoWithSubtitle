@@ -5,8 +5,47 @@
   videosubApp = angular.module('videosubApp', []);
 
   videosubApp.controller('videosubCtrl', [
-    '$scope', '$http', function($scope, $http) {
-      return $scope.searchTitle = function() {
+    '$scope', '$http', '$sce', '$q', function($scope, $http, $sce, $q) {
+      var httpPromise, p, url, yql;
+      $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+      };
+      $scope.titleQuery = 'modern';
+      url = 'http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=modern';
+      yql = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent("select * from html where url='" + url + "'") + "&format=xml&callback=?";
+      console.log(yql);
+      $http.get(yql).success(function(data, status, headers, config) {
+        console.log('success');
+        console.log(status);
+        console.log(data);
+        console.log(headers);
+        return console.log(config);
+      }).error(function(data, status, headers, config) {
+        console.log('error');
+        console.log(status);
+        return console.log(data);
+      });
+      httpPromise = $http.get('index.haml').then(function(result) {
+        console.log('http is resolved, but the model is not updated');
+        return result.data;
+      });
+      $scope.httpPromisedValue = httpPromise;
+      $scope.$watch('titleQuery', function(newVal, oldVal) {
+        return $scope.watchedValue = $scope.titleQuery + ': watched';
+      });
+      p = $q(function(resolve, reject) {
+        return setTimeout(function() {
+          return resolve("resolve");
+        }, 3000);
+      });
+      $scope.promisedValue = p.then(function(suc) {
+        console.log("$q promise is resolved, but the model is not updated");
+        return "resolve: " + suc;
+      });
+      $scope.updateModels = function() {
+        return $scope.$apply();
+      };
+      $scope.searchTitles = function() {
         getTitlesFromSpringfield($scope.titleQuery, function(items) {
           $scope.springfieldTitleSuggestions = items;
           $scope.springfieldTitle = items[0].val;
@@ -15,6 +54,31 @@
         return getTitlesFromTVOnline($scope.titleQuery, function(items) {
           $scope.tvonlineTitleSuggestions = items;
           $scope.tvonlineTitle = items[0].val;
+          return $scope.$apply();
+        });
+      };
+      $scope.searchEpisodes = function() {
+        getEpisodesFromSpringfield($scope.springfieldTitle, function(items) {
+          $scope.springfieldEpisodes = items;
+          $scope.springfieldEpisode = items[0].val;
+          return $scope.$apply();
+        });
+        return getEpisodesFromTVOnline($scope.tvonlineTitle, function(items) {
+          $scope.tvonlineEpisodes = items;
+          $scope.tvonlineEpisode = items[0].val;
+          return $scope.$apply();
+        });
+      };
+      $scope.showVideo = function() {
+        return getEmbedVideos($scope.tvonlineEpisode, function(items) {
+          $scope.embedVideoUrls = items;
+          $scope.embedVideoUrl = items[0].val;
+          return $scope.$apply();
+        });
+      };
+      return $scope.showSubtitle = function() {
+        return getSubtitle($scope.springfieldEpisode, function(text) {
+          $scope.subtitle = text;
           return $scope.$apply();
         });
       };

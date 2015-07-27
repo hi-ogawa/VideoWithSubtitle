@@ -11,9 +11,8 @@
     %script{src: 'bower_components/angularjs/angular.js'}
 
     // app specific
-    %script{src: 'js/controllers.js'}
-
     %script{src: 'js/crossOriginHTML.js'}
+    %script{src: 'js/controllers.js'}
   
   %body{'ng-controller' => 'videosubCtrl'}
     .container-fluid
@@ -24,8 +23,15 @@
           .input-group
             %input.form-control{placeholder: 'Title Name',
                                 'ng-model' => 'titleQuery'}
-            %a.btn.input-group-addon{'ng-click' => 'searchTitle()'}
+            %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
               %span.glyphicon.glyphicon-search
+
+          // async value update test
+          %p {{ httpPromisedValue }}
+          %p {{ testValue }}
+          %p {{ watchedValue }}
+          %button{'ng-click' => 'updateModels()'}
+          // async value update test
 
 
           %label Titles from Springfield:
@@ -39,14 +45,44 @@
             %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
                     'value'     => '{{ title.val }}'} {{ title.name }}
 
+          %a.btn.btn-default{'ng-click' => 'searchEpisodes()'}
+            Search Episodes
 
           %label Episodes from Springfield:
-          %select.form-control{'ng-model' => 'episodesSpringfield'}
+          %select.form-control{'ng-model' => 'springfieldEpisode'}
+            %option{'ng-repeat' => 'episode in springfieldEpisodes',
+                    'value'     => '{{ episode.val }}'} {{ episode.name }}
+
+          %a.btn.btn-default{'ng-click' => 'showSubtitle()'}
+            Show Subtitle
 
           %label Episodes from TVOnline:
-          %select.form-control{'ng-model' => 'episodesTVOnline'}
+          %select.form-control{'ng-model' => 'tvonlineEpisode'}
+            %option{'ng-repeat' => 'episode in tvonlineEpisodes',
+                    'value'     => '{{ episode.val }}'} {{ episode.name }}
           
-          %label Available Video Providers:
-          %select.form-control{'ng-model' => 'videoProviders'}
+          %a.btn.btn-default{'ng-click' => 'showVideo()'}
+            Show Available Videos
 
-        .col-xs-10
+          %label Available Videos:
+          %select.form-control{'ng-model' => 'embedVideoUrl'}
+            %option{'ng-repeat' => 'video in embedVideoUrls',
+                    'value'     => '{{ video.val }}'} {{ video.name }}
+
+
+          %p titleQuery: {{titleQuery}}
+          %p springfieldTitle: {{springfieldTitle}}
+          %p tvonlineTitle: {{tvonlineTitle}}
+          %p springfieldEpisode: {{springfieldEpisode}}
+          %p tvonlineEpisode: {{tvonlineEpisode}}
+          %p embedVideoUrl: {{embedVideoUrl}}
+
+        .col-xs-5
+
+          .tvonline
+            %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}
+
+        .col-xs-5
+
+          .springfield
+            {{ subtitle }}
