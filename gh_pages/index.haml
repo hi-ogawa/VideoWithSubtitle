@@ -1,13 +1,38 @@
 !!!
+%html{'ng-app' => 'videosubApp'}
 %html
   %head
-    - jss  = %W[jquery jquery-ui bootstrap bootstrap-toggle underscore js.cookie]
-    - csss = %W[jquery-ui bootstrap bootstrap-toggle]
-    - jss.each do |js|
-      %script{src: "vendor/javascripts/#{js}.js"}
-    - csss.each do |css|
-      %link{rel: 'stylesheet', type: 'text/css', href: "vendor/stylesheets/#{css}.css"}
-    %link{rel: 'stylesheet', type: 'text/css', href: 'index.css'}
-    %script{src: 'index.js'}
-  %body
-    = File.read 'body.html'
+    // jquery, bootstrap
+    %script{src: 'bower_components/jquery/dist/jquery.js'}
+    %link{href: 'bower_components/bootstrap/dist/css/bootstrap.css', rel: 'stylesheet', type: 'text/css'}
+    %script{src: 'bower_components/bootstrap/dist/js/bootstrap.js'}
+
+    // angular
+    %script{src: 'bower_components/angularjs/angular.js'}
+
+    // app specific
+    %script{src: 'js/controllers.js'}
+  
+  %body{'ng-controller' => 'videosubCtrl'}
+    .container-fluid
+
+      .row
+        .col-xs-2
+
+          .input-group
+            %input.form-control{placeholder: 'Title Name',
+                                'ng-model' => 'titleQuery'}
+            %a.btn.input-group-addon{'ng-click' => 'searchTitle()'}
+              %span.glyphicon.glyphicon-search
+
+          %label Titles from TVOnline:
+          %select.form-control{'ng-model' => 'titlesTVOnline'}
+     
+          %label Titles from Springfield:
+          %select.form-control{'ng-model' => 'titlesSpringfield'}     
+
+   
+          %p titleQuery: {{ titleQuery }}
+
+        .col-xs-10
+   
