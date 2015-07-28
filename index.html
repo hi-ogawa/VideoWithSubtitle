@@ -32,46 +32,72 @@
                 </a>
               </div>
             </form>
-            <label>Titles from Springfield:</label>
+            <div class='div-label'>
+              <strong>Titles from Springfield:</strong>
+              <img class='pull-right loading' ng-show='loading0' src='images/ajax-loader.gif'>
+            </div>
             <select class='form-control' ng-model='springfieldTitle'>
               <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
             </select>
-            <label>Titles from TVOnline:</label>
+            <div class='div-label'>
+              <strong>Titles from TVOnline:</strong>
+              <img class='pull-right loading' ng-show='loading1' src='images/ajax-loader.gif'>
+            </div>
             <select class='form-control' ng-model='tvonlineTitle'>
               <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
             </select>
-            <label>Episodes from Springfield:</label>
+            <div class='div-label'>
+              <strong>Episodes from Springfield:</strong>
+              <img class='pull-right loading' ng-show='loading2' src='images/ajax-loader.gif'>
+            </div>
             <select class='form-control' ng-model='springfieldEpisode'>
               <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
             </select>
-            <label>Episodes from TVOnline:</label>
+            <div class='div-label'>
+              <strong>Episodes from TVOnline:</strong>
+              <img class='pull-right loading' ng-show='loading3' src='images/ajax-loader.gif'>
+            </div>
             <select class='form-control' ng-model='tvonlineEpisode'>
               <option ng-repeat='episode in tvonlineEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
             </select>
-            <label>Available Videos:</label>
+            <div class='div-label'>
+              <strong>Available Videos:</strong>
+              <img class='pull-right loading' ng-show='loading4' src='images/ajax-loader.gif'>
+            </div>
             <select class='form-control' ng-model='embedVideoUrl'>
               <option ng-repeat='video in embedVideoUrls' value='{{ video.val }}'>{{ video.name }}</option>
             </select>
-            <label>Subtitle Position:</label>
+            <br>
+            <div class='btn-group btn-group-justified'>
+              <a class='btn btn-info' ng-class='{"disabled": !embedVideoUrl}' ng-click='embedVideoUrl_ = embedVideoUrl'>
+                Watch Video
+              </a>
+            </div>
+            <div class='div-label'>
+              <strong>Subtitle Position:</strong>
+            </div>
             <div class='position-buttons'>
               <div class='btn-group btn-group-justified'>
-                <a class='btn' ng-class='buttonColor(x, y, 0, 1)' ng-click='x = 0; y = 1'>&nbsp;</a>
-                <a class='btn' ng-class='buttonColor(x, y, 1, 1)' ng-click='x = 1; y = 1'>&nbsp;</a>
-                <a class='btn' ng-class='buttonColor(x, y, 2, 1)' ng-click='x = 2; y = 1'>&nbsp;</a>
+                <a class='btn' ng-class='buttonColor(x, y, 0, 1)' ng-click='x = 0; y = 1'>top L</a>
+                <a class='btn' ng-class='buttonColor(x, y, 1, 1)' ng-click='x = 1; y = 1'>top</a>
+                <a class='btn' ng-class='buttonColor(x, y, 2, 1)' ng-click='x = 2; y = 1'>top R</a>
               </div>
               <div class='btn-group btn-group-justified'>
-                <a class='btn' ng-class='buttonColor(x, y, 0, 0)' ng-click='x = 0; y = 0'>&nbsp;</a>
-                <a class='btn' ng-class='buttonColor(x, y, 1, 0)' ng-click='x = 1; y = 0'>&nbsp;</a>
-                <a class='btn' ng-class='buttonColor(x, y, 2, 0)' ng-click='x = 2; y = 0'>&nbsp;</a>
+                <a class='btn' ng-class='buttonColor(x, y, 0, 0)' ng-click='x = 0; y = 0'>but. L</a>
+                <a class='btn' ng-class='buttonColor(x, y, 1, 0)' ng-click='x = 1; y = 0'>but.</a>
+                <a class='btn' ng-class='buttonColor(x, y, 2, 0)' ng-click='x = 2; y = 0'>but. R</a>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class='video'>
-        <iframe ng-src='{{ trustSrc(embedVideoUrl) }}'></iframe>
+        <iframe ng-src='{{ trustSrc(embedVideoUrl_) }}'></iframe>
       </div>
-      <div class='panel subtitle' ng-bind-html='subtitle' ng-class='position(x, y)'></div>
+      <div class='panel subtitle-wrap' ng-class='position(x, y)' ng-show='springfieldEpisode'>
+        <img class='loading center-block' ng-show='loading5' src='images/ajax-loader1.gif'>
+        <div class='subtitle' ng-bind-html='subtitle' ng-show='!loading5'></div>
+      </div>
     </div>
   </body>
 </html>

@@ -36,54 +36,71 @@
                 %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
                   %span.glyphicon.glyphicon-search
       
-            %label Titles from Springfield:
+            .div-label
+              %strong Titles from Springfield:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading0'}
             %select.form-control{'ng-model' => 'springfieldTitle'}
               %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
                       'value'     => '{{ title.val }}'} {{ title.name }}
       
-            %label Titles from TVOnline:
+            .div-label
+              %strong Titles from TVOnline:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading1'}
             %select.form-control{'ng-model' => 'tvonlineTitle'}
               %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
                       'value'     => '{{ title.val }}'} {{ title.name }}
       
       
-            %label Episodes from Springfield:
+            .div-label
+              %strong Episodes from Springfield:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading2'}
             %select.form-control{'ng-model' => 'springfieldEpisode'}
               %option{'ng-repeat' => 'episode in springfieldEpisodes',
                       'value'     => '{{ episode.val }}'} {{ episode.name }}
       
-            %label Episodes from TVOnline:
+            .div-label
+              %strong Episodes from TVOnline:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading3'}
             %select.form-control{'ng-model' => 'tvonlineEpisode'}
               %option{'ng-repeat' => 'episode in tvonlineEpisodes',
                       'value'     => '{{ episode.val }}'} {{ episode.name }}
             
-            %label Available Videos:
+            .div-label
+              %strong Available Videos:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading4'}
             %select.form-control{'ng-model' => 'embedVideoUrl'}
               %option{'ng-repeat' => 'video in embedVideoUrls',
                       'value'     => '{{ video.val }}'} {{ video.name }}
 
-            %label Subtitle Position:
+            %br
+            .btn-group.btn-group-justified
+              %a.btn.btn-info{'ng-click' => 'embedVideoUrl_ = embedVideoUrl',
+                              'ng-class' => '{"disabled": !embedVideoUrl}'}
+                Watch Video
+
+            .div-label
+              %strong Subtitle Position:
             .position-buttons
               .btn-group.btn-group-justified
-                %a.btn{'ng-click' => 'x = 0; y = 1', 'ng-class' => 'buttonColor(x, y, 0, 1)'} &nbsp;
-                %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => 'buttonColor(x, y, 1, 1)'} &nbsp;
-                %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} &nbsp;
+                %a.btn{'ng-click' => 'x = 0; y = 1', 'ng-class' => 'buttonColor(x, y, 0, 1)'} top L
+                %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => 'buttonColor(x, y, 1, 1)'} top
+                %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} top R
               .btn-group.btn-group-justified
-                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} &nbsp;
-                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} &nbsp;
-                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} &nbsp;
+                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} but. L
+                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} but. 
+                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} but. R
             
-            -# %p titleQuery: {{titleQuery}}
-            -# %p springfieldTitle: {{springfieldTitle}}
-            -# %p tvonlineTitle: {{tvonlineTitle}}
-            -# %p springfieldEpisode: {{springfieldEpisode}}
-            -# %p tvonlineEpisode: {{tvonlineEpisode}}
-            -# %p embedVideoUrl: {{embedVideoUrl}}
-            -# %p x: {{x}}, y: {{y}}
-
       .video
-        %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}
+        %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl_) }}'}
 
-      .panel.subtitle{'ng-bind-html' => 'subtitle',
-                      'ng-class' => 'position(x, y)'}
-
+      .panel.subtitle-wrap{'ng-class' => 'position(x, y)',
+                           'ng-show' => 'springfieldEpisode'}
+        %img.loading.center-block{src: 'images/ajax-loader1.gif',
+                                 'ng-show' => 'loading5'}
+        .subtitle{'ng-bind-html' => 'subtitle',
+                  'ng-show' => '!loading5'}

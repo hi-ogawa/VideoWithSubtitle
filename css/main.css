@@ -1,13 +1,16 @@
+img.loading {
+  width: 20px; }
+
 .setting {
   position: absolute;
   top: 5px;
   left: 20px;
-  width: 230px;
+  width: 250px;
   z-index: 2; }
   .setting .panel {
     margin-top: 8px;
-    height: 500px; }
-    .setting .panel label {
+    height: 520px; }
+    .setting .panel label, .setting .panel .div-label {
       margin-top: 7px; }
 
 .video {
@@ -19,7 +22,7 @@
     overflow: hidden;
     border: 0px; }
 
-.subtitle {
+.subtitle-wrap {
   position: absolute;
   width: 444px;
   height: 136px;
@@ -31,6 +34,8 @@
   opacity: 0.7;
   overflow-x: hidden;
   overflow-y: scroll; }
+  .subtitle-wrap img.loading {
+    width: 50px; }
 
 .subtitle-position-00 {
   top: 76%;
@@ -59,13 +64,13 @@
 .setting {
   /* .panel-body -> shrink to disappear */ }
   .setting .panel {
-    -moz-transition: linear 0.3s all;
-    -o-transition: linear 0.3s all;
-    -webkit-transition: linear 0.3s all;
-    transition: linear 0.3s all;
+    -moz-transition: linear 0.1s all;
+    -o-transition: linear 0.1s all;
+    -webkit-transition: linear 0.1s all;
+    transition: linear 0.1s all;
     overflow: hidden; }
     .setting .panel.ng-hide-add {
-      height: 500px;
+      height: 520px;
       opacity: 1; }
     .setting .panel.ng-hide-add-active {
       height: 0px;
@@ -74,6 +79,6 @@
       height: 0px;
       opacity: 0.3; }
     .setting .panel.ng-hide-remove-active {
-      height: 500px;
+      height: 520px;
       height: 400px;
       opacity: 1; }
