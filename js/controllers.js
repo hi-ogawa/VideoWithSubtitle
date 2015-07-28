@@ -79,6 +79,13 @@
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
       };
+      $scope.buttonColor = function(x, y, x_, y_) {
+        if (x === x_ && y === y_) {
+          return 'btn-primary';
+        } else {
+          return 'btn-default';
+        }
+      };
       return $scope.position = function(x, y) {
         return "subtitle-position-" + (x.toString()) + (y.toString());
       };

@@ -73,6 +73,9 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
   $scope.trustSrc = (src) ->
     $sce.trustAsResourceUrl src
 
+  $scope.buttonColor = (x, y, x_, y_) ->
+    if x is x_ and y is y_ then 'btn-primary' else 'btn-default'
+
   $scope.position = (x, y) ->
     "subtitle-position-#{x.toString()}#{y.toString()}"
 ]
