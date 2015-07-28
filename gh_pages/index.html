@@ -8,44 +8,50 @@
     <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
     <!-- / angular -->
     <script src='bower_components/angularjs/angular.js'></script>
-    <!-- / app specific -->
-    <link href='css/app.css' rel='stylesheet' type='text/css'>
+    <script src='bower_components/angular-animate/angular-animate.js'></script>
+    <!-- / app specific styles -->
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
+    <!-- / app specific scripts -->
     <script src='js/controllers.js'></script>
     <script src='js/yqlService.js'></script>
     <script src='js/parseService.js'></script>
   </head>
   <body ng-controller='videosubCtrl'>
     <div class='container-fluid'>
-      <a class='btn' ng-class='{"btn-primary": on, "btn-danger": !on}' ng-click='on = !on'>
-        <span class='glyphicon' ng-class='{"glyphicon-folder-open":   on,&#x000A;"glyphicon-folder-close": !on}'></span>
-      </a>
-      <div class='setting' ng-show='on'>
-        <div class='input-group'>
-          <input class='form-control' ng-model='titleQuery' placeholder='Title Name'>
-          <a class='btn input-group-addon' ng-click='searchTitles()'>
-            <span class='glyphicon glyphicon-search'></span>
-          </a>
+      <div class='setting'>
+        <a class='btn' id='button' ng-class='{"btn-primary": on, "btn-danger": !on}' ng-click='on = !on'>
+          <span class='glyphicon' ng-class='{"glyphicon-folder-open":   on,&#x000A;"glyphicon-folder-close": !on}'></span>
+        </a>
+        <div class='panel panel-default' ng-show='on'>
+          <div class='panel-body'>
+            <div class='input-group'>
+              <input class='form-control' ng-model='titleQuery' placeholder='TV Show Title'>
+              <a class='btn input-group-addon' ng-click='searchTitles()'>
+                <span class='glyphicon glyphicon-search'></span>
+              </a>
+            </div>
+            <label>Titles from Springfield:</label>
+            <select class='form-control' ng-model='springfieldTitle'>
+              <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
+            </select>
+            <label>Titles from TVOnline:</label>
+            <select class='form-control' ng-model='tvonlineTitle'>
+              <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
+            </select>
+            <label>Episodes from Springfield:</label>
+            <select class='form-control' ng-model='springfieldEpisode'>
+              <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
+            </select>
+            <label>Episodes from TVOnline:</label>
+            <select class='form-control' ng-model='tvonlineEpisode'>
+              <option ng-repeat='episode in tvonlineEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
+            </select>
+            <label>Available Videos:</label>
+            <select class='form-control' ng-model='embedVideoUrl'>
+              <option ng-repeat='video in embedVideoUrls' value='{{ video.val }}'>{{ video.name }}</option>
+            </select>
+          </div>
         </div>
-        <label>Titles from Springfield:</label>
-        <select class='form-control' ng-model='springfieldTitle'>
-          <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
-        </select>
-        <label>Titles from TVOnline:</label>
-        <select class='form-control' ng-model='tvonlineTitle'>
-          <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
-        </select>
-        <label>Episodes from Springfield:</label>
-        <select class='form-control' ng-model='springfieldEpisode'>
-          <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
-        </select>
-        <label>Episodes from TVOnline:</label>
-        <select class='form-control' ng-model='tvonlineEpisode'>
-          <option ng-repeat='episode in tvonlineEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
-        </select>
-        <label>Available Videos:</label>
-        <select class='form-control' ng-model='embedVideoUrl'>
-          <option ng-repeat='video in embedVideoUrls' value='{{ video.val }}'>{{ video.name }}</option>
-        </select>
       </div>
       <div class='video'>
         <iframe ng-src='{{ trustSrc(embedVideoUrl) }}'></iframe>

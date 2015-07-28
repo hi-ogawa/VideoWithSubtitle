@@ -1,12 +1,18 @@
 .setting
-  margin-top: 20px
-  width: 200px
+  position: absolute
+  top: 5px
+  left: 20px
+  width: $setting-width
   z-index: 10
 
+  .panel
+    margin-top: 8px
+    height: $setting-panel-height
+    label
+      margin-top: 7px
+
+
 .video
-  /* position: absolute
-  /* top: 0
-  /* left: 0
   width: 100%
 
   iframe
@@ -14,6 +20,7 @@
     height: 100vh
     overflow: hidden
     border: 0px
+
 
 .subtitle
   position: absolute
@@ -29,6 +36,7 @@
 
   overflow-x: hidden
   overflow-y: scroll
+
 
 .subtitle-pos-default
   top: 76%

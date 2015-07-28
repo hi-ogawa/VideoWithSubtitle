@@ -1,10 +1,10 @@
-videosubApp = angular.module 'videosubApp', ['yqlService', 'parseService']
+videosubApp = angular.module 'videosubApp', ['ngAnimate', 'yqlService', 'parseService']
 
 videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'parsers', ($scope, $sce, getHTMLwithYQL, parsers) ->
 
   # initial values
   $scope.on = true
-  $scope.titleQuery = 'thrones'
+  $scope.titleQuery = ''
 
   # template urls
   url0 = (query) ->

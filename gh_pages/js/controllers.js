@@ -2,13 +2,13 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', ['yqlService', 'parseService']);
+  videosubApp = angular.module('videosubApp', ['ngAnimate', 'yqlService', 'parseService']);
 
   videosubApp.controller('videosubCtrl', [
     '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
       var url0, url1, url2, url3, url4;
       $scope.on = true;
-      $scope.titleQuery = 'thrones';
+      $scope.titleQuery = '';
       url0 = function(query) {
         return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
       };
