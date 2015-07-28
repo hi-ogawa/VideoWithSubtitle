@@ -2,11 +2,9 @@ videosubApp = angular.module 'videosubApp', ['yqlService', 'parseService']
 
 videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'parsers', ($scope, $sce, getHTMLwithYQL, parsers) ->
 
+  # initial values
+  $scope.on = true
   $scope.titleQuery = 'thrones'
-
-  $scope.trustSrc = (src) ->
-    $sce.trustAsResourceUrl src
-
 
   # template urls
   url0 = (query) ->
@@ -19,7 +17,6 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
     "http://tvonline.tw/#{path}"
   url4 = (path) ->
     "http://www.springfieldspringfield.co.uk/#{path}"
-
 
   # show searched tvshow titles
   $scope.searchTitles = () ->
@@ -66,4 +63,8 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
 
     getHTMLwithYQL(url4(newValue)).then (html) ->
       $scope.subtitle = parsers.getSubtitle html
+
+  $scope.trustSrc = (src) ->
+    $sce.trustAsResourceUrl src
+
 ]

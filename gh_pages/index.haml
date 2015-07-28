@@ -11,61 +11,63 @@
     %script{src: 'bower_components/angularjs/angular.js'}
 
     // app specific
+    %link{href: 'css/app.css', rel: 'stylesheet', type: 'text/css'}
     %script{src: 'js/controllers.js'}
     %script{src: 'js/yqlService.js'}
     %script{src: 'js/parseService.js'}
+
   
   %body{'ng-controller' => 'videosubCtrl'}
     .container-fluid
 
-      .row
-        .col-xs-2
 
-          .input-group
-            %input.form-control{placeholder: 'Title Name',
-                                'ng-model' => 'titleQuery'}
-            %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
-              %span.glyphicon.glyphicon-search
+      %a.btn{'ng-class' => '{"btn-primary": on, "btn-danger": !on}',
+             'ng-click' => 'on = !on'}
+        %span.glyphicon{'ng-class' => '{"glyphicon-folder-open":   on,
+                                        "glyphicon-folder-close": !on}'}
 
-          %label Titles from Springfield:
-          %select.form-control{'ng-model' => 'springfieldTitle'}
-            %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
-                    'value'     => '{{ title.val }}'} {{ title.name }}
+      .setting{'ng-show' => 'on'}
+        .input-group
+          %input.form-control{placeholder: 'Title Name',
+                              'ng-model' => 'titleQuery'}
+          %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
+            %span.glyphicon.glyphicon-search
+  
+        %label Titles from Springfield:
+        %select.form-control{'ng-model' => 'springfieldTitle'}
+          %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
+                  'value'     => '{{ title.val }}'} {{ title.name }}
+  
+        %label Titles from TVOnline:
+        %select.form-control{'ng-model' => 'tvonlineTitle'}
+          %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
+                  'value'     => '{{ title.val }}'} {{ title.name }}
+  
+  
+        %label Episodes from Springfield:
+        %select.form-control{'ng-model' => 'springfieldEpisode'}
+          %option{'ng-repeat' => 'episode in springfieldEpisodes',
+                  'value'     => '{{ episode.val }}'} {{ episode.name }}
+  
+        %label Episodes from TVOnline:
+        %select.form-control{'ng-model' => 'tvonlineEpisode'}
+          %option{'ng-repeat' => 'episode in tvonlineEpisodes',
+                  'value'     => '{{ episode.val }}'} {{ episode.name }}
+        
+        %label Available Videos:
+        %select.form-control{'ng-model' => 'embedVideoUrl'}
+          %option{'ng-repeat' => 'video in embedVideoUrls',
+                  'value'     => '{{ video.val }}'} {{ video.name }}
+  
+        -# %p titleQuery: {{titleQuery}}
+        -# %p springfieldTitle: {{springfieldTitle}}
+        -# %p tvonlineTitle: {{tvonlineTitle}}
+        -# %p springfieldEpisode: {{springfieldEpisode}}
+        -# %p tvonlineEpisode: {{tvonlineEpisode}}
+        -# %p embedVideoUrl: {{embedVideoUrl}}
 
-          %label Titles from TVOnline:
-          %select.form-control{'ng-model' => 'tvonlineTitle'}
-            %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
-                    'value'     => '{{ title.val }}'} {{ title.name }}
+      .video
+        %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}
 
-
-          %label Episodes from Springfield:
-          %select.form-control{'ng-model' => 'springfieldEpisode'}
-            %option{'ng-repeat' => 'episode in springfieldEpisodes',
-                    'value'     => '{{ episode.val }}'} {{ episode.name }}
-
-          %label Episodes from TVOnline:
-          %select.form-control{'ng-model' => 'tvonlineEpisode'}
-            %option{'ng-repeat' => 'episode in tvonlineEpisodes',
-                    'value'     => '{{ episode.val }}'} {{ episode.name }}
-          
-          %label Available Videos:
-          %select.form-control{'ng-model' => 'embedVideoUrl'}
-            %option{'ng-repeat' => 'video in embedVideoUrls',
-                    'value'     => '{{ video.val }}'} {{ video.name }}
-
-          -# %p titleQuery: {{titleQuery}}
-          -# %p springfieldTitle: {{springfieldTitle}}
-          -# %p tvonlineTitle: {{tvonlineTitle}}
-          -# %p springfieldEpisode: {{springfieldEpisode}}
-          -# %p tvonlineEpisode: {{tvonlineEpisode}}
-          -# %p embedVideoUrl: {{embedVideoUrl}}
-
-        .col-xs-5
-
-          .tvonline
-            %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}
-
-        .col-xs-5
-
-          .springfield
-            {{ subtitle }}
+      .subtitle.subtitle-pos-default
+        {{ subtitle }}

@@ -7,10 +7,8 @@
   videosubApp.controller('videosubCtrl', [
     '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
       var url0, url1, url2, url3, url4;
+      $scope.on = true;
       $scope.titleQuery = 'thrones';
-      $scope.trustSrc = function(src) {
-        return $sce.trustAsResourceUrl(src);
-      };
       url0 = function(query) {
         return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
       };
@@ -71,11 +69,14 @@
           return $scope.embedVideoUrl = items[0].val;
         });
       });
-      return $scope.$watch('springfieldEpisode', function(newValue, oldValue) {
+      $scope.$watch('springfieldEpisode', function(newValue, oldValue) {
         return getHTMLwithYQL(url4(newValue)).then(function(html) {
           return $scope.subtitle = parsers.getSubtitle(html);
         });
       });
+      return $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+      };
     }
   ]);
 
