@@ -1,6 +1,22 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+task :default => [:js, :html, :css]
 
-require File.expand_path('../config/application', __FILE__)
+coffees = FileList.new("**/*.coffee").exclude(/^bower_components/)
+hamls = FileList.new("**/*.haml").exclude(/^bower_components/)
+# sass = FileList.new("**/*.sass").exclude(/^bower_components/)
+# sass = FileList.new("css/main.sass")
 
-Rails.application.load_tasks
+task :js   => coffees.ext(".js")
+task :html => hamls.ext(".html")
+# task :css  => sass.ext(".css")
+
+rule '.js' => '.coffee' do |t|
+  sh "coffee -c #{t.source}"
+end
+
+rule '.html' => '.haml' do |t|
+  sh "haml #{t.source} #{t.name}"
+end
+
+# rule '.css' => '.sass' do |t|
+#   sh "sass --sourcemap=none -r compass `compass imports` #{t.source}:#{t.name}"
+# end
