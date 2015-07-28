@@ -2,16 +2,24 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', ['ngAnimate', 'ngSanitize', 'yqlService', 'parseService']);
+  videosubApp = angular.module('videosubApp', ['ngAnimate', 'ngSanitize', 'ngCookies', 'yqlService', 'parseService']);
 
   videosubApp.controller('videosubCtrl', [
-    '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {
-      var url0, url1, url2, url3, url4;
+    '$scope', '$sce', '$cookies', 'getHTMLwithYQL', 'parsers', (function($scope, $sce, $cookies, getHTMLwithYQL, parsers) {
+      var loadScope, saveScope, url0, url1, url2, url3, url4;
       $scope.on = true;
-      $scope.titleQuery = '';
       $scope.x = 1;
       $scope.y = 0;
-      $scope.subtitle = '';
+      loadScope = function() {
+        var scope;
+        if (($cookies.get('existence') != null) && $cookies.get('existence')) {
+          return scope = $cookies.get('scope');
+        }
+      };
+      saveScope = function() {
+        $cookies.put('existence', true);
+        return $cookies.put('scope', $scope);
+      };
       url0 = function(query) {
         return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
       };
@@ -47,7 +55,7 @@
       };
       $scope.$watch('springfieldTitle', function(newValue, oldValue) {
         if (newValue) {
-          $scope.subtitle = $scope.loading2 = true;
+          $scope.loading2 = true;
           return getHTMLwithYQL(url2(newValue)).then(function(html) {
             var items;
             $scope.loading2 = false;
@@ -110,7 +118,7 @@
       return $scope.position = function(x, y) {
         return "subtitle-position-" + (x.toString()) + (y.toString());
       };
-    }
+    })
   ]);
 
 }).call(this);

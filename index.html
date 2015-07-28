@@ -10,6 +10,7 @@
     <script src='bower_components/angularjs/angular.js'></script>
     <script src='bower_components/angular-animate/angular-animate.js'></script>
     <script src='bower_components/angular-sanitize/angular-sanitize.js'></script>
+    <script src='bower_components/angular-cookies/angular-cookies.js'></script>
     <!-- / app specific scripts -->
     <link href='css/main.css' rel='stylesheet' type='text/css'>
     <script src='js/controllers.js'></script>
@@ -40,18 +41,18 @@
               <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
             </select>
             <div class='div-label'>
-              <strong>Titles from TVOnline:</strong>
-              <img class='pull-right loading' ng-show='loading1' src='images/ajax-loader.gif'>
-            </div>
-            <select class='form-control' ng-model='tvonlineTitle'>
-              <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
-            </select>
-            <div class='div-label'>
               <strong>Episodes from Springfield:</strong>
               <img class='pull-right loading' ng-show='loading2' src='images/ajax-loader.gif'>
             </div>
             <select class='form-control' ng-model='springfieldEpisode'>
               <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
+            </select>
+            <div class='div-label'>
+              <strong>Titles from TVOnline:</strong>
+              <img class='pull-right loading' ng-show='loading1' src='images/ajax-loader.gif'>
+            </div>
+            <select class='form-control' ng-model='tvonlineTitle'>
+              <option ng-repeat='title in tvonlineTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
             </select>
             <div class='div-label'>
               <strong>Episodes from TVOnline:</strong>
@@ -84,7 +85,7 @@
               </div>
               <div class='btn-group btn-group-justified'>
                 <a class='btn' ng-class='buttonColor(x, y, 0, 0)' ng-click='x = 0; y = 0'>but. L</a>
-                <a class='btn' ng-class='buttonColor(x, y, 1, 0)' ng-click='x = 1; y = 0'>but.</a>
+                <a class='btn' ng-class='buttonColor(x, y, 1, 0)' ng-click='x = 1; y = 0'>buttom</a>
                 <a class='btn' ng-class='buttonColor(x, y, 2, 0)' ng-click='x = 2; y = 0'>but. R</a>
               </div>
             </div>

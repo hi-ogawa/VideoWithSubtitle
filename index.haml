@@ -11,6 +11,7 @@
     %script{src: 'bower_components/angularjs/angular.js'}
     %script{src: 'bower_components/angular-animate/angular-animate.js'}
     %script{src: 'bower_components/angular-sanitize/angular-sanitize.js'}
+    %script{src: 'bower_components/angular-cookies/angular-cookies.js'}
 
     // app specific scripts
     %link{href: 'css/main.css', rel: 'stylesheet', type: 'text/css'}
@@ -45,6 +46,15 @@
                       'value'     => '{{ title.val }}'} {{ title.name }}
       
             .div-label
+              %strong Episodes from Springfield:
+              %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                     'ng-show' => 'loading2'}
+            
+            %select.form-control{'ng-model' => 'springfieldEpisode'}
+              %option{'ng-repeat' => 'episode in springfieldEpisodes',
+                      'value'     => '{{ episode.val }}'} {{ episode.name }}
+      
+            .div-label
               %strong Titles from TVOnline:
               %img.pull-right.loading{src: 'images/ajax-loader.gif',
                                      'ng-show' => 'loading1'}
@@ -52,14 +62,6 @@
               %option{'ng-repeat' => 'title in tvonlineTitleSuggestions',
                       'value'     => '{{ title.val }}'} {{ title.name }}
       
-      
-            .div-label
-              %strong Episodes from Springfield:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading2'}
-            %select.form-control{'ng-model' => 'springfieldEpisode'}
-              %option{'ng-repeat' => 'episode in springfieldEpisodes',
-                      'value'     => '{{ episode.val }}'} {{ episode.name }}
       
             .div-label
               %strong Episodes from TVOnline:
@@ -92,7 +94,7 @@
                 %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} top R
               .btn-group.btn-group-justified
                 %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} but. L
-                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} but. 
+                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} buttom 
                 %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} but. R
             
       .video
