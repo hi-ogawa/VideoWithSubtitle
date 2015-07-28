@@ -9,9 +9,9 @@
     <!-- / angular -->
     <script src='bower_components/angularjs/angular.js'></script>
     <script src='bower_components/angular-animate/angular-animate.js'></script>
-    <!-- / app specific styles -->
-    <link href='css/main.css' rel='stylesheet' type='text/css'>
+    <script src='bower_components/angular-sanitize/angular-sanitize.js'></script>
     <!-- / app specific scripts -->
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
     <script src='js/controllers.js'></script>
     <script src='js/yqlService.js'></script>
     <script src='js/parseService.js'></script>
@@ -24,12 +24,14 @@
         </a>
         <div class='panel panel-default' ng-show='on'>
           <div class='panel-body'>
-            <div class='input-group'>
-              <input class='form-control' ng-model='titleQuery' placeholder='TV Show Title'>
-              <a class='btn input-group-addon' ng-click='searchTitles()'>
-                <span class='glyphicon glyphicon-search'></span>
-              </a>
-            </div>
+            <form ng-submit='searchTitles()'>
+              <div class='input-group'>
+                <input class='form-control' ng-model='titleQuery' placeholder='TV Show Title'>
+                <a class='btn input-group-addon' ng-click='searchTitles()'>
+                  <span class='glyphicon glyphicon-search'></span>
+                </a>
+              </div>
+            </form>
             <label>Titles from Springfield:</label>
             <select class='form-control' ng-model='springfieldTitle'>
               <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
@@ -56,9 +58,7 @@
       <div class='video'>
         <iframe ng-src='{{ trustSrc(embedVideoUrl) }}'></iframe>
       </div>
-      <div class='subtitle subtitle-pos-default'>
-        {{ subtitle }}
-      </div>
+      <div class='subtitle subtitle-pos-default' ng-bind-html='subtitle'></div>
     </div>
   </body>
 </html>

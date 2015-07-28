@@ -1,4 +1,6 @@
-videosubApp = angular.module 'videosubApp', ['ngAnimate', 'yqlService', 'parseService']
+videosubApp = angular.module 'videosubApp', [
+    'ngAnimate', 'ngSanitize', 'yqlService', 'parseService'
+]
 
 videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'parsers', ($scope, $sce, getHTMLwithYQL, parsers) ->
 
@@ -64,6 +66,8 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
     getHTMLwithYQL(url4(newValue)).then (html) ->
       $scope.subtitle = parsers.getSubtitle html
 
+
+  # to put untrasted resource into iframe
   $scope.trustSrc = (src) ->
     $sce.trustAsResourceUrl src
 

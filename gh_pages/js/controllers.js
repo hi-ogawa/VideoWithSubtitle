@@ -2,7 +2,7 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', ['ngAnimate', 'yqlService', 'parseService']);
+  videosubApp = angular.module('videosubApp', ['ngAnimate', 'ngSanitize', 'yqlService', 'parseService']);
 
   videosubApp.controller('videosubCtrl', [
     '$scope', '$sce', 'getHTMLwithYQL', 'parsers', function($scope, $sce, getHTMLwithYQL, parsers) {

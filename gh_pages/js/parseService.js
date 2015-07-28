@@ -78,7 +78,11 @@
         return jQitems.toArray();
       };
       parsers.getSubtitle = function(html) {
-        return $(html).find('.scrolling-script-container').text();
+        var scripts;
+        scripts = $(html).find("div.scrolling-script-container").html().split("<br>").map(function(s) {
+          return "<span> " + (s.replace(/(\t|\n|\r)/gm, "").trim()) + " </span>";
+        }).join("<br>");
+        return scripts;
       };
       return parsers;
     }
