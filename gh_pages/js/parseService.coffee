@@ -62,7 +62,6 @@ parseService.factory 'parsers', [ () ->
   # return subtitle
   # http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s01e02
   parsers.getSubtitle = (html) ->
-    # $(html).find('.scrolling-script-container').text()
     scripts = $(html).find("div.scrolling-script-container").html().split("<br>")
 	                   .map((s) -> "<span> #{s.replace(/(\t|\n|\r)/gm, "").trim()} </span>")
 		                 .join("<br>")

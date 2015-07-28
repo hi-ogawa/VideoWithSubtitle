@@ -9,6 +9,8 @@
       var url0, url1, url2, url3, url4;
       $scope.on = true;
       $scope.titleQuery = '';
+      $scope.x = 1;
+      $scope.y = 0;
       url0 = function(query) {
         return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
       };
@@ -74,8 +76,11 @@
           return $scope.subtitle = parsers.getSubtitle(html);
         });
       });
-      return $scope.trustSrc = function(src) {
+      $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
+      };
+      return $scope.position = function(x, y) {
+        return "subtitle-position-" + (x.toString()) + (y.toString());
       };
     }
   ]);

@@ -7,6 +7,8 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
   # initial values
   $scope.on = true
   $scope.titleQuery = ''
+  $scope.x = 1
+  $scope.y = 0
 
   # template urls
   url0 = (query) ->
@@ -71,4 +73,6 @@ videosubApp.controller 'videosubCtrl', ['$scope', '$sce', 'getHTMLwithYQL', 'par
   $scope.trustSrc = (src) ->
     $sce.trustAsResourceUrl src
 
+  $scope.position = (x, y) ->
+    "subtitle-position-#{x.toString()}#{y.toString()}"
 ]

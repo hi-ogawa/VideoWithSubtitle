@@ -3,7 +3,7 @@
   top: 5px
   left: 20px
   width: $setting-width
-  z-index: 10
+  z-index: 2
 
   .panel
     margin-top: 8px
@@ -11,9 +11,9 @@
     label
       margin-top: 7px
 
-
 .video
   width: 100%
+  z-index: 0
 
   iframe
     width: 100%
@@ -22,11 +22,12 @@
     border: 0px
 
 
+
 .subtitle
   position: absolute
   width:  444px
   height: 136px
-  z-index: 10
+  z-index: 1
   padding: 10px
 
   font-size: 17px
@@ -38,6 +39,25 @@
   overflow-y: scroll
 
 
-.subtitle-pos-default
-  top: 76%
-  left: 20.5%
+$buttom: 76%
+$top:    20px
+$horizontal-margin: 70px
+
+.subtitle-position-00
+  top:  $buttom
+  left: $horizontal-margin
+.subtitle-position-10
+  top:  $buttom
+  left: 30.5%
+.subtitle-position-20
+  top:  $buttom
+  right: $horizontal-margin
+.subtitle-position-01
+  top:  $top
+  left: $horizontal-margin
+.subtitle-position-11
+  top:  $top
+  left: 30.5%
+.subtitle-position-21
+  top:  $top
+  right: $horizontal-margin

@@ -25,7 +25,7 @@
         %a#button.btn{'ng-class' => '{"btn-primary": on, "btn-danger": !on}',
                       'ng-click' => 'on = !on'}
           %span.glyphicon{'ng-class' => '{"glyphicon-folder-open":   on,
-                                              "glyphicon-folder-close": !on}'}
+                                          "glyphicon-folder-close": !on}'}
 
         .panel.panel-default{'ng-show' => 'on'}
           .panel-body
@@ -61,15 +61,29 @@
             %select.form-control{'ng-model' => 'embedVideoUrl'}
               %option{'ng-repeat' => 'video in embedVideoUrls',
                       'value'     => '{{ video.val }}'} {{ video.name }}
-      
+
+            %label Subtitle Position:
+            .position-buttons
+              .btn-group.btn-group-justified
+                %a.btn{'ng-click' => 'x = 0; y = 1', 'ng-class' => '"btn-default"'} &nbsp;
+                %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => '"btn-default"'} &nbsp;
+                %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => '"btn-default"'} &nbsp;
+              .btn-group.btn-group-justified
+                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => '"btn-default"'} &nbsp;
+                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => '"btn-default"'} &nbsp;
+                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => '"btn-default"'} &nbsp;
+            
             -# %p titleQuery: {{titleQuery}}
             -# %p springfieldTitle: {{springfieldTitle}}
             -# %p tvonlineTitle: {{tvonlineTitle}}
             -# %p springfieldEpisode: {{springfieldEpisode}}
             -# %p tvonlineEpisode: {{tvonlineEpisode}}
             -# %p embedVideoUrl: {{embedVideoUrl}}
+            -# %p x: {{x}}, y: {{y}}
 
       .video
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}
 
-      .subtitle.subtitle-pos-default{'ng-bind-html' => 'subtitle'}
+      .panel.subtitle{'ng-bind-html' => 'subtitle',
+                      'ng-class' => 'position(x, y)'}
+

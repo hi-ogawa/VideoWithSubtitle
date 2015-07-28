@@ -52,13 +52,26 @@
             <select class='form-control' ng-model='embedVideoUrl'>
               <option ng-repeat='video in embedVideoUrls' value='{{ video.val }}'>{{ video.name }}</option>
             </select>
+            <label>Subtitle Position:</label>
+            <div class='position-buttons'>
+              <div class='btn-group btn-group-justified'>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 0; y = 1'>&nbsp;</a>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 1; y = 1'>&nbsp;</a>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 2; y = 1'>&nbsp;</a>
+              </div>
+              <div class='btn-group btn-group-justified'>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 0; y = 0'>&nbsp;</a>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 1; y = 0'>&nbsp;</a>
+                <a class='btn' ng-class='"btn-default"' ng-click='x = 2; y = 0'>&nbsp;</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class='video'>
         <iframe ng-src='{{ trustSrc(embedVideoUrl) }}'></iframe>
       </div>
-      <div class='subtitle subtitle-pos-default' ng-bind-html='subtitle'></div>
+      <div class='panel subtitle' ng-bind-html='subtitle' ng-class='position(x, y)'></div>
     </div>
   </body>
 </html>
