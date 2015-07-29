@@ -25,25 +25,35 @@ videosubApp.controller 'videosubCtrl', [
         'springfieldTitle'
         'springfieldEpisode'
         'springfieldEpisodes'
-        'x'
-        'y'
     ]
 
-    # loads some models from the last time $scope
-    $scope.loadScope = ->
-      if $scope.$storage.existence? and $scope.$storage.existence
-        storageProps.forEach (p) ->
-          $scope[p] = $scope.$storage[p]
-    $scope.loadScope()
 
-    # save some models in $scope
-    $scope.saveScope = ->
-      $scope.$storage.existence = true
+    # init history only first time
+    if !$scope.$storage.history?
+      $scope.$storage.history = []         
+  
+
+    # data storing functions
+    $scope.putNewData = ->
+      currentData = _.pick($scope, storageProps)  # pick up only relavant models
+      $scope.$storage.history.push currentData
+      $scope.$storage.now = currentData           # track current state
+
+    $scope.loadData = (data) ->
+      $scope.$storage.now = data                  # track current state
       storageProps.forEach (p) ->
-        $scope.$storage[p] = $scope[p]
+        $scope[p] = data[p]
+
+    $scope.deleteData = (data) ->
+      $scope.$storage.history.splice($scope.$storage.history.indexOf(data), 1)
+
+
+    # load the recent data
+    if $scope.$storage.now?
+      $scope.loadData($scope.$storage.now) 
 
    
-    # template urls
+    # template urls for various search
     url0 = (query) ->
       "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=#{query}"
     url1 = (query) ->

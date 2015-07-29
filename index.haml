@@ -7,12 +7,15 @@
     %script{src: 'bower_components/jquery/dist/jquery.js'}
     %script{src: 'bower_components/bootstrap/dist/js/bootstrap.js'}
 
+    // underscore (for `pick` function)
+    %script{src: 'bower_components/underscore/underscore.js'}
+      
     // angular
     %script{src: 'bower_components/angularjs/angular.js'}
     %script{src: 'bower_components/angular-animate/angular-animate.js'}
     %script{src: 'bower_components/angular-sanitize/angular-sanitize.js'}
     %script{src: 'bower_components/ngstorage/ngStorage.js'}
-      
+
     // app specific scripts
     %link{href: 'css/main.css', rel: 'stylesheet', type: 'text/css'}
     %script{src: 'js/controllers.js'}
@@ -23,8 +26,8 @@
     .container-fluid
 
       .setting
-        %a#button.btn{'ng-class' => '{"btn-primary": on, "btn-danger": !on}',
-                      'ng-click' => 'on = !on'}
+        %a.btn{'ng-class' => '{"btn-primary": on, "btn-danger": !on}',
+               'ng-click' => 'on = !on'}
           %span.glyphicon{'ng-class' => '{"glyphicon-folder-open":   on,
                                           "glyphicon-folder-close": !on}'}
 
@@ -141,15 +144,23 @@
                 %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} bottom 
                 %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} bot. R
 
+            // episode navigation and save data button
             %br
-            -# .btn-group.btn-group-justified
             .btn-group
               .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(-1)'}
                 %span.glyphicon.glyphicon-arrow-left
-              .btn.btn-info.save-button{'ng-click' => 'saveScope()'}
+              .btn.btn-info.save-button{'ng-click' => 'putNewData()'}
                 Save Data
               .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(1)'}
                 %span.glyphicon.glyphicon-arrow-right
+
+            .history
+              History
+              %ul
+                %li{'ng-repeat' => 'data in $storage.history'}
+                  %span {{ data.titleQuery }}
+                  %a{'ng-click' => 'loadData(data)'} load
+                  %a{'ng-click' => 'deleteData(data)'} delete
 
       .video
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}

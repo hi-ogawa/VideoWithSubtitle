@@ -11,21 +11,28 @@
       $scope.x = 1;
       $scope.y = 0;
       $scope.$storage = $localStorage;
-      storageProps = ['titleQuery', 'tvonlineTitle', 'tvonlineEpisode', 'tvonlineEpisodes', 'videoProvider', 'videoProviders', 'springfieldTitle', 'springfieldEpisode', 'springfieldEpisodes', 'x', 'y'];
-      $scope.loadScope = function() {
-        if (($scope.$storage.existence != null) && $scope.$storage.existence) {
-          return storageProps.forEach(function(p) {
-            return $scope[p] = $scope.$storage[p];
-          });
-        }
+      storageProps = ['titleQuery', 'tvonlineTitle', 'tvonlineEpisode', 'tvonlineEpisodes', 'videoProvider', 'videoProviders', 'springfieldTitle', 'springfieldEpisode', 'springfieldEpisodes'];
+      if ($scope.$storage.history == null) {
+        $scope.$storage.history = [];
+      }
+      $scope.putNewData = function() {
+        var currentData;
+        currentData = _.pick($scope, storageProps);
+        $scope.$storage.history.push(currentData);
+        return $scope.$storage.now = currentData;
       };
-      $scope.loadScope();
-      $scope.saveScope = function() {
-        $scope.$storage.existence = true;
+      $scope.loadData = function(data) {
+        $scope.$storage.now = data;
         return storageProps.forEach(function(p) {
-          return $scope.$storage[p] = $scope[p];
+          return $scope[p] = data[p];
         });
       };
+      $scope.deleteData = function(data) {
+        return $scope.$storage.history.splice($scope.$storage.history.indexOf(data), 1);
+      };
+      if ($scope.$storage.now != null) {
+        $scope.loadData($scope.$storage.now);
+      }
       url0 = function(query) {
         return "http://www.springfieldspringfield.co.uk/tv_show_episode_scripts.php?search=" + query;
       };
@@ -121,21 +128,21 @@
         return "subtitle-position-" + (x.toString()) + (y.toString());
       };
       return $scope.jumpEpisode = function(i) {
-        var currentIndex0, currentIndex1, dest;
+        var currentIndex0, currentIndex1, dest0, dest1;
         currentIndex0 = $scope.tvonlineEpisodes.map(function(e) {
           return e.val;
         }).indexOf($scope.tvonlineEpisode.val);
-        dest = $scope.tvonlineEpisodes[currentIndex0 + i];
-        if (dest != null) {
-          $scope.tvonlineEpisode = dest;
+        dest0 = $scope.tvonlineEpisodes[currentIndex0 + i];
+        if (dest0 != null) {
+          $scope.tvonlineEpisode = dest0;
           $scope.showTVOnlineVideoProviders();
         }
         currentIndex1 = $scope.springfieldEpisodes.map(function(e) {
           return e.val;
         }).indexOf($scope.springfieldEpisode.val);
-        dest = $scope.springfieldEpisodes[currentIndex1 + i];
-        if (dest != null) {
-          return $scope.springfieldEpisode = dest;
+        dest1 = $scope.springfieldEpisodes[currentIndex1 + i];
+        if (dest1 != null) {
+          return $scope.springfieldEpisode = dest1;
         }
       };
     })
