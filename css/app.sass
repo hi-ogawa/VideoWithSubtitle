@@ -7,6 +7,7 @@ img.loading
   left: 20px
   width: $setting-width
   z-index: 2
+  /* overflow: visible
 
   .panel
     margin-top: 8px
@@ -14,16 +15,29 @@ img.loading
     label, .div-label
       margin-top: 7px
 
+    /* overflow: visible
+
+    .panel-body
+      /* overflow: visible
+
     .input-group
+      /* overflow: visible
+
       .dropdown-toggle
         /* something wierd is happening, but i don't care for now
-        /* (i mean, why do we need `pull-left` here?)
+        /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?)
         .pull-left.dropdown-name
           width: $setting-width - 120px
           overflow: hidden
         .caret
           /* since pull-right for caret makes the vertical position bad
           margin-top: 8px 
+      .dropdown-menu
+        /* z-index: 10000
+        max-height: 200px
+        width: $setting-width - 30px
+        overflow: scroll
+
         
 
 .video

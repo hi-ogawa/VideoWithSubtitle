@@ -6,21 +6,32 @@ img.loading {
   top: 5px;
   left: 20px;
   width: 250px;
-  z-index: 2; }
+  z-index: 2;
+  /* overflow: visible */ }
   .setting .panel {
     margin-top: 8px;
-    height: 510px; }
+    height: 550px;
+    /* overflow: visible */ }
     .setting .panel label, .setting .panel .div-label {
       margin-top: 7px; }
-    .setting .panel .input-group .dropdown-toggle {
-      /* something wierd is happening, but i don't care for now */
-      /* (i mean, why do we need `pull-left` here?) */ }
-      .setting .panel .input-group .dropdown-toggle .pull-left.dropdown-name {
-        width: 130px;
-        overflow: hidden; }
-      .setting .panel .input-group .dropdown-toggle .caret {
-        /* since pull-right for caret makes the vertical position bad */
-        margin-top: 8px; }
+    .setting .panel .panel-body {
+      /* overflow: visible */ }
+    .setting .panel .input-group {
+      /* overflow: visible */ }
+      .setting .panel .input-group .dropdown-toggle {
+        /* something wierd is happening, but i don't care for now */
+        /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?) */ }
+        .setting .panel .input-group .dropdown-toggle .pull-left.dropdown-name {
+          width: 130px;
+          overflow: hidden; }
+        .setting .panel .input-group .dropdown-toggle .caret {
+          /* since pull-right for caret makes the vertical position bad */
+          margin-top: 8px; }
+      .setting .panel .input-group .dropdown-menu {
+        /* z-index: 10000 */
+        max-height: 200px;
+        width: 220px;
+        overflow: scroll; }
 
 .video {
   width: 100%;
@@ -79,7 +90,7 @@ img.loading {
     transition: linear 0.1s all;
     overflow: hidden; }
     .setting .panel.ng-hide-add {
-      height: 510px;
+      height: 550px;
       opacity: 1; }
     .setting .panel.ng-hide-add-active {
       height: 0px;
@@ -88,6 +99,6 @@ img.loading {
       height: 0px;
       opacity: 0.3; }
     .setting .panel.ng-hide-remove-active {
-      height: 510px;
+      height: 550px;
       height: 400px;
       opacity: 1; }
