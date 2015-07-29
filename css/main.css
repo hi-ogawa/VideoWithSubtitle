@@ -1,40 +1,46 @@
-/* $setting-panel-height: 610px */
-img.loading {
-  width: 20px; }
+.menu-buttons {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 5; }
+
+.history {
+  position: absolute;
+  top: 50px;
+  left: 290px;
+  width: 250px;
+  z-index: 3; }
+  .history .table {
+    margin-top: 5px;
+    margin-bottom: 5px; }
 
 .setting {
   position: absolute;
-  top: 5px;
+  top: 50px;
   left: 20px;
   width: 250px;
-  z-index: 2;
-  /* overflow: visible */ }
-  .setting .panel {
-    margin-top: 8px;
-    height: auto;
-    /* overflow: visible */ }
-    .setting .panel label, .setting .panel .div-label {
-      margin-top: 7px; }
-    .setting .panel .panel-body {
-      /* overflow: visible */ }
-    .setting .panel .input-group {
-      /* overflow: visible */ }
-      .setting .panel .input-group .dropdown-toggle {
-        /* something wierd is happening, but i don't care for now */
-        /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?) */ }
-        .setting .panel .input-group .dropdown-toggle .pull-left.dropdown-name {
-          width: 130px;
-          overflow: hidden; }
-        .setting .panel .input-group .dropdown-toggle .caret {
-          /* since pull-right for caret makes the vertical position bad */
-          margin-top: 8px; }
-      .setting .panel .input-group .dropdown-menu {
-        /* z-index: 10000 */
-        max-height: 200px;
-        width: 220px;
-        overflow: scroll; }
-    .setting .panel .save-button {
-      width: 140px; }
+  /* height: $setting-panel-height */
+  z-index: 3;
+  margin-bottom: 0; }
+  .setting img.loading {
+    width: 20px; }
+  .setting .div-label {
+    margin-top: 7px; }
+  .setting .dropdown-toggle {
+    /* something wierd is happening, but i don't care for now */
+    /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?) */ }
+    .setting .dropdown-toggle .pull-left.dropdown-name {
+      width: 130px;
+      overflow: hidden; }
+    .setting .dropdown-toggle .caret {
+      /* since pull-right for caret makes the vertical position bad */
+      margin-top: 8px; }
+  .setting .dropdown-menu {
+    max-height: 200px;
+    width: 220px;
+    overflow: scroll; }
+  .setting .save-button {
+    width: 140px; }
 
 .video {
   width: 100%;
@@ -84,24 +90,30 @@ img.loading {
   top: 20px;
   right: 70px; }
 
-.setting {
-  /* .panel-body -> shrink to disappear */ }
-  .setting .panel {
-    -moz-transition: linear 0.1s all;
-    -o-transition: linear 0.1s all;
-    -webkit-transition: linear 0.1s all;
-    transition: linear 0.1s all;
-    overflow: hidden; }
-    .setting .panel.ng-hide-add {
-      height: auto;
-      opacity: 1; }
-    .setting .panel.ng-hide-add-active {
-      height: 0px;
-      opacity: 0.3; }
-    .setting .panel.ng-hide-remove {
-      height: 0px;
-      opacity: 0.3; }
-    .setting .panel.ng-hide-remove-active {
-      height: auto;
-      height: 400px;
-      opacity: 1; }
+.setting, .history {
+  /* disappearing to top */
+  /* appearing from bottom */
+  -moz-transition: ease-out 0.07s all;
+  -o-transition: ease-out 0.07s all;
+  -webkit-transition: ease-out 0.07s all;
+  transition: ease-out 0.07s all; }
+  .setting.ng-hide, .history.ng-hide {
+    top: 800px; }
+  .setting.ng-hide-add, .history.ng-hide-add {
+    -moz-transition: ease-in 0.1s all;
+    -o-transition: ease-in 0.1s all;
+    -webkit-transition: ease-in 0.1s all;
+    transition: ease-in 0.1s all;
+    opacity: 1; }
+  .setting.ng-hide-add-active, .history.ng-hide-add-active {
+    -moz-transition: ease-in 0.1s all;
+    -o-transition: ease-in 0.1s all;
+    -webkit-transition: ease-in 0.1s all;
+    transition: ease-in 0.1s all;
+    top: -150px;
+    opacity: 0; }
+  .setting.ng-hide-remove-active, .history.ng-hide-remove-active {
+    top: 800px;
+    opacity: 0; }
+  .setting.ng-hide-remove, .history.ng-hide-remove {
+    opacity: 1; }

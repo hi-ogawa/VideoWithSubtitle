@@ -1,26 +1,26 @@
 @import "compass/css3/transition"
 
-.setting
+.setting, .history
 
-  /* .panel-body -> shrink to disappear
-  .panel
-    @include transition(0.1s linear all)
-    overflow: hidden
-   
-    &.ng-hide-add
-      height: $setting-panel-height
-      opacity: 1
-   
-    &.ng-hide-add-active
-      height: 0px
-      opacity: 0.3
-   
-    &.ng-hide-remove
-      height: 0px
-      opacity: 0.3
-   
-    &.ng-hide-remove-active
-      height: $setting-panel-height
-      height: 400px
-      opacity: 1
+  &.ng-hide
+    top: 800px
 
+  /* disappearing to top
+  &.ng-hide-add, 
+    @include transition(0.1s ease-in all)
+    opacity: 1
+ 
+  &.ng-hide-add-active, 
+    @include transition(0.1s ease-in all)
+    top: -150px
+    opacity: 0
+
+  /* appearing from bottom
+  @include transition(0.07s ease-out all)
+ 
+  &.ng-hide-remove-active
+    top: 800px
+    opacity: 0
+
+  &.ng-hide-remove
+    opacity: 1

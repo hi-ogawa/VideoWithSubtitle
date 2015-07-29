@@ -25,142 +25,154 @@
   %body{'ng-controller' => 'videosubCtrl'}
     .container-fluid
 
-      .setting
-        %a.btn{'ng-class' => '{"btn-primary": on, "btn-danger": !on}',
-               'ng-click' => 'on = !on'}
-          %span.glyphicon{'ng-class' => '{"glyphicon-folder-open":   on,
-                                          "glyphicon-folder-close": !on}'}
+      .menu-buttons
+        %a.btn{'ng-class' => '{"btn-primary": settingOn, "btn-danger": !settingOn}',
+               'ng-click' => 'settingOn = !settingOn'}
+          %span.glyphicon{'ng-class' => '{"glyphicon-folder-open":   settingOn,
+                                          "glyphicon-folder-close": !settingOn}'}
 
-        .panel.panel-default{'ng-show' => 'on'}
-          .panel-body
-            
-            // search form of TV show title
-            %form{'ng-submit' => 'searchTitles()'}
-              .input-group
-                %input.form-control{placeholder: 'TV Show Title',
-                                    'ng-model' => 'titleQuery'}
-                %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
-                  %span.glyphicon.glyphicon-search
-      
+        %a.btn{'ng-class' => '{"btn-primary": historyOn, "btn-danger": !historyOn}',
+               'ng-click' => 'historyOn = !historyOn'}
+          %span.glyphicon.glyphicon-list
+          %span.badge {{ $storage.history.length }}
+          
 
-            %br
-            // dropdown for choosing TV show title given the above search form (springfield)
-            .div-label
-              %strong Titles from TVOnline:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading1'}
+      .setting.panel.panel-default{'ng-show' => 'settingOn'}
+        .panel-body
+          
+          // search form of TV show title
+          %strong Search TV Show Title:
+          %form{'ng-submit' => 'searchTitles()'}
             .input-group
-              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
-                %span.pull-left.dropdown-name {{ tvonlineTitle.name }}
-                %span.caret.pull-right
-              %ul.dropdown-menu{role: 'menu'}
-                %li{'ng-repeat' => 'title in tvonlineTitleSuggestions'}
-                  %a{'ng-click' => '$parent.tvonlineTitle = title'}
-                    {{ title.name }}
-              %a.btn.btn-default.input-group-addon{'ng-click' => 'showTVOnlineEpisodes()'}
+              %input.form-control{placeholder: 'TV Show Title',
+                                  'ng-model' => 'titleQuery'}
+              %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
                 %span.glyphicon.glyphicon-search
-      
-      
-            // dropdown for choosing a episode on the abolve TV show title (tvonline)
-            .div-label
-              %strong Episodes from TVOnline:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading3'}
-            .input-group
-              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
-                %span.pull-left.dropdown-name {{ tvonlineEpisode.name }}
-                %span.caret.pull-right
-              %ul.dropdown-menu{role: 'menu'}
-                %li{'ng-repeat' => 'title in tvonlineEpisodes'}
-                  %a{'ng-click' => '$parent.tvonlineEpisode = title'}
-                    {{ title.name }}
-              %a.btn.btn-default.input-group-addon{'ng-click' => 'showTVOnlineVideoProviders()'}
-                %span.glyphicon.glyphicon-search
-            
+    
 
-            // dropdown for choosing a video provider from the chosen TV show episode (tvonline)
-            .div-label
-              %strong Available Videos:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading4'}
-            .input-group
-              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
-                %span.pull-left.dropdown-name {{ videoProvider.name }}
-                %span.caret.pull-right
-              %ul.dropdown-menu{role: 'menu'}
-                %li{'ng-repeat' => 'title in videoProviders'}
-                  %a{'ng-click' => '$parent.videoProvider = title'}
-                    {{ title.name }}
-              %a.btn.btn-default.input-group-addon{'ng-click' => 'showVideo()'}
-                %span.glyphicon.glyphicon-facetime-video
+          %br
+          // dropdown for choosing TV show title given the above search form (springfield)
+          .div-label
+            %strong Titles from TVOnline:
+            %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                   'ng-show' => 'loading1'}
+          .input-group
+            %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+              %span.pull-left.dropdown-name {{ tvonlineTitle.name }}
+              %span.caret.pull-right
+            %ul.dropdown-menu{role: 'menu'}
+              %li{'ng-repeat' => 'title in tvonlineTitleSuggestions'}
+                %a{'ng-click' => '$parent.tvonlineTitle = title'}
+                  {{ title.name }}
+            %a.btn.btn-default.input-group-addon{'ng-click' => 'showTVOnlineEpisodes()'}
+              %span.glyphicon.glyphicon-search
+    
+    
+          // dropdown for choosing a episode on the abolve TV show title (tvonline)
+          .div-label
+            %strong Episodes from TVOnline:
+            %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                   'ng-show' => 'loading3'}
+          .input-group
+            %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+              %span.pull-left.dropdown-name {{ tvonlineEpisode.name }}
+              %span.caret.pull-right
+            %ul.dropdown-menu{role: 'menu'}
+              %li{'ng-repeat' => 'title in tvonlineEpisodes'}
+                %a{'ng-click' => '$parent.tvonlineEpisode = title'}
+                  {{ title.name }}
+            %a.btn.btn-default.input-group-addon{'ng-click' => 'showTVOnlineVideoProviders()'}
+              %span.glyphicon.glyphicon-search
+          
+
+          // dropdown for choosing a video provider from the chosen TV show episode (tvonline)
+          .div-label
+            %strong Available Video Providers:
+            %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                   'ng-show' => 'loading4'}
+          .input-group
+            %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+              %span.pull-left.dropdown-name {{ videoProvider.name }}
+              %span.caret.pull-right
+            %ul.dropdown-menu{role: 'menu'}
+              %li{'ng-repeat' => 'title in videoProviders'}
+                %a{'ng-click' => '$parent.videoProvider = title'}
+                  {{ title.name }}
+            %a.btn.btn-default.input-group-addon{'ng-click' => 'showVideo()'}
+              %span.glyphicon.glyphicon-facetime-video
 
 
 
-            %br
-            // dropdown for choosing TV show title given the above search form (springfield)
-            .div-label
-              %strong Titles from Springfield:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading0'}
-            .input-group
-              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
-                %span.pull-left.dropdown-name {{ springfieldTitle.name }}
-                %span.caret.pull-right
-              %ul.dropdown-menu{role: 'menu'}
-                %li{'ng-repeat' => 'title in springfieldTitleSuggestions'}
-                  %a{'ng-click' => '$parent.springfieldTitle = title'}
-                    {{ title.name }}
-              %a.btn.btn-default.input-group-addon{'ng-click' => 'showSpringfielEpisodes()'}
-                %span.glyphicon.glyphicon-search
+          %br
+          // dropdown for choosing TV show title given the above search form (springfield)
+          .div-label
+            %strong Titles from Springfield:
+            %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                   'ng-show' => 'loading0'}
+          .input-group
+            %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+              %span.pull-left.dropdown-name {{ springfieldTitle.name }}
+              %span.caret.pull-right
+            %ul.dropdown-menu{role: 'menu'}
+              %li{'ng-repeat' => 'title in springfieldTitleSuggestions'}
+                %a{'ng-click' => '$parent.springfieldTitle = title'}
+                  {{ title.name }}
+            %a.btn.btn-default.input-group-addon{'ng-click' => 'showSpringfielEpisodes()'}
+              %span.glyphicon.glyphicon-search
 
 
-            // dropdown for choosing a episode on the abolve TV show title (springfield)
-            .div-label
-              %strong Episodes from Springfield:
-              %img.pull-right.loading{src: 'images/ajax-loader.gif',
-                                     'ng-show' => 'loading2'}
-            .input-group
-              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
-                %span.pull-left.dropdown-name {{ springfieldEpisode.name }}
-                %span.caret.pull-right
-              %ul.dropdown-menu{role: 'menu'}
-                %li{'ng-repeat' => 'title in springfieldEpisodes'}
-                  %a{'ng-click' => '$parent.springfieldEpisode = title'}
-                    {{ title.name }}
-              %a.btn.btn-default.input-group-addon{'ng-click' => 'showSubtitle()'}
-                %span.glyphicon.glyphicon-font
-            
-                  
-            // buttons to set the place of floating subtitle
-            .div-label
-              %strong Subtitle Position:
-            .position-buttons
-              .btn-group.btn-group-justified
-                %a.btn{'ng-click' => 'x = 0; y = 1', 'ng-class' => 'buttonColor(x, y, 0, 1)'} top L
-                %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => 'buttonColor(x, y, 1, 1)'} top
-                %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} top R
-              .btn-group.btn-group-justified
-                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} bot. L
-                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} bottom 
-                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} bot. R
+          // dropdown for choosing a episode on the abolve TV show title (springfield)
+          .div-label
+            %strong Episodes from Springfield:
+            %img.pull-right.loading{src: 'images/ajax-loader.gif',
+                                   'ng-show' => 'loading2'}
+          .input-group
+            %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+              %span.pull-left.dropdown-name {{ springfieldEpisode.name }}
+              %span.caret.pull-right
+            %ul.dropdown-menu{role: 'menu'}
+              %li{'ng-repeat' => 'title in springfieldEpisodes'}
+                %a{'ng-click' => '$parent.springfieldEpisode = title'}
+                  {{ title.name }}
+            %a.btn.btn-default.input-group-addon{'ng-click' => 'showSubtitle()'}
+              %span.glyphicon.glyphicon-font
+          
+                
+          // buttons to set the place of floating subtitle
+          .div-label
+            %strong Subtitle Position:
+          .position-buttons
+            .btn-group.btn-group-justified
+              %a.btn{'ng-click' => 'x = 0; y = 1', 'ng-class' => 'buttonColor(x, y, 0, 1)'} top L
+              %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => 'buttonColor(x, y, 1, 1)'} top
+              %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} top R
+            .btn-group.btn-group-justified
+              %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} bot. L
+              %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} bottom 
+              %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} bot. R
 
-            // episode navigation and save data button
-            %br
-            .btn-group
-              .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(-1)'}
-                %span.glyphicon.glyphicon-arrow-left
-              .btn.btn-info.save-button{'ng-click' => 'putNewData()'}
-                Save Data
-              .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(1)'}
-                %span.glyphicon.glyphicon-arrow-right
+          // episode navigation and save data button
+          %br
+          .btn-group
+            .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(-1)'}
+              %span.glyphicon.glyphicon-arrow-left
+            .btn.btn-info.save-button{'ng-click' => 'putNewData()'}
+              Save
+            .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(1)'}
+              %span.glyphicon.glyphicon-arrow-right
 
-            .history
-              History
-              %ul
-                %li{'ng-repeat' => 'data in $storage.history'}
-                  %span {{ data.titleQuery }}
-                  %a{'ng-click' => 'loadData(data)'} load
-                  %a{'ng-click' => 'deleteData(data)'} delete
+      .history.panel.panel-default{'ng-show'=>'historyOn'}
+        .panel-body
+          %strong Saved Data List
+          %table.table.table-striped
+            %tbody
+              %tr{'ng-repeat' => 'data in $storage.history'}
+                %td {{ data.springfieldTitle.name }}
+                %td.btn-group.btn-group-sm
+                  %a.btn.btn-default{'ng-click' => 'loadData(data)'}
+                    %span.glyphicon.glyphicon-open
+                  %a.btn.btn-default{'ng-click' => 'deleteData(data)'}
+                    %span.glyphicon.glyphicon-remove
 
       .video
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}

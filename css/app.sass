@@ -1,45 +1,50 @@
-img.loading
-  width: 20px
+.menu-buttons
+  position: absolute
+  top:  10px
+  left: 20px
+  z-index: 5
+
+.history
+  position: absolute
+  top: 50px
+  left: 20px + $setting-width + 20px
+  width: $setting-width
+  z-index: 3
+  .table
+    margin-top: 5px
+    margin-bottom: 5px
 
 .setting
   position: absolute
-  top: 5px
+  top: 50px
   left: 20px
   width: $setting-width
-  z-index: 2
-  /* overflow: visible
+  /* height: $setting-panel-height
+  z-index: 3
+  margin-bottom: 0
 
-  .panel
-    margin-top: 8px
-    height: $setting-panel-height
-    label, .div-label
-      margin-top: 7px
+  img.loading
+    width: 20px
 
-    /* overflow: visible
+  .div-label
+    margin-top: 7px
 
-    .panel-body
-      /* overflow: visible
+  .dropdown-toggle
+    /* something wierd is happening, but i don't care for now
+    /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?)
+    .pull-left.dropdown-name
+      width: $setting-width - 120px
+      overflow: hidden
+    .caret
+      /* since pull-right for caret makes the vertical position bad
+      margin-top: 8px 
+  .dropdown-menu
+    max-height: 200px
+    width: $setting-width - 30px
+    overflow: scroll
 
-    .input-group
-      /* overflow: visible
-
-      .dropdown-toggle
-        /* something wierd is happening, but i don't care for now
-        /* (i mean, why do we need `pull-left` here, even though span isn't pulled left?)
-        .pull-left.dropdown-name
-          width: $setting-width - 120px
-          overflow: hidden
-        .caret
-          /* since pull-right for caret makes the vertical position bad
-          margin-top: 8px 
-      .dropdown-menu
-        /* z-index: 10000
-        max-height: 200px
-        width: $setting-width - 30px
-        overflow: scroll
-
-    .save-button
-      width: 140px
+  .save-button
+    width: 140px
 
 .video
   width: 100%

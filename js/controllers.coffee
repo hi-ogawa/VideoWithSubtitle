@@ -7,7 +7,8 @@ videosubApp.controller 'videosubCtrl', [
   (($scope,   $sce,   $localStorage,   getHTMLwithYQL,   parsers) ->
 
     # initial values
-    $scope.on = true
+    $scope.settingOn = true
+    $scope.historyOn = false
     $scope.x = 1
     $scope.y = 0
 
