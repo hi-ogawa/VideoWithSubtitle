@@ -8,7 +8,7 @@
     '$scope', '$sce', '$localStorage', 'getHTMLwithYQL', 'parsers', (function($scope, $sce, $localStorage, getHTMLwithYQL, parsers) {
       var storageProps, url0, url1, url2, url3, url4;
       $scope.settingOn = true;
-      $scope.historyOn = false;
+      $scope.historyOn = true;
       $scope.x = 1;
       $scope.y = 0;
       $scope.$storage = $localStorage;

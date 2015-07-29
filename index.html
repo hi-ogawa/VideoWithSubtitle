@@ -185,7 +185,7 @@
           <strong>Saved Data List</strong>
           <table class='table table-striped'>
             <tbody>
-              <tr ng-repeat='data in $storage.history'>
+              <tr ng-class='{"danger": data.springfieldTitle.name == springfieldTitle.name &amp;&amp; data.springfieldEpisode.name == springfieldEpisode.name}' ng-repeat='data in $storage.history | orderBy:"springfieldTitle.name"'>
                 <td>{{ data.springfieldTitle.name }}</td>
                 <td>{{ extractEpisodeNumber(data.springfieldEpisode.name) }}</td>
                 <td class='btn-group btn-group-sm'>

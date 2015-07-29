@@ -8,7 +8,7 @@ videosubApp.controller 'videosubCtrl', [
 
     # initial values
     $scope.settingOn = true
-    $scope.historyOn = false
+    $scope.historyOn = true
     $scope.x = 1
     $scope.y = 0
 

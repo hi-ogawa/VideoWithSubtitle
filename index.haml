@@ -166,7 +166,8 @@
           %strong Saved Data List
           %table.table.table-striped
             %tbody
-              %tr{'ng-repeat' => 'data in $storage.history'}
+              %tr{'ng-repeat' => 'data in $storage.history | orderBy:"springfieldTitle.name"',
+                  'ng-class'  => '{"danger": data.springfieldTitle.name == springfieldTitle.name && data.springfieldEpisode.name == springfieldEpisode.name}'}
                 %td {{ data.springfieldTitle.name }}
                 %td {{ extractEpisodeNumber(data.springfieldEpisode.name) }}
                 %td.btn-group.btn-group-sm
