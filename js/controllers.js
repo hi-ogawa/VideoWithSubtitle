@@ -37,7 +37,7 @@
       };
       $scope.searchTitles = function() {
         $scope.loading0 = true;
-        getHTMLwithYQL(url0($scope.titleQuery)).then(function(html) {
+        getHTMLwithYQL(url0(encodeURIComponent($scope.titleQuery))).then(function(html) {
           var items;
           $scope.loading0 = false;
           items = parsers.getTitlesFromSpringfield(html);
@@ -45,7 +45,7 @@
           return $scope.springfieldTitle = items[0].val;
         });
         $scope.loading1 = true;
-        return getHTMLwithYQL(url1($scope.titleQuery)).then(function(html) {
+        return getHTMLwithYQL(url1(encodeURIComponent($scope.titleQuery))).then(function(html) {
           var items;
           $scope.loading1 = false;
           items = parsers.getTitlesFromTVOnline(html);

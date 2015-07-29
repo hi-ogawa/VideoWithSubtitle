@@ -38,14 +38,14 @@ videosubApp.controller 'videosubCtrl', [
     $scope.searchTitles = () ->
    
       $scope.loading0 = true
-      getHTMLwithYQL(url0($scope.titleQuery)).then (html) ->
+      getHTMLwithYQL(url0(encodeURIComponent($scope.titleQuery))).then (html) ->
         $scope.loading0 = false
         items = parsers.getTitlesFromSpringfield html
         $scope.springfieldTitleSuggestions = items
         $scope.springfieldTitle = items[0].val
-   
+
       $scope.loading1 = true
-      getHTMLwithYQL(url1($scope.titleQuery)).then (html) ->
+      getHTMLwithYQL(url1(encodeURIComponent($scope.titleQuery))).then (html) ->
         $scope.loading1 = false
         items = parsers.getTitlesFromTVOnline html
         $scope.tvonlineTitleSuggestions = items
