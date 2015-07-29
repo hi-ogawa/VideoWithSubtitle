@@ -25,6 +25,7 @@
         </a>
         <div class='panel panel-default' ng-show='on'>
           <div class='panel-body'>
+            <!-- / search form of TV show title -->
             <form ng-submit='searchTitles()'>
               <div class='input-group'>
                 <input class='form-control' ng-model='titleQuery' placeholder='TV Show Title'>
@@ -33,20 +34,48 @@
                 </a>
               </div>
             </form>
+            <!-- / dropdown for choosing TV show title given the above search form (springfield) -->
             <div class='div-label'>
               <strong>Titles from Springfield:</strong>
               <img class='pull-right loading' ng-show='loading0' src='images/ajax-loader.gif'>
             </div>
-            <select class='form-control' ng-model='springfieldTitle'>
-              <option ng-repeat='title in springfieldTitleSuggestions' value='{{ title.val }}'>{{ title.name }}</option>
-            </select>
+            <div class='input-group'>
+              <a class='btn btn-default form-control dropdown-toggle' data-toggle='dropdown'>
+                <span class='pull-left'>{{ springfieldTitle.name }}</span>
+                <span class='caret pull-right' style='margin-top: 8px;'></span>
+              </a>
+              <ul class='dropdown-menu' role='menu'>
+                <li ng-repeat='title in springfieldTitleSuggestions'>
+                  <a ng-click='$parent.springfieldTitle = title'>
+                    {{ title.name }}
+                  </a>
+                </li>
+              </ul>
+              <a class='btn btn-default input-group-addon' ng-click='showSpringfielEpisodes()'>
+                <span class='glyphicon glyphicon-search'></span>
+              </a>
+            </div>
+            <!-- / dropdown for choosing a episode on the abolve TV show title (springfield) -->
             <div class='div-label'>
               <strong>Episodes from Springfield:</strong>
               <img class='pull-right loading' ng-show='loading2' src='images/ajax-loader.gif'>
             </div>
-            <select class='form-control' ng-model='springfieldEpisode'>
-              <option ng-repeat='episode in springfieldEpisodes' value='{{ episode.val }}'>{{ episode.name }}</option>
-            </select>
+            <div class='input-group'>
+              <a class='btn btn-default form-control dropdown-toggle' data-toggle='dropdown'>
+                <span class='pull-left'>{{ springfieldEpisode.name }}</span>
+                <span class='caret pull-right' style='margin-top: 8px;'></span>
+              </a>
+              <ul class='dropdown-menu' role='menu'>
+                <li ng-repeat='title in springfieldEpisodes'>
+                  <a ng-click='$parent.springfieldEpisode = title'>
+                    {{ title.name }}
+                  </a>
+                </li>
+              </ul>
+              <a class='btn btn-default input-group-addon' ng-click='showSubtitle()'>
+                <span class='glyphicon glyphicon-font'></span>
+              </a>
+            </div>
             <div class='div-label'>
               <strong>Titles from TVOnline:</strong>
               <img class='pull-right loading' ng-show='loading1' src='images/ajax-loader.gif'>
@@ -70,7 +99,7 @@
             </select>
             <br>
             <div class='btn-group btn-group-justified'>
-              <a class='btn btn-info' ng-class='{"disabled": !embedVideoUrl}' ng-click='embedVideoUrl_ = embedVideoUrl'>
+              <a class='btn btn-info' ng-class='{"disabled": !embedVideoUrl}' ng-click='embedVideoUrl_ = embedVideoUrl; saveScope()'>
                 Watch Video
               </a>
             </div>
@@ -95,7 +124,7 @@
       <div class='video'>
         <iframe ng-src='{{ trustSrc(embedVideoUrl_) }}'></iframe>
       </div>
-      <div class='panel subtitle-wrap' ng-class='position(x, y)' ng-show='springfieldEpisode'>
+      <div class='panel subtitle-wrap' ng-class='position(x, y)' ng-show='subtitleAppearance'>
         <img class='loading center-block' ng-show='loading5' src='images/ajax-loader1.gif'>
         <div class='subtitle' ng-bind-html='subtitle' ng-show='!loading5'></div>
       </div>

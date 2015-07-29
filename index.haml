@@ -30,6 +30,8 @@
 
         .panel.panel-default{'ng-show' => 'on'}
           .panel-body
+            
+            // search form of TV show title
             %form{'ng-submit' => 'searchTitles()'}
               .input-group
                 %input.form-control{placeholder: 'TV Show Title',
@@ -37,22 +39,41 @@
                 %a.btn.input-group-addon{'ng-click' => 'searchTitles()'}
                   %span.glyphicon.glyphicon-search
       
+
+            // dropdown for choosing TV show title given the above search form (springfield)
             .div-label
               %strong Titles from Springfield:
               %img.pull-right.loading{src: 'images/ajax-loader.gif',
                                      'ng-show' => 'loading0'}
-            %select.form-control{'ng-model' => 'springfieldTitle'}
-              %option{'ng-repeat' => 'title in springfieldTitleSuggestions',
-                      'value'     => '{{ title.val }}'} {{ title.name }}
-      
+            .input-group
+              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+                %span.pull-left {{ springfieldTitle.name }}
+                -# i know this is a dirty way to set style
+                %span.caret.pull-right{style: 'margin-top: 8px;'}
+              %ul.dropdown-menu{role: 'menu'}
+                %li{'ng-repeat' => 'title in springfieldTitleSuggestions'}
+                  %a{'ng-click' => '$parent.springfieldTitle = title'}
+                    {{ title.name }}
+              %a.btn.btn-default.input-group-addon{'ng-click' => 'showSpringfielEpisodes()'}
+                %span.glyphicon.glyphicon-search
+
+
+            // dropdown for choosing a episode on the abolve TV show title (springfield)
             .div-label
               %strong Episodes from Springfield:
               %img.pull-right.loading{src: 'images/ajax-loader.gif',
                                      'ng-show' => 'loading2'}
+            .input-group
+              %a.btn.btn-default.form-control.dropdown-toggle{'data-toggle' => 'dropdown'}
+                %span.pull-left {{ springfieldEpisode.name }}
+                %span.caret.pull-right{style: 'margin-top: 8px;'}
+              %ul.dropdown-menu{role: 'menu'}
+                %li{'ng-repeat' => 'title in springfieldEpisodes'}
+                  %a{'ng-click' => '$parent.springfieldEpisode = title'}
+                    {{ title.name }}
+              %a.btn.btn-default.input-group-addon{'ng-click' => 'showSubtitle()'}
+                %span.glyphicon.glyphicon-font
             
-            %select.form-control{'ng-model' => 'springfieldEpisode'}
-              %option{'ng-repeat' => 'episode in springfieldEpisodes',
-                      'value'     => '{{ episode.val }}'} {{ episode.name }}
       
             .div-label
               %strong Titles from TVOnline:
@@ -81,7 +102,7 @@
 
             %br
             .btn-group.btn-group-justified
-              %a.btn.btn-info{'ng-click' => 'embedVideoUrl_ = embedVideoUrl',
+              %a.btn.btn-info{'ng-click' => 'embedVideoUrl_ = embedVideoUrl; saveScope()',
                               'ng-class' => '{"disabled": !embedVideoUrl}'}
                 Watch Video
 
@@ -101,7 +122,7 @@
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl_) }}'}
 
       .panel.subtitle-wrap{'ng-class' => 'position(x, y)',
-                           'ng-show' => 'springfieldEpisode'}
+                           'ng-show' => 'subtitleAppearance'}
         %img.loading.center-block{src: 'images/ajax-loader1.gif',
                                  'ng-show' => 'loading5'}
         .subtitle{'ng-bind-html' => 'subtitle',

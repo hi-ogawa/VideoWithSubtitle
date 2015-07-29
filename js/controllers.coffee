@@ -11,16 +11,32 @@ videosubApp.controller 'videosubCtrl', [
     $scope.x = 1
     $scope.y = 0
    
+    # properties (models in $scope) to save and load via cookies
+    cookiesProps = [
+        'titleQuery'
+        'springfieldTitle'
+        'springfieldTitleSuggestions'
+        'springfieldEpisode'
+        'springfieldEpisodes'
+    ]
+
     # loads some models from the last time $scope
     loadScope = ->
       if $cookies.get('existence')? and $cookies.get('existence')
-        scope = $cookies.get('scope')
-      
+        cookiesProps.forEach (p) ->
+          console.log $cookies.get(p)
+          $scope[p] = $cookies.get(p)
+
+    # loadScope()
    
     # save some models in $scope
-    saveScope = ->
+    $scope.saveScope = ->
+      console.log '--save cookie--'
       $cookies.put('existence', true)
-      $cookies.put('scope', $scope)
+      cookiesProps.forEach (p) ->
+        console.log $scope[p]
+        $cookies.put(p, $scope[p])
+
    
     # template urls
     url0 = (query) ->
@@ -35,14 +51,14 @@ videosubApp.controller 'videosubCtrl', [
       "http://www.springfieldspringfield.co.uk/#{path}"
    
     # show searched tvshow titles
-    $scope.searchTitles = () ->
+    $scope.searchTitles = ->
    
       $scope.loading0 = true
       getHTMLwithYQL(url0(encodeURIComponent($scope.titleQuery))).then (html) ->
         $scope.loading0 = false
         items = parsers.getTitlesFromSpringfield html
         $scope.springfieldTitleSuggestions = items
-        $scope.springfieldTitle = items[0].val
+        $scope.springfieldTitle  = {val: items[0].val, name: items[0].name}
 
       $scope.loading1 = true
       getHTMLwithYQL(url1(encodeURIComponent($scope.titleQuery))).then (html) ->
@@ -51,18 +67,24 @@ videosubApp.controller 'videosubCtrl', [
         $scope.tvonlineTitleSuggestions = items
         $scope.tvonlineTitle = items[0].val
    
+    # show available episodes of the title from springfield
+    $scope.showSpringfielEpisodes = ->
+      $scope.loading2 = true
+      getHTMLwithYQL(url2($scope.springfieldTitle.val)).then (html) ->
+        $scope.loading2 = false
+        items = parsers.getEpisodesFromSpringfield html
+        $scope.springfieldEpisodes = items
+        $scope.springfieldEpisode  = {val: items[0].val, name: items[0].name}
+
+    # show subtitle of certain episode on Springfield
+    $scope.showSubtitle = ->
+      $scope.subtitleAppearance = true
+      $scope.loading5 = true
+      getHTMLwithYQL(url4($scope.springfieldEpisode.val)).then (html) ->
+        $scope.loading5 = false
+        $scope.subtitle = parsers.getSubtitle html
    
-    # show available episodes on Springfield
-    $scope.$watch 'springfieldTitle', (newValue, oldValue) ->
-   
-      if newValue
-        $scope.loading2 = true
-        getHTMLwithYQL(url2(newValue)).then (html) ->
-          $scope.loading2 = false
-          items = parsers.getEpisodesFromSpringfield html
-          $scope.springfieldEpisodes = items
-          $scope.springfieldEpisode  = items[0].val
-   
+
     # show available episodes on TVOnline
     $scope.$watch 'tvonlineTitle', (newValue, oldValue) ->
    
@@ -87,14 +109,6 @@ videosubApp.controller 'videosubCtrl', [
           $scope.embedVideoUrls = items
           $scope.embedVideoUrl  = items[0].val
    
-    # show subtitle of certain episode on Springfield
-    $scope.$watch 'springfieldEpisode', (newValue, oldValue) ->
-   
-      if newValue
-        $scope.loading5 = true
-        getHTMLwithYQL(url4(newValue)).then (html) ->
-          $scope.loading5 = false
-          $scope.subtitle = parsers.getSubtitle html
    
     # to put untrasted resource into iframe
     $scope.trustSrc = (src) ->
