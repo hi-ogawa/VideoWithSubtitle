@@ -52,20 +52,22 @@ videosubApp.controller 'videosubCtrl', [
    
     # show searched tvshow titles
     $scope.searchTitles = ->
-   
+
+      # from springfield   
       $scope.loading0 = true
       getHTMLwithYQL(url0(encodeURIComponent($scope.titleQuery))).then (html) ->
         $scope.loading0 = false
         items = parsers.getTitlesFromSpringfield html
         $scope.springfieldTitleSuggestions = items
-        $scope.springfieldTitle  = {val: items[0].val, name: items[0].name}
+        $scope.springfieldTitle  = items[0]
 
+      # from tvonline
       $scope.loading1 = true
       getHTMLwithYQL(url1(encodeURIComponent($scope.titleQuery))).then (html) ->
         $scope.loading1 = false
         items = parsers.getTitlesFromTVOnline html
         $scope.tvonlineTitleSuggestions = items
-        $scope.tvonlineTitle = items[0].val
+        $scope.tvonlineTitle = items[0]
    
     # show available episodes of the title from springfield
     $scope.showSpringfielEpisodes = ->
@@ -74,7 +76,7 @@ videosubApp.controller 'videosubCtrl', [
         $scope.loading2 = false
         items = parsers.getEpisodesFromSpringfield html
         $scope.springfieldEpisodes = items
-        $scope.springfieldEpisode  = {val: items[0].val, name: items[0].name}
+        $scope.springfieldEpisode = items[0]
 
     # show subtitle of certain episode on Springfield
     $scope.showSubtitle = ->
@@ -83,32 +85,31 @@ videosubApp.controller 'videosubCtrl', [
       getHTMLwithYQL(url4($scope.springfieldEpisode.val)).then (html) ->
         $scope.loading5 = false
         $scope.subtitle = parsers.getSubtitle html
-   
+
 
     # show available episodes on TVOnline
-    $scope.$watch 'tvonlineTitle', (newValue, oldValue) ->
-   
-      if newValue
-        $scope.loading3 = true
-        getHTMLwithYQL(url3(newValue)).then (html) ->
-          $scope.loading3 = false
-          items = parsers.getEpisodesFromTVOnline html
-          $scope.tvonlineEpisodes = items
-          $scope.tvonlineEpisode  = items[0].val
+    $scope.showTVOnlineEpisodes = ->
+      $scope.loading3 = true
+      getHTMLwithYQL(url3($scope.tvonlineTitle.val)).then (html) ->
+        $scope.loading3 = false
+        items = parsers.getEpisodesFromTVOnline html
+        $scope.tvonlineEpisodes = items
+        $scope.tvonlineEpisode  = items[0]
+
    
     # show available videos of certain episode on TVOnline
-    $scope.$watch 'tvonlineEpisode', (newValue, oldValue) ->
-   
-      if newValue
-        $scope.loading4 = true
-        getHTMLwithYQL(url3(newValue)).then (html) ->
-          $scope.loading4 = false
-          comp = (i, j) ->
-            if i.name is 'nowvideo' or i.name is 'movshare' then -1 else 1
-          items = parsers.getEmbedVideos(html).sort comp
-          $scope.embedVideoUrls = items
-          $scope.embedVideoUrl  = items[0].val
-   
+    $scope.showTVOnlineVideoProviders = ->
+      $scope.loading4 = true
+      getHTMLwithYQL(url3($scope.tvonlineEpisode.val)).then (html) ->
+        $scope.loading4 = false
+        comp = (i, j) ->
+          if i.name is 'nowvideo' or i.name is 'movshare' then -1 else 1
+        items = parsers.getEmbedVideos(html).sort comp
+        $scope.videoProviders = items
+        $scope.videoProvider  = items[0]
+
+    $scope.showVideo = ->
+      $scope.embedVideoUrl = $scope.videoProvider.val   
    
     # to put untrasted resource into iframe
     $scope.trustSrc = (src) ->

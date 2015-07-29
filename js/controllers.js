@@ -49,10 +49,7 @@
           $scope.loading0 = false;
           items = parsers.getTitlesFromSpringfield(html);
           $scope.springfieldTitleSuggestions = items;
-          return $scope.springfieldTitle = {
-            val: items[0].val,
-            name: items[0].name
-          };
+          return $scope.springfieldTitle = items[0];
         });
         $scope.loading1 = true;
         return getHTMLwithYQL(url1(encodeURIComponent($scope.titleQuery))).then(function(html) {
@@ -60,7 +57,7 @@
           $scope.loading1 = false;
           items = parsers.getTitlesFromTVOnline(html);
           $scope.tvonlineTitleSuggestions = items;
-          return $scope.tvonlineTitle = items[0].val;
+          return $scope.tvonlineTitle = items[0];
         });
       };
       $scope.showSpringfielEpisodes = function() {
@@ -70,10 +67,7 @@
           $scope.loading2 = false;
           items = parsers.getEpisodesFromSpringfield(html);
           $scope.springfieldEpisodes = items;
-          return $scope.springfieldEpisode = {
-            val: items[0].val,
-            name: items[0].name
-          };
+          return $scope.springfieldEpisode = items[0];
         });
       };
       $scope.showSubtitle = function() {
@@ -84,37 +78,36 @@
           return $scope.subtitle = parsers.getSubtitle(html);
         });
       };
-      $scope.$watch('tvonlineTitle', function(newValue, oldValue) {
-        if (newValue) {
-          $scope.loading3 = true;
-          return getHTMLwithYQL(url3(newValue)).then(function(html) {
-            var items;
-            $scope.loading3 = false;
-            items = parsers.getEpisodesFromTVOnline(html);
-            $scope.tvonlineEpisodes = items;
-            return $scope.tvonlineEpisode = items[0].val;
-          });
-        }
-      });
-      $scope.$watch('tvonlineEpisode', function(newValue, oldValue) {
-        if (newValue) {
-          $scope.loading4 = true;
-          return getHTMLwithYQL(url3(newValue)).then(function(html) {
-            var comp, items;
-            $scope.loading4 = false;
-            comp = function(i, j) {
-              if (i.name === 'nowvideo' || i.name === 'movshare') {
-                return -1;
-              } else {
-                return 1;
-              }
-            };
-            items = parsers.getEmbedVideos(html).sort(comp);
-            $scope.embedVideoUrls = items;
-            return $scope.embedVideoUrl = items[0].val;
-          });
-        }
-      });
+      $scope.showTVOnlineEpisodes = function() {
+        $scope.loading3 = true;
+        return getHTMLwithYQL(url3($scope.tvonlineTitle.val)).then(function(html) {
+          var items;
+          $scope.loading3 = false;
+          items = parsers.getEpisodesFromTVOnline(html);
+          $scope.tvonlineEpisodes = items;
+          return $scope.tvonlineEpisode = items[0];
+        });
+      };
+      $scope.showTVOnlineVideoProviders = function() {
+        $scope.loading4 = true;
+        return getHTMLwithYQL(url3($scope.tvonlineEpisode.val)).then(function(html) {
+          var comp, items;
+          $scope.loading4 = false;
+          comp = function(i, j) {
+            if (i.name === 'nowvideo' || i.name === 'movshare') {
+              return -1;
+            } else {
+              return 1;
+            }
+          };
+          items = parsers.getEmbedVideos(html).sort(comp);
+          $scope.videoProviders = items;
+          return $scope.videoProvider = items[0];
+        });
+      };
+      $scope.showVideo = function() {
+        return $scope.embedVideoUrl = $scope.videoProvider.val;
+      };
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
       };

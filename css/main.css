@@ -9,9 +9,18 @@ img.loading {
   z-index: 2; }
   .setting .panel {
     margin-top: 8px;
-    height: 520px; }
+    height: 510px; }
     .setting .panel label, .setting .panel .div-label {
       margin-top: 7px; }
+    .setting .panel .input-group .dropdown-toggle {
+      /* something wierd is happening, but i don't care for now */
+      /* (i mean, why do we need `pull-left` here?) */ }
+      .setting .panel .input-group .dropdown-toggle .pull-left.dropdown-name {
+        width: 130px;
+        overflow: hidden; }
+      .setting .panel .input-group .dropdown-toggle .caret {
+        /* since pull-right for caret makes the vertical position bad */
+        margin-top: 8px; }
 
 .video {
   width: 100%;
@@ -70,7 +79,7 @@ img.loading {
     transition: linear 0.1s all;
     overflow: hidden; }
     .setting .panel.ng-hide-add {
-      height: 520px;
+      height: 510px;
       opacity: 1; }
     .setting .panel.ng-hide-add-active {
       height: 0px;
@@ -79,6 +88,6 @@ img.loading {
       height: 0px;
       opacity: 0.3; }
     .setting .panel.ng-hide-remove-active {
-      height: 520px;
+      height: 510px;
       height: 400px;
       opacity: 1; }
