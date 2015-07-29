@@ -117,8 +117,26 @@
           return 'btn-default';
         }
       };
-      return $scope.position = function(x, y) {
+      $scope.position = function(x, y) {
         return "subtitle-position-" + (x.toString()) + (y.toString());
+      };
+      return $scope.jumpEpisode = function(i) {
+        var currentIndex0, currentIndex1, dest;
+        currentIndex0 = $scope.tvonlineEpisodes.map(function(e) {
+          return e.val;
+        }).indexOf($scope.tvonlineEpisode.val);
+        dest = $scope.tvonlineEpisodes[currentIndex0 + i];
+        if (dest != null) {
+          $scope.tvonlineEpisode = dest;
+          $scope.showTVOnlineVideoProviders();
+        }
+        currentIndex1 = $scope.springfieldEpisodes.map(function(e) {
+          return e.val;
+        }).indexOf($scope.springfieldEpisode.val);
+        dest = $scope.springfieldEpisodes[currentIndex1 + i];
+        if (dest != null) {
+          return $scope.springfieldEpisode = dest;
+        }
       };
     })
   ]);

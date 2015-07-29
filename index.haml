@@ -137,13 +137,19 @@
                 %a.btn{'ng-click' => 'x = 1; y = 1', 'ng-class' => 'buttonColor(x, y, 1, 1)'} top
                 %a.btn{'ng-click' => 'x = 2; y = 1', 'ng-class' => 'buttonColor(x, y, 2, 1)'} top R
               .btn-group.btn-group-justified
-                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} but. L
-                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} buttom 
-                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} but. R
+                %a.btn{'ng-click' => 'x = 0; y = 0', 'ng-class' => 'buttonColor(x, y, 0, 0)'} bot. L
+                %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} bottom 
+                %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} bot. R
 
             %br
-            .btn.btn-info.btn-block{'ng-click' => 'saveScope()'}
-              Save Data
+            -# .btn-group.btn-group-justified
+            .btn-group
+              .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(-1)'}
+                %span.glyphicon.glyphicon-arrow-left
+              .btn.btn-info.save-button{'ng-click' => 'saveScope()'}
+                Save Data
+              .btn.btn-success.episode-nav{'ng-click' => 'jumpEpisode(1)'}
+                %span.glyphicon.glyphicon-arrow-right
 
       .video
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}

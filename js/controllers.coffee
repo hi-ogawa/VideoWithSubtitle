@@ -113,6 +113,7 @@ videosubApp.controller 'videosubCtrl', [
         $scope.videoProviders = items
         $scope.videoProvider  = items[0]
 
+    # put the video url into iframe
     $scope.showVideo = ->
       $scope.embedVideoUrl = $scope.videoProvider.val   
    
@@ -127,5 +128,20 @@ videosubApp.controller 'videosubCtrl', [
     # change the place for subtitle based on button press
     $scope.position = (x, y) ->
       "subtitle-position-#{x.toString()}#{y.toString()}"
+
+    # show previous/next episode
+    $scope.jumpEpisode = (i) ->
+      currentIndex0 = $scope.tvonlineEpisodes.map((e) -> e.val)
+                            .indexOf($scope.tvonlineEpisode.val)
+      dest0 = $scope.tvonlineEpisodes[currentIndex0 + i]
+      if dest0?
+        $scope.tvonlineEpisode = dest0
+        $scope.showTVOnlineVideoProviders()
+
+      currentIndex1 = $scope.springfieldEpisodes.map((e) -> e.val)
+                            .indexOf($scope.springfieldEpisode.val)
+      dest1 = $scope.springfieldEpisodes[currentIndex1 + i]
+      if dest1?
+        $scope.springfieldEpisode = dest1
 
 )]

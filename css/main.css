@@ -32,6 +32,8 @@ img.loading {
         max-height: 200px;
         width: 220px;
         overflow: scroll; }
+    .setting .panel .save-button {
+      width: 140px; }
 
 .video {
   width: 100%;
