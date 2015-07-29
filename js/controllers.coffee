@@ -18,6 +18,7 @@ videosubApp.controller 'videosubCtrl', [
         'springfieldEpisode'
         'tvonlineTitle'
         'tvonlineEpisode'
+        'tvonlineEpisodes' # too large data to put in cookies
         'videoProvider'
         'x'
         'y'
@@ -28,7 +29,7 @@ videosubApp.controller 'videosubCtrl', [
       if $cookies.get('existence')? and $cookies.get('existence')
         cookiesProps.forEach (p) ->
           console.log $cookies.get(p)
-          $scope[p] = JSON.parse($cookies.get(p))
+          $scope[p] = $cookies.getObject(p)
     loadScope()
    
     # save some models in $scope
@@ -37,8 +38,7 @@ videosubApp.controller 'videosubCtrl', [
       $cookies.put('existence', true)
       cookiesProps.forEach (p) ->
         console.log $scope[p]
-        console.log JSON.stringify($scope[p])
-        $cookies.put(p, JSON.stringify($scope[p]))
+        $cookies.putObject(p, $scope[p])
 
    
     # template urls
