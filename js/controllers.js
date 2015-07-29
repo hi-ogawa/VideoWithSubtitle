@@ -2,30 +2,28 @@
 (function() {
   var videosubApp;
 
-  videosubApp = angular.module('videosubApp', ['ngAnimate', 'ngSanitize', 'ngCookies', 'yqlService', 'parseService']);
+  videosubApp = angular.module('videosubApp', ['ngAnimate', 'ngSanitize', 'ngStorage', 'yqlService', 'parseService']);
 
   videosubApp.controller('videosubCtrl', [
-    '$scope', '$sce', '$cookies', 'getHTMLwithYQL', 'parsers', (function($scope, $sce, $cookies, getHTMLwithYQL, parsers) {
-      var cookiesProps, loadScope, url0, url1, url2, url3, url4;
+    '$scope', '$sce', '$localStorage', 'getHTMLwithYQL', 'parsers', (function($scope, $sce, $localStorage, getHTMLwithYQL, parsers) {
+      var storageProps, url0, url1, url2, url3, url4;
       $scope.on = true;
       $scope.x = 1;
       $scope.y = 0;
-      cookiesProps = ['titleQuery', 'springfieldTitle', 'springfieldEpisode', 'tvonlineTitle', 'tvonlineEpisode', 'tvonlineEpisodes', 'videoProvider', 'x', 'y'];
-      loadScope = function() {
-        if (($cookies.get('existence') != null) && $cookies.get('existence')) {
-          return cookiesProps.forEach(function(p) {
-            console.log($cookies.get(p));
-            return $scope[p] = $cookies.getObject(p);
+      $scope.$storage = $localStorage;
+      storageProps = ['titleQuery', 'tvonlineTitle', 'tvonlineEpisode', 'tvonlineEpisodes', 'videoProvider', 'videoProviders', 'springfieldTitle', 'springfieldEpisode', 'springfieldEpisodes', 'x', 'y'];
+      $scope.loadScope = function() {
+        if (($scope.$storage.existence != null) && $scope.$storage.existence) {
+          return storageProps.forEach(function(p) {
+            return $scope[p] = $scope.$storage[p];
           });
         }
       };
-      loadScope();
+      $scope.loadScope();
       $scope.saveScope = function() {
-        console.log('--save cookie--');
-        $cookies.put('existence', true);
-        return cookiesProps.forEach(function(p) {
-          console.log($scope[p]);
-          return $cookies.putObject(p, $scope[p]);
+        $scope.$storage.existence = true;
+        return storageProps.forEach(function(p) {
+          return $scope.$storage[p] = $scope[p];
         });
       };
       url0 = function(query) {

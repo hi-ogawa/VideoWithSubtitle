@@ -1,44 +1,46 @@
 videosubApp = angular.module 'videosubApp', [
-    'ngAnimate', 'ngSanitize', 'ngCookies', 'yqlService', 'parseService'
+    'ngAnimate', 'ngSanitize', 'ngStorage', 'yqlService', 'parseService'
 ]
 
 videosubApp.controller 'videosubCtrl', [
-   '$scope', '$sce', '$cookies', 'getHTMLwithYQL', 'parsers'
-  (($scope,   $sce,   $cookies,   getHTMLwithYQL,   parsers) ->
+   '$scope', '$sce', '$localStorage', 'getHTMLwithYQL', 'parsers'
+  (($scope,   $sce,   $localStorage,   getHTMLwithYQL,   parsers) ->
 
     # initial values
     $scope.on = true
     $scope.x = 1
     $scope.y = 0
-   
-    # properties (models in $scope) to save and load via cookies
-    cookiesProps = [
+
+    # initial setup for ngStorage
+    $scope.$storage = $localStorage
+
+    # properties (models in $scope) to save and load via local storage
+    storageProps = [
         'titleQuery'
-        'springfieldTitle'
-        'springfieldEpisode'
         'tvonlineTitle'
         'tvonlineEpisode'
-        'tvonlineEpisodes' # too large data to put in cookies
+        'tvonlineEpisodes'
         'videoProvider'
+        'videoProviders'
+        'springfieldTitle'
+        'springfieldEpisode'
+        'springfieldEpisodes'
         'x'
         'y'
     ]
 
     # loads some models from the last time $scope
-    loadScope = ->
-      if $cookies.get('existence')? and $cookies.get('existence')
-        cookiesProps.forEach (p) ->
-          console.log $cookies.get(p)
-          $scope[p] = $cookies.getObject(p)
-    loadScope()
-   
+    $scope.loadScope = ->
+      if $scope.$storage.existence? and $scope.$storage.existence
+        storageProps.forEach (p) ->
+          $scope[p] = $scope.$storage[p]
+    $scope.loadScope()
+
     # save some models in $scope
     $scope.saveScope = ->
-      console.log '--save cookie--'
-      $cookies.put('existence', true)
-      cookiesProps.forEach (p) ->
-        console.log $scope[p]
-        $cookies.putObject(p, $scope[p])
+      $scope.$storage.existence = true
+      storageProps.forEach (p) ->
+        $scope.$storage[p] = $scope[p]
 
    
     # template urls
