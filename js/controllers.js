@@ -128,7 +128,7 @@
       $scope.position = function(x, y) {
         return "subtitle-position-" + (x.toString()) + (y.toString());
       };
-      return $scope.jumpEpisode = function(i) {
+      $scope.jumpEpisode = function(i) {
         var currentIndex0, currentIndex1, dest0, dest1;
         currentIndex0 = $scope.tvonlineEpisodes.map(function(e) {
           return e.val;
@@ -145,6 +145,9 @@
         if (dest1 != null) {
           return $scope.springfieldEpisode = dest1;
         }
+      };
+      return $scope.extractEpisodeNumber = function(s) {
+        return s.match(/^(.*)\ \-/)[1];
       };
     })
   ]);

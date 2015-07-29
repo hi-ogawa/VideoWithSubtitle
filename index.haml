@@ -168,6 +168,7 @@
             %tbody
               %tr{'ng-repeat' => 'data in $storage.history'}
                 %td {{ data.springfieldTitle.name }}
+                %td {{ extractEpisodeNumber(data.springfieldEpisode.name) }}
                 %td.btn-group.btn-group-sm
                   %a.btn.btn-default{'ng-click' => 'loadData(data)'}
                     %span.glyphicon.glyphicon-open

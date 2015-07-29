@@ -155,4 +155,8 @@ videosubApp.controller 'videosubCtrl', [
       if dest1?
         $scope.springfieldEpisode = dest1
 
+    # parse episode number from episode name to present it in history row
+    $scope.extractEpisodeNumber = (s) ->
+      s.match(/^(.*)\ \-/)[1]
+
 )]
