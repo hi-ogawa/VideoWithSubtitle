@@ -141,6 +141,9 @@
                 %a.btn{'ng-click' => 'x = 1; y = 0', 'ng-class' => 'buttonColor(x, y, 1, 0)'} buttom 
                 %a.btn{'ng-click' => 'x = 2; y = 0', 'ng-class' => 'buttonColor(x, y, 2, 0)'} but. R
 
+            %br
+            .btn.btn-info.btn-block{'ng-click' => 'saveScope()'}
+              Save Data
 
       .video
         %iframe{'ng-src' => '{{ trustSrc(embedVideoUrl) }}'}

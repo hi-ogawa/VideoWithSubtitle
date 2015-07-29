@@ -10,7 +10,7 @@ img.loading {
   /* overflow: visible */ }
   .setting .panel {
     margin-top: 8px;
-    height: 550px;
+    height: 560px;
     /* overflow: visible */ }
     .setting .panel label, .setting .panel .div-label {
       margin-top: 7px; }
@@ -90,7 +90,7 @@ img.loading {
     transition: linear 0.1s all;
     overflow: hidden; }
     .setting .panel.ng-hide-add {
-      height: 550px;
+      height: 560px;
       opacity: 1; }
     .setting .panel.ng-hide-add-active {
       height: 0px;
@@ -99,6 +99,6 @@ img.loading {
       height: 0px;
       opacity: 0.3; }
     .setting .panel.ng-hide-remove-active {
-      height: 550px;
+      height: 560px;
       height: 400px;
       opacity: 1; }

@@ -10,21 +10,23 @@
       $scope.on = true;
       $scope.x = 1;
       $scope.y = 0;
-      cookiesProps = ['titleQuery', 'springfieldTitle', 'springfieldTitleSuggestions', 'springfieldEpisode', 'springfieldEpisodes'];
+      cookiesProps = ['titleQuery', 'springfieldTitle', 'springfieldEpisode', 'tvonlineTitle', 'tvonlineEpisode', 'videoProvider', 'x', 'y'];
       loadScope = function() {
         if (($cookies.get('existence') != null) && $cookies.get('existence')) {
           return cookiesProps.forEach(function(p) {
             console.log($cookies.get(p));
-            return $scope[p] = $cookies.get(p);
+            return $scope[p] = JSON.parse($cookies.get(p));
           });
         }
       };
+      loadScope();
       $scope.saveScope = function() {
         console.log('--save cookie--');
         $cookies.put('existence', true);
         return cookiesProps.forEach(function(p) {
           console.log($scope[p]);
-          return $cookies.put(p, $scope[p]);
+          console.log(JSON.stringify($scope[p]));
+          return $cookies.put(p, JSON.stringify($scope[p]));
         });
       };
       url0 = function(query) {

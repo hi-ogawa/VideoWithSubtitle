@@ -15,9 +15,12 @@ videosubApp.controller 'videosubCtrl', [
     cookiesProps = [
         'titleQuery'
         'springfieldTitle'
-        'springfieldTitleSuggestions'
         'springfieldEpisode'
-        'springfieldEpisodes'
+        'tvonlineTitle'
+        'tvonlineEpisode'
+        'videoProvider'
+        'x'
+        'y'
     ]
 
     # loads some models from the last time $scope
@@ -25,9 +28,8 @@ videosubApp.controller 'videosubCtrl', [
       if $cookies.get('existence')? and $cookies.get('existence')
         cookiesProps.forEach (p) ->
           console.log $cookies.get(p)
-          $scope[p] = $cookies.get(p)
-
-    # loadScope()
+          $scope[p] = JSON.parse($cookies.get(p))
+    loadScope()
    
     # save some models in $scope
     $scope.saveScope = ->
@@ -35,7 +37,8 @@ videosubApp.controller 'videosubCtrl', [
       $cookies.put('existence', true)
       cookiesProps.forEach (p) ->
         console.log $scope[p]
-        $cookies.put(p, $scope[p])
+        console.log JSON.stringify($scope[p])
+        $cookies.put(p, JSON.stringify($scope[p]))
 
    
     # template urls
