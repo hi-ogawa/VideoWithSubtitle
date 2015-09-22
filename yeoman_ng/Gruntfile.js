@@ -33,6 +33,10 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      jade: {
+        files: ['<%= yeoman.app %>/**/*.jade'],
+        tasks: "jade:compile"
+      },
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
@@ -57,12 +61,30 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/index.html',
+          '.tmp/**/*.html',
           '.tmp/styles/{,*/}*.css',
           '.tmp/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
+    },
+
+    jade: {
+	compile: {
+            options: {
+		data: {
+		    debug: false
+		}
+            },
+            files: [{
+		expand: true,
+		cwd: "<%= yeoman.app %>",
+		src: ['**/*.jade'],
+		dest: ".tmp/",
+		ext: '.html'
+	    }]
+	}
     },
 
     // The actual grunt server settings
@@ -375,8 +397,8 @@ module.exports = function (grunt) {
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
-        cwd: '<%= yeoman.app %>',
-        src: 'views/{,*/}*.html',
+        cwd: '.tmp',
+        src: ['**/*.html'],
         dest: '.tmp/templateCache.js'
       }
     },
@@ -439,6 +461,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'jade:compile',
         'coffee:dist',
         'compass:server'
       ],
@@ -447,6 +470,7 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
+        'jade:compile',
         'coffee',
         'compass:dist',
         'imagemin',
