@@ -1,0 +1,10 @@
+{
+  "firebase": "blistering-torch-2320",
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "**/bower_components/**"
+  ]
+}
