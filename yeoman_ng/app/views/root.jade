@@ -1,10 +1,10 @@
-.ui.container
+.ui.container.fluid
   .ui.menu.large.secondary.pointing.menu
-    .item.header Angular App
-    a.item Home
-    a.item About
-    a.item Contact
-    .right.item
+    .item.header TV Shows with Subtitles
+    a.item(ui-sref="search")    Search
+    a.item(ui-sref="savedData") Saved Data
+    a.item(ui-sref="watch")     Watch
+    .right.item#header-menu-right-buttons
       .ui.buttons
         .ui.labeled.icon.button.orange
           i.left.arrow.icon
@@ -19,11 +19,4 @@
           i.save.icon
           | Save
 &nbsp;
-.ui.container
-  div(ng-include="'views/main.html'", ng-controller='MainCtrl')
-
-.ui.divider
-
-.ui.container  
-  i.heart.icon
-  | from the Yeoman team
+div(ui-view="mainView")
