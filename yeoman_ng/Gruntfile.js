@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
@@ -109,7 +110,11 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              connect().use(
+                '/fixtures',
+                connect.static('./test/spec/fixtures')
+              ),
             ];
           }
         }
