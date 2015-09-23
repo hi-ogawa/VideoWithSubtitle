@@ -45,10 +45,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['newer:coffee:dist']
       },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:test', 'karma']
-      },
+      // coffeeTest: {
+      //   files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
+      //   tasks: ['newer:coffee:test', 'karma']
+      // },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer:server']
@@ -508,11 +508,11 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
-    'wiredep',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
+    // 'clean:server',
+    // 'wiredep',
+    // 'concurrent:test',
+    // 'autoprefixer',
+    // 'connect:test',
     'karma'
   ]);
 
