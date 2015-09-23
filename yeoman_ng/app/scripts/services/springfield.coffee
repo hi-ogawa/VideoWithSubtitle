@@ -2,6 +2,20 @@
 
   _baseUrl = "http://www.springfieldspringfield.co.uk"
 
+
+  # String -> [Title]
+  @search = (query) ->
+
+    Yql.getHTML "#{_baseUrl}/tv_show_episode_scripts.php?search=#{query}"
+    .then (JQhtml) ->
+
+      JQhtml.find('.script-list-item').map ->
+        name = $(this).text()
+        url  = _baseUrl + $(this).attr('href')
+        new Title name, url
+      .toArray()
+
+
   @Title =
   class Title   # String, String
     constructor: (@name,  @url) ->
@@ -34,18 +48,5 @@
         JQhtml.find("div.scrolling-script-container").html().split("<br>")
               .map((s) -> "<span> #{s.replace(/(\t|\n|\r)/gm, "").trim()} </span>")
               .join("<br>")
-
-
-  # String -> [Title]
-  @search = (query) ->
-
-    Yql.getHTML "#{_baseUrl}/tv_show_episode_scripts.php?search=#{query}"
-    .then (JQhtml) ->
-
-      JQhtml.find('.script-list-item').map ->
-        name = $(this).text()
-        url  = _baseUrl + $(this).attr('href')
-        new Title name, url
-      .toArray()
   @
 ]
