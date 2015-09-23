@@ -1,5 +1,5 @@
 {
-  "firebase": "blistering-torch-2320",
+  "firebase": "substreaming",
   "public": "dist",
   "ignore": [
     "firebase.json",

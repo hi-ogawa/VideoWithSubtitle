@@ -1,4 +1,9 @@
-#header-menu-right-buttons {
+#mine-header-menu-right-buttons {
     padding-top:    5px;
     padding-bottom: 5px;
+}
+
+.mine-scrollable {
+    max-height: 220px;
+    overflow-y: auto;
 }

@@ -1,62 +1,36 @@
-.ui.container.fulid
+.ui.button(ng-click="vm.debug()")
+  | debug
+
+.ui.container
+
   .ui.four.column.grid
-    .ui.column
-      .ui.icon.input
-        input(type='text', placeholder='Search titles...')
-        i.inverted.circular.search.link.icon
+
+    .column
+      .ui.container
+        label Search TV Show Titles:
+        .ui.icon.input
+          input(type='text', placeholder='Search titles...', ng-model='vm.query')
+          i.search.link.icon
       
-    .ui.column
-      .ui.selection.scrolling.dropdown
-        input(type="hidden", name="gender")
-        .default.text Select choice
-        i.dropdown.icon
-        .menu
-          .item Choice 1
-          .item Choice 2
-          .item Choice 3
-          .item Choice 4
-          .item Choice 5
-          .item Choice 6
-          .item Choice 7
-          .item Choice 8
-          .item Choice 9
-          .item Choice 10
-          .item Choice 11
-          .item Choice 12
-          .item Choice 13
-          .item Choice 14
-          .item Choice 15
+    .column
+      .ui.container
+        label Titles from TVOnline:
+        selectable-list(list='vm.SpringfieldFixtures.titles', selected-value='vm.value0')
 
-      .ui.selection.scrolling.dropdown
-        input(type="hidden", name="gender")
-        .default.text Select choice
-        i.dropdown.icon
-        .menu
-          .item Choice 1
+      .ui.container
+        label Titles from Springfield:
+        selectable-list(list='vm.TvonlineFixtures.titles', selected-value='vm.value1')
   
-    .ui.column
-      .ui.selection.scrolling.dropdown
-        input(type="hidden", name="gender")
-        .default.text Select choice
-        i.dropdown.icon
-        .menu
-          .item Choice 1
-          .item Choice 2
-          .item Choice 3
+    .column
+      .ui.container
+        label Episodes from TVOnline:
+        selectable-list(list='vm.TvonlineFixtures.episodes', selected-value='vm.value2')
 
-      .ui.selection.scrolling.dropdown
-        input(type="hidden", name="gender")
-        .default.text Select choice
-        i.dropdown.icon
-        .menu
-          .item Choice 1
+      .ui.container
+        label Episodes from Springfield:
+        selectable-list(list='vm.SpringfieldFixtures.episodes', selected-value='vm.value3')
   
-    .ui.column
-      .ui.selection.scrolling.dropdown
-        input(type="hidden", name="gender")
-        .default.text Select choice
-        i.dropdown.icon
-        .menu
-          .item Choice 1
-          .item Choice 2
-          .item Choice 3
+    .column
+      .ui.container
+        label Videos Providers:
+        selectable-list(list='vm.TvonlineFixtures.videos', selected-value='vm.value4')
