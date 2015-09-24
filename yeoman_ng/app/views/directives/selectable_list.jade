@@ -1,5 +1,5 @@
 .ui.vertical.menu.mine-scrollable
   a.item(ng-repeat="elem in vm.list",
-        ng-click="vm.selectedValue = elem",
-        ng-class="{'active': vm.selectedValue == elem}")
-    | {{ elem.name }}
+        ng-click="vm.selectedElem = elem",
+        ng-class="{'active': vm.selectedElem == elem}")
+    | {{ vm.elemDisplay(elem) }}

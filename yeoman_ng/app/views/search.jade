@@ -1,5 +1,5 @@
-.ui.button(ng-click="vm.debug()")
-  | debug
+-// .ui.button(ng-click="vm.debug()")
+-//   | debug
 
 .ui.container
 
@@ -15,22 +15,28 @@
     .column
       .ui.container
         label Titles from TVOnline:
-        selectable-list(list='vm.SpringfieldFixtures.titles', selected-value='vm.value0')
+        selectable-list(list='vm.TvonlineFixtures.titles',
+                        elem-display="vm.filter1",
+                        selected-value='vm.tvonlineTitle')
 
       .ui.container
         label Titles from Springfield:
-        selectable-list(list='vm.TvonlineFixtures.titles', selected-value='vm.value1')
+        selectable-list(list='vm.SpringfieldFixtures.titles',
+                        selected-value='vm.springfieldTitle')
   
     .column
       .ui.container
         label Episodes from TVOnline:
-        selectable-list(list='vm.TvonlineFixtures.episodes', selected-value='vm.value2')
+        selectable-list(list='vm.TvonlineFixtures.episodes',
+                        selected-value='vm.tvonlineEpisode')
 
       .ui.container
         label Episodes from Springfield:
-        selectable-list(list='vm.SpringfieldFixtures.episodes', selected-value='vm.value3')
+        selectable-list(list='vm.SpringfieldFixtures.episodes',
+                        selected-value='vm.springfieldEpisode')
   
     .column
       .ui.container
         label Videos Providers:
-        selectable-list(list='vm.TvonlineFixtures.videos', selected-value='vm.value4')
+        selectable-list(list='vm.TvonlineFixtures.videos',
+                        selected-value='vm.tvonlineVideo')
