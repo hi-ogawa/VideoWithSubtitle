@@ -1,9 +1,9 @@
 .ui.container.fluid
   .ui.menu.large.secondary.pointing.menu
     .item.header TV Shows with Subtitles
-    a.item(ui-sref="search")    Search
-    a.item(ui-sref="savedData") Saved Data
-    a.item(ui-sref="watch")     Watch
+    a.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
+    a.item(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
+    a.item(ui-sref="watch"     ng-class="{active: vm.$state.current.name == 'watch'}")     Watch
     .right.item#mine-header-menu-right-buttons
       .ui.buttons
         .ui.labeled.icon.button.orange

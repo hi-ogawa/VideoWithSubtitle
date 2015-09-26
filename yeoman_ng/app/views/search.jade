@@ -11,7 +11,7 @@
         .ui.icon.input
           input(type='text', placeholder='Search titles...', ng-model='vm.query')
           i.search.link.icon
-      
+
     .column
       .ui.container
         label Titles from TVOnline:
@@ -23,7 +23,7 @@
         label Titles from Springfield:
         selectable-list(list='vm.SpringfieldFixtures.titles',
                         selected-value='vm.springfieldTitle')
-  
+
     .column
       .ui.container
         label Episodes from TVOnline:
@@ -34,7 +34,7 @@
         label Episodes from Springfield:
         selectable-list(list='vm.SpringfieldFixtures.episodes',
                         selected-value='vm.springfieldEpisode')
-  
+
     .column
       .ui.container
         label Videos Providers:

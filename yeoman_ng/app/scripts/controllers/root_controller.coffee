@@ -1,9 +1,6 @@
-@app.controller 'RootController', ->
+@app.controller 'RootController', ($state) ->
   vm = @
 
-  vm.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-  ]
+  vm.$state = $state
+
   return
