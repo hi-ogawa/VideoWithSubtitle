@@ -15,28 +15,97 @@
     .column
       .ui.container
         label Titles from TVOnline:
+        .ui.left.pointing.label 10
         selectable-list(list='vm.TvonlineFixtures.titles',
                         elem-display="vm.filter1",
                         selected-value='vm.tvonlineTitle')
 
       .ui.container
         label Titles from Springfield:
+        .ui.left.pointing.label 10
         selectable-list(list='vm.SpringfieldFixtures.titles',
                         selected-value='vm.springfieldTitle')
 
     .column
       .ui.container
+        .ui.right.action.labeled.input.mini
+          .ui.label Season
+          .ui.compact.selection.dropdown
+            .text 1
+            i.dropdown.icon
+            .menu
+              .item 1
+              .item 2
+              .item 3
+        &nbsp
+        .ui.right.action.labeled.input.mini
+          .ui.label Episode
+          .ui.compact.selection.dropdown
+            .text 1
+            i.dropdown.icon
+            .menu
+              .item 1
+              .item 2
+              .item 3
+        br
         label Episodes from TVOnline:
-        selectable-list(list='vm.TvonlineFixtures.episodes',
-                        selected-value='vm.tvonlineEpisode')
+        .ui.left.pointing.label 10
+        div
+          .ui.vertical.menu.mine-scrollable
+            a.item(ng-repeat="elem in vm.TvonlineFixtures.episodes",
+                  ng-click="vm.tvonlineEpisode = elem",
+                  ng-class="{'active': vm.tvonlineEpisode == elem}")
+              | {{ elem.season + ":" + elem.episode + " - " + elem.name }}
+        -// selectable-list(list='vm.TvonlineFixtures.episodes',
+        -//                 selected-value='vm.tvonlineEpisode')
 
       .ui.container
+        .ui.right.action.labeled.input.mini
+          .ui.label Season
+          .ui.compact.selection.dropdown
+            .text 1
+            i.dropdown.icon
+            .menu
+              .item 1
+              .item 2
+              .item 3
+        &nbsp
+        .ui.right.action.labeled.input.mini
+          .ui.label Episode
+          .ui.compact.selection.dropdown
+            .text 1
+            i.dropdown.icon
+            .menu
+              .item 1
+              .item 2
+              .item 3
+        br
         label Episodes from Springfield:
+        .ui.left.pointing.label 10
         selectable-list(list='vm.SpringfieldFixtures.episodes',
                         selected-value='vm.springfieldEpisode')
 
     .column
       .ui.container
         label Videos Providers:
+        .ui.left.pointing.label 10
         selectable-list(list='vm.TvonlineFixtures.videos',
                         selected-value='vm.tvonlineVideo')
+
+      .ui.container
+        .ui.labeled.icon.yellow.button
+          i.save.icon
+          | Save
+        .ui.labeled.icon.blue.button
+          i.save.icon
+          | Watch
+        br
+        br
+        .ui.buttons
+          .ui.labeled.icon.button.orange
+            i.left.arrow.icon
+            | Previous
+          .or(data-text="")
+          .ui.right.labeled.icon.button.green
+            i.right.arrow.icon
+            | Next

@@ -3,8 +3,9 @@
     .item.header TV Shows with Subtitles
     a.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
     a.item(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
+      .ui.left.pointing.yellow.label 0
     a.item(ui-sref="watch"     ng-class="{active: vm.$state.current.name == 'watch'}")     Watch
-    .right.item#mine-header-menu-right-buttons
+    .right.item#mine-header-menu-right-buttons(style="display: none;")
       .ui.buttons
         .ui.labeled.icon.button.orange
           i.left.arrow.icon
