@@ -34,16 +34,18 @@
             .text 1
             i.dropdown.icon
             .menu
+              .item all
               .item 1
               .item 2
               .item 3
         &nbsp
         .ui.right.action.labeled.input.mini
           .ui.label Episode
-          .ui.compact.selection.dropdown
+          .ui.compact.selection.dropdown.disabled
             .text 1
             i.dropdown.icon
             .menu
+              .item all
               .item 1
               .item 2
               .item 3
@@ -97,15 +99,5 @@
           i.save.icon
           | Save
         .ui.labeled.icon.blue.button
-          i.save.icon
+          i.record.icon
           | Watch
-        br
-        br
-        .ui.buttons
-          .ui.labeled.icon.button.orange
-            i.left.arrow.icon
-            | Previous
-          .or(data-text="")
-          .ui.right.labeled.icon.button.green
-            i.right.arrow.icon
-            | Next

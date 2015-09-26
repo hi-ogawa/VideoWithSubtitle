@@ -5,7 +5,7 @@
     a.item(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
       .ui.left.pointing.yellow.label 0
     a.item(ui-sref="watch"     ng-class="{active: vm.$state.current.name == 'watch'}")     Watch
-    .right.item#mine-header-menu-right-buttons(style="display: none;")
+    .right.item#mine-header-menu-right-buttons
       .ui.buttons
         .ui.labeled.icon.button.orange
           i.left.arrow.icon
@@ -16,8 +16,8 @@
           | Next
       &nbsp;
       .ui.buttons
-        .ui.right.labeled.icon.button.blue
-          i.save.icon
-          | Save
+        .ui.right.labeled.icon.button.purple
+          i.share.icon
+          | Share
 &nbsp;
 div(ui-view="mainView")
