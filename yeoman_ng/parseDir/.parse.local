@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "substreaming"
+    },
+    "substreaming": {
+      "applicationId": "Fjc7mZbwxCZynGNuRLIC6GgKNqeOcsJlLCpqolYA"
+    }
+  }
+}
