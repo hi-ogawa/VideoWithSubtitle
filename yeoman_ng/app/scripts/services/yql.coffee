@@ -3,9 +3,9 @@
   @getHTML = (url) ->
     $q (resolve, reject) ->
 
-      yqlUrl = "http://query.yahooapis.com/v1/public/yql?q=" +
+      yqlUrl = "https://query.yahooapis.com/v1/public/yql?q=" +
                 encodeURIComponent("select * from html where url='#{url}'") +
-               "&format=xml&callback=?" 
+               "&format=xml&callback=?"
 
       $.ajax
         dataType: 'json'

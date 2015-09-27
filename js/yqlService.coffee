@@ -4,11 +4,11 @@ yqlService = angular.module 'yqlService', []
 yqlService.factory 'getHTMLwithYQL', ['$q', ($q) ->
 
   getHTMLwithYQL = (url) ->
-  
+
     deferred = $q.defer()
-    yql = "http://query.yahooapis.com/v1/public/yql?q=" +
+    yql = "https://query.yahooapis.com/v1/public/yql?q=" +
           encodeURIComponent("select * from html where url='#{url}'") +
-          "&format=xml&callback=?" 
+          "&format=xml&callback=?"
     $.ajax
       dataType: 'json'
       url: yql
