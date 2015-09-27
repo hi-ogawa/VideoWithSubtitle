@@ -2,8 +2,11 @@
 
   @titles           = []
   @titlesLoading    = false
+  @title            = null
   @seasons          = []
   @seasonsLoading   = false
+  @season           = null
+  @episode          = null
   @subtitles        = ""
   @subtitlesLoading = false
   @searchingQs      = []
@@ -20,5 +23,33 @@
           throw ""
 
     @searchingQs.push p
+
+  @getSeasons = (title) =>
+    if @seasonsLoading then return
+    @seasons = []
+    @season  = null
+    @title   = title
+    @seasonsLoading = true
+    title.getSeasons()
+    .then (seasons) =>
+      @seasonsLoading = false
+      @seasons = seasons
+      @season  = seasons[0]
+    .catch =>
+      @titlesLoading = false
+      throw ""
+
+  @getSubtitles = (episode) =>
+    if @subtitlesLoading then return
+    @episode = episode
+    @subtitles = ""
+    @subtitlesLoading = true
+    episode.getSubtitles()
+    .then (subtitles) =>
+      @subtitles = subtitles
+      @subtitlesLoading = false
+    .catch =>
+      @subtitlesLoading = false
+      throw ""
 
   @
