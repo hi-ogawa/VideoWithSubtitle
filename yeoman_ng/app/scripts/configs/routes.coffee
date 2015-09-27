@@ -1,5 +1,5 @@
 @app.config ($stateProvider, $urlRouterProvider) ->
-  
+
   $urlRouterProvider.otherwise "/search"
 
   $stateProvider
@@ -22,13 +22,13 @@
     url: "/savedData"
     views:
       mainView:
-        templateUrl: "views/main.html"
-        controller:  "MainController as vm"
+        templateUrl: "views/saved_data.html"
+        controller:  "SavedDataController as vm"
 
   .state "watch",
     parent: "root"
     url: "/watch"
     views:
       mainView:
-        templateUrl: "views/main.html"
-        controller:  "MainController as vm"
+        templateUrl: "views/watch.html"
+        controller:  "WatchController as vm"
