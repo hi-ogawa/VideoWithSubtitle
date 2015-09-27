@@ -19,25 +19,17 @@
 }
 
 #subtitles-wrap {
-
-    top: 50%;
     left: 50%;
-
+    transform: translateX(-50%);
+    bottom: 5%;
     position: absolute;
-    width:  444px;
-    height: 136px;
+    width:  35%;
+    height: 20vh;
     z-index: 1;
-    padding: 10px;
 
-    font-size: 17px;
     color: rgb(238, 127, 61);
     background-color: black;
     opacity: 0.7;
 
-    overflow-x: hidden;
     overflow-y: scroll;
-
-    #subtitles {
-    }
-
 }
