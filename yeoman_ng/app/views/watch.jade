@@ -1,5 +1,5 @@
 #video
-  iframe(src="http://embed.nowvideo.sx/embed.php?v=a42bb40c6ff8f")
+  iframe(ng-src="{{ vm.trustSrc(vm.TvonlineWrapper.video.url) }}")
 
 .ui.segment#subtitles-wrap
   .ui.centered.inline.loader.active(ng-show="!vm.SpringfieldWrapper.subtitles")
