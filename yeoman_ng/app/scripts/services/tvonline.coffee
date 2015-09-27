@@ -6,7 +6,7 @@
   # String -> [Title]
   @search = (query) ->
 
-    Yql.getHTML "#{_baseUrl}/search.php?key=#{query}"
+    Yql.getHTML "#{_baseUrl}/search.php?key=#{encodeURIComponent(query)}"
     .then (JQhtml) ->
 
       JQhtml.find('.found a').map ->

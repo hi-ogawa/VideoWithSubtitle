@@ -6,7 +6,7 @@
   # String -> [Title]
   @search = (query) ->
 
-    Yql.getHTML "#{_baseUrl}/tv_show_episode_scripts.php?search=#{query}"
+    Yql.getHTML "#{_baseUrl}/tv_show_episode_scripts.php?search=#{encodeURIComponent(query)}"
     .then (JQhtml) ->
 
       JQhtml.find('.script-list-item').map ->
