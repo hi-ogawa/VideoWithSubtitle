@@ -1,7 +1,6 @@
 #video
   iframe(src="http://embed.nowvideo.sx/embed.php?v=a42bb40c6ff8f")
-  -// iframe
 
-#subtitles-wrap
-  .ui.centered.inline.loader.active(ng-show="true")
-  #subtitles(ng-bind-html="vm.SpringfieldWrapper.subtitles", ng-show="false")
+.ui.segment#subtitles-wrap
+  .ui.centered.inline.loader.active(ng-show="!vm.SpringfieldWrapper.subtitles")
+  #subtitles(ng-bind-html="vm.SpringfieldWrapper.subtitles", ng-show="vm.SpringfieldWrapper.subtitles")

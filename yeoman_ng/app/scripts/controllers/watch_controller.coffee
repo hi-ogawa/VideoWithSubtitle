@@ -1,4 +1,4 @@
-@app.controller 'WatchController', (TvonlineWrapper, SpringfieldWrapper, $http) ->
+@app.controller 'WatchController', (TvonlineWrapper, SpringfieldWrapper, $http, $sce) ->
   vm = @
   vm.TvonlineWrapper = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
@@ -7,7 +7,7 @@
     vm.TvonlineWrapper.video = {name: "nowvideo", url: "http://embed.nowvideo.sx/embed.php?v=a42bb40c6ff8f"}
     $http.get '/fixtures/springfield_subtitles.json'
     .then (resp) =>
-      console.log vm.SpringfieldWrapper.subtitles = resp.data.data
+      vm.SpringfieldWrapper.subtitles = $sce.trustAsHtml resp.data.data
 
   do ->
     setFixtures()
