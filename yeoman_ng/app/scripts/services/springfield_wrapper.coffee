@@ -40,11 +40,11 @@
       throw ""
 
   @getSubtitles = (episode) =>
-    if @subtitlesLoading then return
+    unless episode then return
     @episode = episode
     @subtitles = ""
     @subtitlesLoading = true
-    episode.getSubtitles()
+    episode?.getSubtitles()
     .then (subtitles) =>
       @subtitles = subtitles
       @subtitlesLoading = false

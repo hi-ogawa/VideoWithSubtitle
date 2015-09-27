@@ -84,7 +84,7 @@
           .item(ng-if="vm.SpringfieldWrapper.seasonsLoading")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.SpringfieldWrapper.season.episodes",
-                ng-click="vm.SpringfieldWrapper.getSubtitles(e)",
+                ng-click="vm.SpringfieldWrapper.episode = e",
                 ng-class="{'active': vm.SpringfieldWrapper.episode == e}")
             | {{ e.episodeNumber + " - " + e.name }}
 
@@ -111,7 +111,7 @@
           | Watch
           .menu
             .item(ng-class="{disabled: !vm.SpringfieldWrapper.episode}",
-                 ng-click="")
+                 ng-click="vm.goToWatch('withSubs')")
               | with Subtitle
-            .item(ng-click="")
+            .item(ng-click="vm.goToWatch('withoutSubs')")
               | without Subtitle

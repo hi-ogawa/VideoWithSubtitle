@@ -27,7 +27,7 @@
 
   .state "watch",
     parent: "root"
-    url: "/watch"
+    url: "/watch/:way"
     views:
       mainView:
         templateUrl: "views/watch.html"

@@ -1,7 +1,6 @@
-@app.controller 'SearchController', (TvonlineWrapper, SpringfieldWrapper, TvonlineFixtures, SpringfieldFixtures) ->
+@app.controller 'SearchController', (TvonlineWrapper, SpringfieldWrapper, $state, TvonlineFixtures, SpringfieldFixtures) ->
   vm = @
 
-  # model declaration for better readability
   vm.TvonlineWrapper    = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
 
@@ -13,6 +12,9 @@
   vm.titlesScrollTop = ->
     $("#tvonline-titles .mine-scrollable").scrollTop 0
     $("#springfield-titles .mine-scrollable").scrollTop 0
+
+  vm.goToWatch = (way) ->
+    $state.go 'watch', {way: way}
 
   setFixtures = ->
     vm.query               = "modern"
