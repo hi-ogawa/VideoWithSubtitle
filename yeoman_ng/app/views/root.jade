@@ -1,5 +1,5 @@
 .ui.container.fluid
-  .ui.menu.large.secondary.pointing.menu
+  .ui.large.secondary.pointing.menu
     .item.header TV Shows with Subtitles
     a.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
     -// a.item.disabled(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
@@ -20,5 +20,5 @@
         .ui.right.labeled.icon.button.purple.disabled
           i.share.icon
           | Share
-&nbsp;
+
 div(ui-view="mainView")

@@ -8,6 +8,36 @@
     overflow-y: auto;
 }
 
-.disabled-menu {
+#video {
+    z-index: 0;
+    iframe {
+        width: 100%;
+        height: calc(100vh - 49px);
+        overflow: hidden;
+        border: 0px;
+    }
+}
+
+#subtitles-wrap {
+
+    top: 50%;
+    left: 50%;
+
+    position: absolute;
+    width:  444px;
+    height: 136px;
+    z-index: 1;
+    padding: 10px;
+
+    font-size: 17px;
+    color: rgb(238, 127, 61);
+    background-color: black;
+    opacity: 0.7;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    #subtitles {
+    }
 
 }
