@@ -20,25 +20,41 @@
   class Title   # String, String
     constructor: (@name,  @url) ->
 
-    # -> [Episode]
-    getEpisodes: ->
+    # -> [Season]
+    getSeasons: ->
 
       Yql.getHTML @url
       .then (JQhtml) ->
 
+        quadruples =
         JQhtml.find('.Season ul a').map ->
           href    = $(this).attr('href')
-          name    = $(this).text().match(/\-\ (.*)$/)[1]
-          url     = _baseUrl + href
-          season  = parseInt href.match(/season-([^\-]*)-/)[1]
-          episode = parseInt href.match(/episode-(.*)\/$/)[1]
-          new Episode name, url, season, episode
+          {
+            name         : $(this).text().match(/\-\ (.*)$/)[1]
+            url          : _baseUrl + href
+            seasonNumber : parseInt href.match(/season-([^\-]*)-/)[1]
+            episodeNumber: parseInt href.match(/episode-(.*)\/$/)[1]
+          }
         .toArray()
+
+        _(quadruples)
+        .groupBy (q) -> q.seasonNumber
+        .pairs()
+        .map (seasonNumber_episodes) ->
+          new Season seasonNumber_episodes[0]
+                    , _.map seasonNumber_episodes[1], (q) ->
+                        new Episode q.name, q.url, q.episodeNumber
+        .value()
+
+
+  @Season =
+  class Season  # Number,        [Episode]
+    constructor: (@seasonNumber, @episodes) ->
 
 
   @Episode =
-  class Episode # String, String, Number,  Number
-    constructor: (@name,  @url,   @season, @episode) ->
+  class Episode # String, String, Number
+    constructor: (@name,  @url,   @episodeNumber) ->
 
     # -> [Video]
     getVideos: ->
@@ -50,7 +66,7 @@
           name = $(this).text()
           url  = $(this).attr('onclick').match(/'(.*)'/)[1]
           new Video name, url
-        .toArray()        
+        .toArray()
 
 
   @Video =

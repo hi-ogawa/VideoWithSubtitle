@@ -9,9 +9,8 @@ describe "Tvonline", ->
 
     @exampleEpisode = new @Tvonline.Episode "Strangers on a Treadmill"
                                           , "http://tvonline.tw/modern-family-2009/season-2-episode-4/"
-                                          , 2
                                           , 4
-   
+
     @exampleVideo   = new @Tvonline.Video "videoweed"
                                         , "http://embed.videoweed.es/embed.php?v=278b5f277a994"
 
@@ -20,7 +19,7 @@ describe "Tvonline", ->
 
 
   describe "#search", ->
-    
+
     it "", (done) ->
 
       @Tvonline.search "modern"
@@ -32,12 +31,12 @@ describe "Tvonline", ->
 
   describe "#Title", ->
 
-    it "#getEpisodes", (done) ->
+    it "#getSeasons", (done) ->
 
-      @exampleTitle.getEpisodes()
-      .then (episodes) =>
+      @exampleTitle.getSeasons()
+      .then (seasons) =>
         # console.log JSON.stringify episodes, null, 2
-        expect(episodes).toContain @exampleEpisode
+        expect(seasons[1].episodes).toContain @exampleEpisode
         done()
 
 

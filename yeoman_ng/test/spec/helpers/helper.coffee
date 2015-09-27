@@ -68,3 +68,5 @@ beforeEach inject ($httpBackend, $compile, $rootScope, $controller, $location, $
 # response time would vary depending on network quality
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
+# http://stackoverflow.com/questions/23676459/karma-jasmine-pretty-printing-object-comparison
+jasmine.pp = (obj) -> JSON.stringify obj, null, 2

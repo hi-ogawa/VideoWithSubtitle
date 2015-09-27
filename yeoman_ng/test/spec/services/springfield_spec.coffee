@@ -10,7 +10,6 @@ describe "Springfield", ->
     @exampleEpisode =  new @Springfield.Episode "Pilot"
                                               , "http://www.springfieldspringfield.co.uk/view_episode_scripts.php?tv-show=modern-family&episode=s01e01"
                                               , 1
-                                              , 1
 
   afterEach -> @clearDigestLoop()
 
@@ -28,12 +27,12 @@ describe "Springfield", ->
 
   describe "#Title", ->
 
-    it "#getEpisodes", (done) ->
+    it "#getSeasons", (done) ->
 
-      @exampleTitle.getEpisodes()
-      .then (episodes) =>
-        # console.log JSON.stringify episodes, null, 2
-        expect(episodes).toContain @exampleEpisode
+      @exampleTitle.getSeasons()
+      .then (seasons) =>
+        # console.log JSON.stringify seasons, null, 2
+        expect(seasons[0].episodes).toContain @exampleEpisode
         done()
 
 
