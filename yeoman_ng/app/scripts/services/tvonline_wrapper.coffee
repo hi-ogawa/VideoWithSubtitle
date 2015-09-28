@@ -44,8 +44,8 @@
         .catch         => throw ""
         .then (videos) =>
           if @episode is episode
-          @videosTracker.cancel()
-          @videos = videos
+            @videosTracker.cancel()
+            @videos = videos
     @videosTracker.addPromise p
 
   @
