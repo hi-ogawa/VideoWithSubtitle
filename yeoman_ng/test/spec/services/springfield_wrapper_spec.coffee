@@ -12,6 +12,8 @@ describe "SpringfieldWrapper", ->
 
       @SpringfieldWrapper.search "modern family"
       @SpringfieldWrapper.search "game of thrones"
+      @SpringfieldWrapper.search "24"
+      @SpringfieldWrapper.search "vampire"
       @SpringfieldWrapper.search "person of interest"
 
       setTimeout =>

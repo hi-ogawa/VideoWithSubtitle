@@ -1,55 +1,50 @@
-@app.service 'SpringfieldWrapper', (Springfield) ->
+@app.service 'SpringfieldWrapper', (Springfield, promiseTracker) ->
 
+  @lastQuery        = null
   @titles           = []
-  @titlesLoading    = false
+  @titlesTracker    = promiseTracker()
   @title            = null
+
   @seasons          = []
-  @seasonsLoading   = false
+  @seasonsTracker   = promiseTracker()
   @season           = null
+
   @episode          = null
   @subtitles        = ""
-  @subtitlesLoading = false
-  @searchingQs      = []
+  @subtitlesTracker = promiseTracker()
 
   @search = (query) =>
-    @titlesLoading = true
+    @lastQuery = query
     p = Springfield.search query
+        .catch         => throw ""
         .then (titles) =>
-          if _.last(@searchingQs) is p
-            @titlesLoading = false
+          if @lastQuery is query
+            @titlesTracker.cancel()
             @titles = titles
-        .catch =>
-          @titlesLoading = false
-          throw ""
-
-    @searchingQs.push p
+    @titlesTracker.addPromise p
 
   @getSeasons = (title) =>
-    if @seasonsLoading then return
+    @title   = title
     @seasons = []
     @season  = null
-    @title   = title
-    @seasonsLoading = true
-    title.getSeasons()
-    .then (seasons) =>
-      @seasonsLoading = false
-      @seasons = seasons
-      @season  = seasons[0]
-    .catch =>
-      @titlesLoading = false
-      throw ""
+    p = title.getSeasons()
+        .catch          => throw ""
+        .then (seasons) =>
+          if @title is title
+            @seasonsTracker.cancel()
+            @seasons = seasons
+            @season  = seasons[0]
+    @seasonsTracker.addPromise p
 
   @getSubtitles = (episode) =>
-    unless episode then return
     @episode = episode
     @subtitles = ""
-    @subtitlesLoading = true
-    episode?.getSubtitles()
-    .then (subtitles) =>
-      @subtitles = subtitles
-      @subtitlesLoading = false
-    .catch =>
-      @subtitlesLoading = false
-      throw ""
+    p = episode.getSubtitles()
+        .catch            => throw ""
+        .then (subtitles) =>
+          if @episode is episode
+            @subtitlesTracker.cancel()
+            @subtitles = subtitles
+    @subtitlesTracker.addPromise p
 
   @

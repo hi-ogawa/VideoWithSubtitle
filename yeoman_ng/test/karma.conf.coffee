@@ -27,6 +27,7 @@ module.exports = (config) ->
       'bower_components/angularfire/dist/angularfire.js'
       'bower_components/lodash/lodash.js'
       'bower_components/semantic/dist/semantic.js'
+      'bower_components/promise-tracker/promise-tracker.js'
       'bower_components/angular-mocks/angular-mocks.js'
       # endbower
       # bower:coffee

@@ -1,56 +1,51 @@
-@app.service "TvonlineWrapper", (Tvonline) ->
+@app.service "TvonlineWrapper", (Tvonline, promiseTracker) ->
 
+  @lastQuery        = null
   @titles           = []
-  @titlesLoading    = false
+  @titlesTracker    = promiseTracker()
   @title            = null
+
   @seasons          = []
-  @seasonsLoading   = false
+  @seasonsTracker   = promiseTracker()
   @season           = null
+
   @episode          = null
   @videos           = []
-  @videosLoading    = false
+  @videosTracker    = promiseTracker()
   @video            = null
-  @searchingQs      = []
 
   @search = (query) =>
-    @titlesLoading = true
+    @lastQuery = query
     p = Tvonline.search query
+        .catch         => throw ""
         .then (titles) =>
-          if _.last(@searchingQs) is p
-            @titlesLoading = false
+          if @lastQuery is query
+            @titlesTracker.cancel()
             @titles = titles
-        .catch =>
-          @titlesLoading = false
-          throw ""
-
-    @searchingQs.push p
+    @titlesTracker.addPromise p
 
   @getSeasons = (title) =>
-    if @seasonsLoading then return
+    @title   = title
     @seasons = []
     @season  = null
-    @title   = title
-    @seasonsLoading = true
-    title.getSeasons()
-    .then (seasons) =>
-      @seasonsLoading = false
-      @seasons = seasons
-      @season  = seasons[0]
-    .catch =>
-      @titlesLoading = false
-      throw ""
+    p = title.getSeasons()
+        .catch          => throw ""
+        .then (seasons) =>
+          @seasonsTracker.cancel()
+          @seasons = seasons
+          @season  = seasons[0]
+    @seasonsTracker.addPromise p
 
   @getVideos = (episode) =>
-    if @videosLoading then return
+    @episode = episode
     @videos  = []
     @video   = null
-    @episode = episode
-    @videosLoading = true
-    episode.getVideos()
-    .then (videos) =>
-      @videos = videos
-      @videosLoading = false
-    .catch =>
-      @videosLoading = false
-      throw ""
+    p = episode.getVideos()
+        .catch         => throw ""
+        .then (videos) =>
+          if @episode is episode
+          @videosTracker.cancel()
+          @videos = videos
+    @videosTracker.addPromise p
+
   @
