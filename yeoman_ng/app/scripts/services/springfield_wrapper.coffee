@@ -36,15 +36,13 @@
             @season  = seasons[0]
     @seasonsTracker.addPromise p
 
-  @getSubtitles = (episode) =>
-    @episode = episode
+  @getSubtitles = =>
     @subtitles = ""
-    p = episode.getSubtitles()
+    p = @episode.getSubtitles()
         .catch            => throw ""
         .then (subtitles) =>
-          if @episode is episode
-            @subtitlesTracker.cancel()
-            @subtitles = subtitles
+          @subtitlesTracker.cancel()
+          @subtitles = subtitles
     @subtitlesTracker.addPromise p
 
   @

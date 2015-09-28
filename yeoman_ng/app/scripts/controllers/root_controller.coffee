@@ -1,6 +1,8 @@
-@app.controller 'RootController', ($state) ->
+@app.controller 'RootController', ($state, TvonlineWrapper, SpringfieldWrapper) ->
   vm = @
 
-  vm.$state = $state
+  vm.$state             = $state
+  vm.TvonlineWrapper    = TvonlineWrapper
+  vm.SpringfieldWrapper = SpringfieldWrapper
 
   return

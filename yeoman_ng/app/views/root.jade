@@ -1,13 +1,20 @@
 .ui.container.fluid
-  .ui.large.secondary.pointing.menu
-    .item.header TV Shows with Subtitles
-    a.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
-    -// a.item.disabled(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
-    .item.disabled(ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
+  .ui.menu
+    .header.item TV Shows with Subtitles
+    .link.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
+    .ui.item(ui-sref="savedData" ng-class="{disabled: true, active: vm.$state.current.name == 'savedData'}") Saved Data
       .ui.left.pointing.yellow.label 0
-    a.item(ui-sref="watch"     ng-class="{active: vm.$state.current.name == 'watch'}")     Watch
+    .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, active: vm.$state.current.name == 'watch'}")
+      | Watch
+      i.dropdown.icon
+      .menu
+        .ui.button.item(ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
+          | with Subtitles
+        .item(ui-sref="watch")
+          | without Subtitles
+
     .right.item#mine-header-menu-right-buttons
-      .ui.buttons
+      .ui.small.buttons
         .ui.labeled.icon.button.orange.disabled
           i.left.arrow.icon
           | Previous
@@ -16,7 +23,7 @@
           i.right.arrow.icon
           | Next
       | &nbsp;
-      .ui.buttons
+      .ui.small.buttons
         .ui.right.labeled.icon.button.purple.disabled
           i.share.icon
           | Share

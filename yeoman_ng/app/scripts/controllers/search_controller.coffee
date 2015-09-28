@@ -13,9 +13,6 @@
     $("#tvonline-titles .mine-scrollable").scrollTop 0
     $("#springfield-titles .mine-scrollable").scrollTop 0
 
-  vm.goToWatch = (way) ->
-    $state.go 'watch', {way: way}
-
   setFixtures = ->
     vm.query               = "modern"
     vm.TvonlineFixtures    = TvonlineFixtures

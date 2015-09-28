@@ -1,4 +1,4 @@
-@app.controller 'WatchController', (TvonlineWrapper, SpringfieldWrapper, $stateParams, $sce, $http) ->
+@app.controller 'WatchController', (TvonlineWrapper, SpringfieldWrapper, $sce, $http) ->
   vm = @
 
   vm.TvonlineWrapper    = TvonlineWrapper
@@ -14,11 +14,7 @@
 
   do ->
     # setFixtures()
-    switch $stateParams.way
-      when "withSubs"
-        vm.subtitlesMode = true
-        vm.SpringfieldWrapper.getSubtitles vm.SpringfieldWrapper.episode
-      when "withoutSubs"
-        vm.subtitlesMode = false
+    if vm.SpringfieldWrapper.episode
+      vm.SpringfieldWrapper.getSubtitles()
 
   return

@@ -84,7 +84,7 @@
           .item(ng-if="vm.SpringfieldWrapper.seasonsTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.SpringfieldWrapper.season.episodes",
-                ng-click="vm.SpringfieldWrapper.getSubtitles(e)",
+                ng-click="vm.SpringfieldWrapper.episode = e",
                 ng-class="{'active': vm.SpringfieldWrapper.episode == e}")
             | {{ e.episodeNumber + " - " + e.name }}
 
@@ -110,8 +110,7 @@
           i.record.icon
           | Watch
           .menu
-            .item(ng-class="{disabled: !vm.SpringfieldWrapper.episode}",
-                 ng-click="vm.goToWatch('withSubs')")
+            .ui.item(ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
               | with Subtitle
-            .item(ng-click="vm.goToWatch('withoutSubs')")
+            .item(ui-sref="watch")
               | without Subtitle
