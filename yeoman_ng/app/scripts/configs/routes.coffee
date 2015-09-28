@@ -27,8 +27,19 @@
 
   .state "watch",
     parent: "root"
-    url: "/watch/:way"
+    url: "/watch"
     views:
       mainView:
         templateUrl: "views/watch.html"
         controller:  "WatchController as vm"
+    resolve:
+      redirectToSearch: (TvonlineWrapper, SpringfieldWrapper, $state, $q) ->
+        unless TvonlineWrapper.video
+          $q.reject "video is not set"
+
+
+@app.run ($rootScope, $state) ->
+
+  $rootScope.$on "$stateChangeError", (e, toState, toParams, fromState, fromParams, err) ->
+    if err is "video is not set"
+      $state.go "search"
