@@ -20,16 +20,17 @@
         .ui.vertical.menu.mine-scrollable
           .item(ng-if="vm.TvonlineWrapper.titlesTracker.active()")
             .ui.centered.inline.mini.loader.active
-          a.item(ng-repeat="t in vm.TvonlineWrapper.titles",
+          a.item(ng-repeat="t in vm.TvonlineWrapper.titles | orderBy:'name' ",
                 ng-click="vm.TvonlineWrapper.getSeasons(t)",
                 ng-class="{'active': vm.TvonlineWrapper.title.name == t.name}")
             | {{ t.name }}
 
       .ui.container#springfield-titles
-        .ui.toggle.checkbox
-          input(type="checkbox" ng-model="vm.syncTitle")
-          label Sync with above
-        br
+        .ui.compact.segment
+          .ui.toggle.checkbox
+            input(type="checkbox" ng-model="vm.syncTitle")
+            label Sync
+              i.resize.vertical.icon
         label Titles from Springfield:
         .ui.left.pointing.label
           | {{ vm.SpringfieldWrapper.titles.length }}
@@ -68,10 +69,11 @@
             | {{ e.episodeNumber + " - " + e.name }}
 
       .ui.container
-        .ui.container
+        .ui.compact.segment
           .ui.toggle.checkbox
             input(type="checkbox" ng-model="vm.syncEpisode")
-            label Sync with above
+            label Sync
+              i.resize.vertical.icon
         label Episodes from Springfield:
         br
         .ui.right.action.labeled.input.mini
