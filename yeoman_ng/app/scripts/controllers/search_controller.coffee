@@ -4,6 +4,9 @@
   vm.TvonlineWrapper    = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
 
+  vm.syncTitle   = true
+  vm.syncEpisode = true
+
   vm.search = (query) ->
     vm.titlesScrollTop()
     vm.TvonlineWrapper.search query

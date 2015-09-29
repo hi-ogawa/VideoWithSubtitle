@@ -26,6 +26,10 @@
             | {{ t.name }}
 
       .ui.container#springfield-titles
+        .ui.toggle.checkbox
+          input(type="checkbox" ng-model="vm.syncTitle")
+          label Sync with above
+        br
         label Titles from Springfield:
         .ui.left.pointing.label
           | {{ vm.SpringfieldWrapper.titles.length }}
@@ -64,6 +68,10 @@
             | {{ e.episodeNumber + " - " + e.name }}
 
       .ui.container
+        .ui.container
+          .ui.toggle.checkbox
+            input(type="checkbox" ng-model="vm.syncEpisode")
+            label Sync with above
         label Episodes from Springfield:
         br
         .ui.right.action.labeled.input.mini
