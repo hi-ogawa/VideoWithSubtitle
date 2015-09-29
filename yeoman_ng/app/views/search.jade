@@ -22,7 +22,8 @@
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="t in vm.TvonlineWrapper.titles | orderBy:'name' ",
                 ng-click="vm.TvonlineWrapper.getSeasons(t); vm.syncTitleTV2SP(t)",
-                ng-class="{'active': vm.TvonlineWrapper.title.name == t.name}")
+                ng-class="{'active': vm.TvonlineWrapper.title.name == t.name}"
+                on-repeat-finished="vm.scrollToActiveEntry()")
             | {{ t.name }}
 
       .ui.container#springfield-titles
