@@ -21,7 +21,7 @@
           .item(ng-if="vm.TvonlineWrapper.titlesTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="t in vm.TvonlineWrapper.titles | orderBy:'name' ",
-                ng-click="vm.TvonlineWrapper.getSeasons(t)",
+                ng-click="vm.TvonlineWrapper.getSeasons(t); vm.syncTitleTV2SP(t)",
                 ng-class="{'active': vm.TvonlineWrapper.title.name == t.name}")
             | {{ t.name }}
 
@@ -38,7 +38,7 @@
           .item(ng-if="vm.SpringfieldWrapper.titlesTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="t in vm.SpringfieldWrapper.titles",
-                ng-click="vm.SpringfieldWrapper.getSeasons(t)",
+                ng-click="vm.SpringfieldWrapper.getSeasons(t); vm.syncTitleSP2TV(t)",
                 ng-class="{'active': vm.SpringfieldWrapper.title.name == t.name}")
             | {{ t.name }}
 
@@ -56,7 +56,7 @@
             i.dropdown.icon
             .menu
               .item(ng-repeat="s in vm.TvonlineWrapper.seasons",
-                   ng-click="vm.TvonlineWrapper.season = s")
+                   ng-click="vm.TvonlineWrapper.season = s; vm.syncSeasonTV2SP(s)")
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.TvonlineWrapper.season")
           | {{ vm.TvonlineWrapper.season.episodes.length }}
@@ -64,7 +64,7 @@
           .item(ng-if="vm.TvonlineWrapper.seasonsTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.TvonlineWrapper.season.episodes",
-                ng-click="vm.TvonlineWrapper.getVideos(e)",
+                ng-click="vm.TvonlineWrapper.getVideos(e); vm.syncEpisodeTV2SP(e)",
                 ng-class="{'active': vm.TvonlineWrapper.episode == e}")
             | {{ e.episodeNumber + " - " + e.name }}
 
@@ -86,7 +86,7 @@
             i.dropdown.icon
             .menu
               .item(ng-repeat="s in vm.SpringfieldWrapper.seasons",
-                   ng-click="vm.SpringfieldWrapper.season = s")
+                   ng-click="vm.SpringfieldWrapper.season = s; vm.syncSeasonSP2TV(s)")
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.SpringfieldWrapper.season")
           | {{ vm.SpringfieldWrapper.season.episodes.length }}
@@ -94,7 +94,7 @@
           .item(ng-if="vm.SpringfieldWrapper.seasonsTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.SpringfieldWrapper.season.episodes",
-                ng-click="vm.SpringfieldWrapper.episode = e",
+                ng-click="vm.SpringfieldWrapper.episode = e; vm.syncEpisodeSP2TV(e)",
                 ng-class="{'active': vm.SpringfieldWrapper.episode == e}")
             | {{ e.episodeNumber + " - " + e.name }}
 

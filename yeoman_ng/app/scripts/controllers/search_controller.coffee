@@ -2,7 +2,7 @@
   vm = @
 
 
-  # in-view functions
+  ## in-view functions ##
 
   vm.TvonlineWrapper    = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
@@ -20,7 +20,37 @@
     $("#springfield-titles .mine-scrollable").scrollTop 0
 
 
-  # only-in-controller functions
+  vm.syncTitleTV2SP = (t) ->
+    fuse = new Fuse vm.SpringfieldWrapper.titles, {
+                      keys: ["name"]
+                      getFn: (t) -> removeYear(t.name)
+                    }
+    vm.SpringfieldWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
+
+  vm.syncTitleSP2TV = (t) ->
+    fuse = new Fuse vm.TvonlineWrapper.titles, {
+                      keys: ["name"]
+                      getFn: (t) -> removeYear(t.name)
+                    }
+    vm.TvonlineWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
+
+  vm.syncSeasonTV2SP = (s) ->
+    vm.SpringfieldWrapper.season =
+      _.find vm.SpringfieldWrapper.seasons, (s_) -> s.seasonNumber is s_.seasonNumber
+
+  vm.syncSeasonSP2TV = (s) ->
+    vm.TvonlineWrapper.season =
+      _.find vm.TvonlineWrapper.seasons, (s_) -> s.seasonNumber is s_.seasonNumber
+
+  vm.syncEpisodeTV2SP = (e) ->
+    vm.SpringfieldWrapper.episode =
+      _.find vm.SpringfieldWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
+
+  vm.syncEpisodeSP2TV = (e) ->
+    vm.TvonlineWrapper.getVideos _.find vm.TvonlineWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
+
+
+  ## only-in-controller functions ##
 
   setFixtures = ->
     vm.query               = "modern"
@@ -31,54 +61,11 @@
     $('.ui.dropdown').dropdown
        on: 'hover'
 
-  watchForSyncing = ->
-    removeYear = (name) -> name.replace /\(.*\)/, ""
-
-    $scope.$watch (-> vm.TvonlineWrapper.title), (t, oldT) ->
-      return if t is oldT
-      if t and vm.syncTitle
-        fuse = new Fuse vm.SpringfieldWrapper.titles, {
-                          keys: ["name"]
-                          getFn: (t) -> removeYear(t.name)
-                        }
-        vm.SpringfieldWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
-
-    $scope.$watch (-> vm.SpringfieldWrapper.title), (t, oldT) ->
-      return if t is oldT
-      if t and vm.syncTitle
-        fuse = new Fuse vm.TvonlineWrapper.titles, {
-                          keys: ["name"]
-                          getFn: (t) -> removeYear(t.name)
-                        }
-        vm.TvonlineWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
-
-    $scope.$watch (-> vm.TvonlineWrapper.season), (tvS, oldTvS) ->
-      return if tvS is oldTvS
-      if tvS and vm.syncEpisode
-        vm.SpringfieldWrapper.season =
-          _.find vm.SpringfieldWrapper.seasons, (spS) -> spS.seasonNumber is tvS.seasonNumber
-
-    $scope.$watch (-> vm.SpringfieldWrapper.season), (spS, oldSpS) ->
-      return if spS is oldSpS
-      if spS and vm.syncEpisode
-        vm.TvonlineWrapper.season =
-          _.find vm.TvonlineWrapper.seasons, (tvS) -> spS.seasonNumber is tvS.seasonNumber
-
-    $scope.$watch (-> vm.TvonlineWrapper.episode), (tvE, oldTvE) ->
-      return if tvE is oldTvE
-      if tvE and vm.syncEpisode
-        vm.SpringfieldWrapper.episode =
-          _.find vm.SpringfieldWrapper.season.episodes, (spE) -> spE.episodeNumber is tvE.episodeNumber
-
-    $scope.$watch (-> vm.SpringfieldWrapper.episode), (spE, oldSpE) ->
-      return if spE is oldSpE
-      if spE and vm.syncEpisode
-        vm.TvonlineWrapper.getVideos _.find vm.TvonlineWrapper.season.episodes, (tvE) -> spE.episodeNumber is tvE.episodeNumber
+  removeYear = (name) -> name.replace /\(.*\)/, ""
 
 
   do ->
     # setFixtures()
     initDropdown()
-    watchForSyncing()
 
   return
