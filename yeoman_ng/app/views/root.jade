@@ -1,16 +1,16 @@
 .ui.container.fluid
   .ui.menu
     .header.item TV Shows with Subtitles
-    .link.item(ui-sref="search"    ng-class="{active: vm.$state.current.name == 'search'}")    Search
-    .ui.item(ui-sref="savedData" ng-class="{disabled: true, active: vm.$state.current.name == 'savedData'}") Saved Data
+    .ui.link.item(ui-sref="search" ng-class="{active: vm.$state.current.name == 'search'}") Search
+    .ui.link.item(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
       .ui.left.pointing.yellow.label 0
-    .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, active: vm.$state.current.name == 'watch'}")
+    .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.$state.current.name == 'watch'}")
       | Watch
       i.dropdown.icon
       .menu
-        .ui.button.item(ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
+        .ui.button.item(ng-click="vm.Globals.subtitlesMode = true" ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
           | with Subtitles
-        .item(ui-sref="watch")
+        .item(ng-click="vm.Globals.subtitlesMode = false" ui-sref="watch")
           | without Subtitles
 
     .right.item#mine-header-menu-right-buttons

@@ -1,4 +1,4 @@
-@app.controller 'SearchController', (TvonlineWrapper, SpringfieldWrapper, $state, $scope, $timeout, TvonlineFixtures, SpringfieldFixtures) ->
+@app.controller 'SearchController', (Globals, TvonlineWrapper, SpringfieldWrapper, $state, $scope, $timeout, TvonlineFixtures, SpringfieldFixtures) ->
   vm = @
 
 
@@ -6,6 +6,7 @@
 
   vm.TvonlineWrapper    = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
+  vm.Globals            = Globals
 
   vm.syncTitle   = true
   vm.syncEpisode = true
@@ -62,8 +63,7 @@
 
   vm.syncEpisodeTV2SP = (e) ->
     return unless vm.syncEpisode
-    vm.SpringfieldWrapper.episode =
-      _.find vm.SpringfieldWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
+    vm.SpringfieldWrapper.getSubtitles _.find vm.SpringfieldWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
     $timeout ->
       vm.scrollToActiveEntry(vm.springfieldEpisodesSelector)
 
@@ -81,16 +81,10 @@
     vm.TvonlineFixtures    = TvonlineFixtures
     vm.SpringfieldFixtures = SpringfieldFixtures
 
-  initDropdown = ->
-    $('.ui.dropdown').dropdown
-       on: 'hover'
-
   removeYear = (name) -> name.replace /\(.*\)/, ""
-
 
   do ->
     # setFixtures()
-    initDropdown()
-    # vm.scrollToActiveEntry()
+    vm.Globals.initDropdown()
 
   return

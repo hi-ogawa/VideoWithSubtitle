@@ -10,7 +10,7 @@
   @season           = null
 
   @episode          = null
-  @subtitles        = ""
+  @subtitles        = null
   @subtitlesTracker = promiseTracker()
 
   @search = (query) =>
@@ -38,13 +38,15 @@
             @season  = seasons[0]
     @seasonsTracker.addPromise p
 
-  @getSubtitles = =>
-    @subtitles = ""
-    p = @episode.getSubtitles()
+  @getSubtitles = (episode) =>
+    @episode   = episode
+    @subtitles = null
+    p = episode.getSubtitles()
         .catch            => throw ""
         .then (subtitles) =>
-          @subtitlesTracker.cancel()
-          @subtitles = subtitles
+          if @episode is episode
+            @subtitlesTracker.cancel()
+            @subtitles = subtitles
     @subtitlesTracker.addPromise p
 
   @

@@ -1,3 +1,11 @@
+/* NOTE: copy the style of `.ui.menu .active.item ` since semantic-ui built-in `.active` prevents dropdown from working */
+.mine-active {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: rgba(0, 0, 0, 0.95)      !important;
+    font-weight: normal             !important;
+    box-shadow: none                !important;
+}
+
 #mine-header-menu-right-buttons {
     padding-top:    5px;
     padding-bottom: 5px;
