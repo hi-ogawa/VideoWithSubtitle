@@ -13,20 +13,20 @@
               i.search.link.icon
 
     .column
-      .ui.container#tvonline-titles
+      .ui.container
         label Titles from TVOnline:
         .ui.left.pointing.label
           | {{ vm.TvonlineWrapper.titles.length }}
-        .ui.vertical.menu.mine-scrollable
+        .ui.vertical.menu.mine-scrollable#tvonline-titles
           .item(ng-if="vm.TvonlineWrapper.titlesTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="t in vm.TvonlineWrapper.titles | orderBy:'name' ",
                 ng-click="vm.TvonlineWrapper.getSeasons(t); vm.syncTitleTV2SP(t)",
                 ng-class="{'active': vm.TvonlineWrapper.title.name == t.name}"
-                on-repeat-finished="vm.scrollToActiveEntry()")
+                on-repeat-finished="vm.scrollToActiveEntry(vm.tvonlineTitlesSelector)")
             | {{ t.name }}
 
-      .ui.container#springfield-titles
+      .ui.container
         .ui.compact.segment
           .ui.toggle.checkbox
             input(type="checkbox" ng-model="vm.syncTitle")
@@ -35,12 +35,13 @@
         label Titles from Springfield:
         .ui.left.pointing.label
           | {{ vm.SpringfieldWrapper.titles.length }}
-        .ui.vertical.menu.mine-scrollable
+        .ui.vertical.menu.mine-scrollable#springfield-titles
           .item(ng-if="vm.SpringfieldWrapper.titlesTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="t in vm.SpringfieldWrapper.titles",
                 ng-click="vm.SpringfieldWrapper.getSeasons(t); vm.syncTitleSP2TV(t)",
-                ng-class="{'active': vm.SpringfieldWrapper.title.name == t.name}")
+                ng-class="{'active': vm.SpringfieldWrapper.title.name == t.name}",
+                on-repeat-finished="vm.scrollToActiveEntry(vm.springfieldTitlesSelector)")
             | {{ t.name }}
 
     .column
@@ -61,12 +62,13 @@
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.TvonlineWrapper.season")
           | {{ vm.TvonlineWrapper.season.episodes.length }}
-        .ui.vertical.menu.mine-scrollable
+        .ui.vertical.menu.mine-scrollable#tvonline-episodes
           .item(ng-if="vm.TvonlineWrapper.seasonsTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.TvonlineWrapper.season.episodes",
                 ng-click="vm.TvonlineWrapper.getVideos(e); vm.syncEpisodeTV2SP(e)",
-                ng-class="{'active': vm.TvonlineWrapper.episode == e}")
+                ng-class="{'active': vm.TvonlineWrapper.episode == e}",
+                on-repeat-finished="vm.scrollToActiveEntry(vm.tvonlineEpisodesSelector)")
             | {{ e.episodeNumber + " - " + e.name }}
 
       .ui.container
@@ -91,12 +93,13 @@
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.SpringfieldWrapper.season")
           | {{ vm.SpringfieldWrapper.season.episodes.length }}
-        .ui.vertical.menu.mine-scrollable
+        .ui.vertical.menu.mine-scrollable#springfield-episodes
           .item(ng-if="vm.SpringfieldWrapper.seasonsTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="e in vm.SpringfieldWrapper.season.episodes",
                 ng-click="vm.SpringfieldWrapper.episode = e; vm.syncEpisodeSP2TV(e)",
-                ng-class="{'active': vm.SpringfieldWrapper.episode == e}")
+                ng-class="{'active': vm.SpringfieldWrapper.episode == e}",
+                on-repeat-finished="vm.scrollToActiveEntry(vm.springfieldEpisodesSelector)")
             | {{ e.episodeNumber + " - " + e.name }}
 
     .column
@@ -104,12 +107,13 @@
         label Videos Providers:
         .ui.left.pointing.label(ng-if="vm.TvonlineWrapper.episode && !vm.TvonlineWrapper.videosTracker.active()")
           | {{ vm.TvonlineWrapper.videos.length }}
-        .ui.vertical.menu.mine-scrollable
+        .ui.vertical.menu.mine-scrollable#tvonline-videos
           .item(ng-if="vm.TvonlineWrapper.videosTracker.active()")
             .ui.centered.inline.mini.loader.active
           a.item(ng-repeat="v in vm.TvonlineWrapper.videos",
                 ng-click="vm.TvonlineWrapper.video = v",
-                ng-class="{'active': vm.TvonlineWrapper.video == v}")
+                ng-class="{'active': vm.TvonlineWrapper.video == v}",
+                on-repeat-finished="vm.scrollToActiveEntry(vm.tvonlineVideosSelector)")
             | {{ v.name }}
 
 
