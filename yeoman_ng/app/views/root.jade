@@ -2,7 +2,7 @@
   .ui.menu
     .header.item TV Shows with Subtitles
     .ui.link.item(ui-sref="search" ng-class="{active: vm.$state.current.name == 'search'}") Search
-    .ui.link.item(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
+    .item.disabled(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
       .ui.left.pointing.yellow.label 0
     .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.$state.current.name == 'watch'}")
       | Watch
@@ -14,6 +14,10 @@
           | without Subtitles
 
     .right.item#mine-header-menu-right-buttons
+      #subtitles-position-slider
+        rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
+                 rz-slider-floor="18",
+                 rz-slider-ceil="82")
       .ui.small.buttons
         .ui.labeled.icon.button.orange.disabled
           i.left.arrow.icon

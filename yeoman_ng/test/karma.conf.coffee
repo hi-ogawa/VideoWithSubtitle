@@ -29,6 +29,7 @@ module.exports = (config) ->
       'bower_components/semantic/dist/semantic.js'
       'bower_components/promise-tracker/promise-tracker.js'
       'bower_components/fuse.js/src/fuse.js'
+      'bower_components/angularjs-slider/dist/rzslider.js'
       'bower_components/angular-mocks/angular-mocks.js'
       # endbower
       # bower:coffee

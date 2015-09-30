@@ -5,4 +5,5 @@
       $('.ui.dropdown').dropdown
         on: 'hover'
       return
+    subtitlesCssLeft: 50
   }
