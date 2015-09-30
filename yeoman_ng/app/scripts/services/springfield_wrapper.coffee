@@ -24,9 +24,11 @@
     @titlesTracker.addPromise p
 
   @getSeasons = (title) =>
-    @title   = title
-    @seasons = []
-    @season  = null
+    @title     = title
+    @seasons   = []
+    @season    = null
+    @episode   = null
+    @subtitles = ""
     p = title.getSeasons()
         .catch          => throw ""
         .then (seasons) =>

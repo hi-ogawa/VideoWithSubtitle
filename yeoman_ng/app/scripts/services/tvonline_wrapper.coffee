@@ -28,6 +28,9 @@
     @title   = title
     @seasons = []
     @season  = null
+    @episode = null
+    @videos  = []
+    @video   = null
     p = title.getSeasons()
         .catch          => throw ""
         .then (seasons) =>
