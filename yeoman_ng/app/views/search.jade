@@ -46,8 +46,8 @@
 
     .column
       .ui.container
-        label Episodes from TVOnline:
-        br
+        label.ui.container Episodes from TVOnline:
+        .ui.container {{ vm.TvonlineWrapper.title.name }}
         .ui.right.action.labeled.input.mini
           .ui.label Season
           .ui.compact.selection.dropdown
@@ -77,8 +77,8 @@
             input(type="checkbox" ng-model="vm.syncEpisode")
             label Sync
               i.resize.vertical.icon
-        label Episodes from Springfield:
-        br
+        label.ui.container Episodes from Springfield:
+        .ui.container {{ vm.SpringfieldWrapper.title.name }}
         .ui.right.action.labeled.input.mini
           .ui.label Season
           .ui.compact.selection.dropdown
