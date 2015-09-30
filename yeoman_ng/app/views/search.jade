@@ -115,17 +115,3 @@
                 ng-class="{'active': vm.TvonlineWrapper.video == v}",
                 on-repeat-finished="vm.scrollToActiveEntry(vm.tvonlineVideosSelector)")
             | {{ v.name }}
-
-
-      .ui.container
-        .ui.labeled.icon.yellow.button.disabled
-          i.save.icon
-          | Save
-        .ui.pointing.dropdown.labeled.icon.blue.button(ng-class="{disabled: !vm.TvonlineWrapper.video}")
-          i.record.icon
-          | Watch
-          .menu
-            .ui.item(ng-click="vm.Globals.subtitlesMode = true" ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
-              | with Subtitle
-            .item(ng-click="vm.Globals.subtitlesMode = false" ui-sref="watch")
-              | without Subtitle

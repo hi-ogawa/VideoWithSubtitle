@@ -5,7 +5,7 @@
     .item.disabled(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
       .ui.left.pointing.yellow.label 0
     .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.$state.current.name == 'watch'}")
-      | Watch
+      span(ng-style="{color: vm.TvonlineWrapper.video ? 'blue' : 'black'}") Watch
       i.dropdown.icon
       .menu
         .ui.button.item(ng-click="vm.Globals.subtitlesMode = true" ui-sref="watch" ng-class="{disabled: !vm.SpringfieldWrapper.episode}")
@@ -14,22 +14,22 @@
           | without Subtitles
 
     .right.item#mine-header-menu-right-buttons
-      #subtitles-position-slider
+      #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode")
         rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
                  rz-slider-floor="18",
                  rz-slider-ceil="82")
       .ui.small.buttons
-        .ui.labeled.icon.button.orange.disabled
-          i.left.arrow.icon
-          | Previous
+        .ui.orange.icon.button.mine-popup.disabled(data-content="Previous Episode" data-position="bottom right")
+          i.left.arrow.icon(style="margin-right: 6px; margin-left: -3px;")
         .or(data-text="")
-        .ui.right.labeled.icon.button.green.disabled
-          i.right.arrow.icon
-          | Next
+        .ui.green.icon.button.mine-popup.disabled(data-content="Next Episode" data-position="bottom right")
+          i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
       | &nbsp;
-      .ui.small.buttons
-        .ui.right.labeled.icon.button.purple.disabled
-          i.share.icon
-          | Share
+      .ui.purple.icon.button.mine-popup.disabled(data-content="Share" data-position="bottom right")
+        i.share.alternate.icon
+      | &nbsp;
+      .ui.yellow.icon.button.mine-popup.disabled(data-content="Save" data-position="bottom right")
+        i.save.icon
+
 
 div(ui-view="mainView")

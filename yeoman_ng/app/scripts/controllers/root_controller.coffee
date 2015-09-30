@@ -8,5 +8,6 @@
 
   do ->
     vm.Globals.initDropdown()
+    vm.Globals.initPopup()
 
   return
