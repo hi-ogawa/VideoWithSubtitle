@@ -14,7 +14,7 @@
           | without Subtitles
 
     .right.item#mine-header-menu-right-buttons
-      #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode")
+      #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.$state.current.name == 'watch'")
         rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
                  rz-slider-floor="18",
                  rz-slider-ceil="82")
