@@ -13,6 +13,14 @@
         .item(ng-click="vm.Globals.subtitlesMode = false" ui-sref="watch")
           | without Subtitles
 
+    .ui.item(ng-show="vm.$state.current.name == 'watch'")
+      .ui.breadcrumb
+        .section {{ vm.TvonlineWrapper.title.name }}
+        i.right.angle.icon.divider
+        .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
+        i.right.angle.icon.divider
+        .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} ( {{ vm.TvonlineWrapper.episode.name }} )
+
     .right.item#mine-header-menu-right-buttons
       #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.$state.current.name == 'watch'")
         rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
