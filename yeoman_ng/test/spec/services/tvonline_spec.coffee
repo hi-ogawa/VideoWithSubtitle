@@ -49,3 +49,33 @@ describe "Tvonline", ->
         # console.log JSON.stringify videos, null, 2
         expect(videos).toContain @exampleVideo
         done()
+
+  describe "#convertVideoUrl", ->
+
+    it "", ->
+
+      examples = [
+        {
+          input:  "http://www.movshare.net/video/d97883416db5e"
+          output: "http://embed.movshare.net/embed.php?v=d97883416db5e"
+        }
+        {
+          input:  "http://www.nowvideo.sx/video/43ad0b148ea18"
+          output: "http://embed.nowvideo.sx/embed.php?v=43ad0b148ea18"
+        }
+        {
+          input:  "http://www.videoweed.es/file/5031f243de50e"
+          output: "http://embed.videoweed.es/embed.php?v=5031f243de50e"
+        }
+        {
+          input:  "http://www.thevideo.me/lvzxo0n1kh3z"
+          output: "http://thevideo.me/embed-lvzxo0n1kh3z.html"
+        }
+        {
+          input: "http://thevideo.me/tuuwzkn09qew"
+          output: "http://thevideo.me/embed-tuuwzkn09qew.html"
+        }
+      ]
+
+      _.each examples, (e) =>
+        expect(@Tvonline.convertVideoUrl e.input).toEqual e.output

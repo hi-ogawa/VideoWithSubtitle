@@ -72,6 +72,32 @@
   @Video =
   class Video   # String, String
     constructor: (@name, @url) ->
+      @url = convertVideoUrl @url
+
+  @convertVideoUrl =
+  convertVideoUrl = (url) ->
+    tmp = url
+    _.each _.values(_embedPatterns), (p) ->
+      r = new RegExp p.nonEmbedPattern
+      tmp = url.replace r, p.embedUrl if url.match r
+    return tmp
+
+  _embedPatterns =
+    movshare:
+      nonEmbedPattern: "http:\/\/www.movshare.net\/video\/(.*)"
+      embedUrl: (match, id) -> "http://embed.movshare.net/embed.php?v=#{id}"
+    nowvideo:
+      nonEmbedPattern: "http://www.nowvideo.sx/video/(.*)"
+      embedUrl: (match, id) -> "http://embed.nowvideo.sx/embed.php?v=#{id}"
+    videoweed:
+      nonEmbedPattern: "http://www.videoweed.es/file/(.*)"
+      embedUrl: (match, id) -> "http://embed.videoweed.es/embed.php?v=#{id}"
+    thevideo1:
+      nonEmbedPattern: "http://www.thevideo.me/(.*)"
+      embedUrl: (match, id) -> "http://thevideo.me/embed-#{id}.html"
+    thevideo2:
+      nonEmbedPattern: "http://thevideo.me/(.*)"
+      embedUrl: (match, id) -> "http://thevideo.me/embed-#{id}.html"
 
   # TODO: extend Video class and add check if url is available, like:
   # class Videoweed extends Video
