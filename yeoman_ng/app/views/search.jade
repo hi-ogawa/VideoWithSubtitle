@@ -58,7 +58,7 @@
             i.dropdown.icon
             .menu
               .item(ng-repeat="s in vm.TvonlineWrapper.seasons",
-                   ng-click="vm.TvonlineWrapper.episode = null; vm.TvonlineWrapper.season = s; vm.syncSeasonTV2SP(s)")
+                   ng-click="vm.TvonlineWrapper.clearSeason(); vm.TvonlineWrapper.season = s; vm.syncSeasonTV2SP(s)")
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.TvonlineWrapper.season")
           | {{ vm.TvonlineWrapper.season.episodes.length }}
@@ -89,7 +89,7 @@
             i.dropdown.icon
             .menu
               .item(ng-repeat="s in vm.SpringfieldWrapper.seasons",
-                   ng-click="vm.SpringfieldWrapper.episode = null; vm.SpringfieldWrapper.season = s; vm.syncSeasonSP2TV(s)")
+                   ng-click="vm.SpringfieldWrapper.clearSeason(); vm.SpringfieldWrapper.season = s; vm.syncSeasonSP2TV(s)")
                 | {{ s.seasonNumber }}
         .ui.left.pointing.label(ng-if="vm.SpringfieldWrapper.season")
           | {{ vm.SpringfieldWrapper.season.episodes.length }}

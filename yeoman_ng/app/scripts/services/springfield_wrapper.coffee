@@ -24,11 +24,8 @@
     @titlesTracker.addPromise p
 
   @getSeasons = (title) =>
-    @title     = title
-    @seasons   = []
-    @season    = null
-    @episode   = null
-    @subtitles = ""
+    @clearTitle()
+    @title = title
     p = title.getSeasons()
         .catch          => throw ""
         .then (seasons) =>
@@ -39,8 +36,8 @@
     @seasonsTracker.addPromise p
 
   @getSubtitles = (episode) =>
-    @episode   = episode
-    @subtitles = null
+    @clearEpisode()
+    @episode = episode
     p = episode.getSubtitles()
         .catch            => throw ""
         .then (subtitles) =>
@@ -48,5 +45,18 @@
             @subtitlesTracker.cancel()
             @subtitles = subtitles
     @subtitlesTracker.addPromise p
+
+  @clearTitle = =>
+    @title   = null
+    @seasons = []
+    @clearSeason()
+
+  @clearSeason = =>
+    @season = null
+    @clearEpisode()
+
+  @clearEpisode = =>
+    @episode = null
+    @subtitles = null
 
   @

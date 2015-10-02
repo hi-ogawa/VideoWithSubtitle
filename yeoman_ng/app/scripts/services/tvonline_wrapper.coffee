@@ -25,12 +25,8 @@
     @titlesTracker.addPromise p
 
   @getSeasons = (title) =>
-    @title   = title
-    @seasons = []
-    @season  = null
-    @episode = null
-    @videos  = []
-    @video   = null
+    @clearTitle()
+    @title = title
     p = title.getSeasons()
         .catch          => throw ""
         .then (seasons) =>
@@ -40,9 +36,8 @@
     @seasonsTracker.addPromise p
 
   @getVideos = (episode) =>
+    @clearEpisode()
     @episode = episode
-    @videos  = []
-    @video   = null
     p = episode.getVideos()
         .catch         => throw ""
         .then (videos) =>
@@ -50,5 +45,19 @@
             @videosTracker.cancel()
             @videos = videos
     @videosTracker.addPromise p
+
+  @clearTitle = =>
+    @title   = null
+    @seasons = []   # @title has many @seasons
+    @clearSeason()
+
+  @clearSeason = =>
+    @season = null
+    @clearEpisode()
+
+  @clearEpisode = =>
+    @episode = null
+    @videos  = []   # @episode has many @videos
+    @video   = null
 
   @
