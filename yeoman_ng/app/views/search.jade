@@ -60,7 +60,7 @@
             .text(ng-if="!vm.TvonlineWrapper.title.seasonsTracker.active()")
               | {{ vm.TvonlineWrapper.season.seasonNumber }}
             i.dropdown.icon
-            .menu
+            .menu.seasons-menu
               .item(ng-repeat="s in vm.TvonlineWrapper.title.seasons",
                    ng-click="vm.onClickTvonlinSeason(s)")
                 | {{ s.seasonNumber }}
@@ -95,7 +95,7 @@
             .text(ng-if="!vm.SpringfieldWrapper.title.seasonsTracker.active()")
               | {{ vm.SpringfieldWrapper.season.seasonNumber }}
             i.dropdown.icon
-            .menu
+            .menu.seasons-menu
               .item(ng-repeat="s in vm.SpringfieldWrapper.title.seasons",
                    ng-click="vm.onClickSpringfieldSeason(s)")
                 | {{ s.seasonNumber }}
