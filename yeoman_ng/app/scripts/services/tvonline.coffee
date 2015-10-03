@@ -48,7 +48,7 @@
             .groupBy (q) -> q.seasonNumber
             .pairs()
             .map (seasonNumber_episodes) ->
-              new Season seasonNumber_episodes[0]
+              new Season parseInt(seasonNumber_episodes[0])
                         , _.map seasonNumber_episodes[1], (q) ->
                             new Episode q.name, q.url, q.episodeNumber
             .value()
