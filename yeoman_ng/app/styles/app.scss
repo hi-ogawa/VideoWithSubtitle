@@ -29,8 +29,9 @@
     overflow-y: auto;
 }
 
-.seasons-menu {
+.seasons-menu, .videos-menu {
     max-height: 195px !important;
+    overflow-y: scroll;
 }
 
 .card {
@@ -44,6 +45,21 @@
 
     .card-title {
         font-size: medium !important;
+    }
+
+    .season-content, .episode-content {
+        /* padding-left: 22px     !important; */
+    }
+
+    .dropdown {
+        min-height: auto       !important;
+        width:          140px  !important;
+        padding-top:    5px    !important;
+        padding-bottom: 5px    !important;
+        .dropdown.icon {
+            padding-top:   11px  !important;
+            right:        -47px  !important;
+        }
     }
 
     .bottom.attached.buttons {

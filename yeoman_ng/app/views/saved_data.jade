@@ -10,11 +10,11 @@
         .ui.list
           .item
             i.right.angle.icon
-            .content
+            .content.season-content
               .description Season 6
           .item
             i.right.angle.icon
-            .content
+            .content.episode-content
               .description
                 | Episode 16:
                 br
@@ -22,7 +22,20 @@
           .item
             i.right.angle.icon
             .content
-              .description nowvideo
+              .description
+                .ui.compact.selection.dropdown
+                  .text providers
+                  i.right.dropdown.icon
+                  .menu.videos-menu
+                    .item nowvideo
+                    .item movshare
+                    .item nowvideo
+                    .item movshare
+                    .item nowvideo
+                    .item movshare
+                    .item nowvideo
+                    .item movshare
+                    .item nowvideo
       .ui.bottom.attached.buttons
         .ui.orange.icon.button
           i.left.arrow.icon
