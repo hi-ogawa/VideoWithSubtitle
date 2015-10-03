@@ -1,10 +1,10 @@
 .ui.container.fluid
   .ui.menu
     .header.item TV Shows with Subtitles
-    .ui.link.item(ui-sref="search" ng-class="{active: vm.$state.current.name == 'search'}") Search
-    .item.disabled(ui-sref="savedData" ng-class="{active: vm.$state.current.name == 'savedData'}") Saved Data
+    .ui.link.item(ui-sref="search" ng-class="{active: vm.currentStateIs('search')}") Search
+    .item.disabled(ui-sref="savedData" ng-class="{active: vm.currentStateIs('savedData')}") Saved Data
       .ui.left.pointing.yellow.label 0
-    .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.$state.current.name == 'watch'}")
+    .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.currentStateIs('watch')}")
       span(ng-style="{color: vm.TvonlineWrapper.video ? 'blue' : 'black'}") Watch
       i.dropdown.icon
       .menu
@@ -13,7 +13,7 @@
         .item(ng-click="vm.Globals.subtitlesMode = false" ui-sref="watch")
           | without Subtitles
 
-    .ui.item(ng-show="vm.$state.current.name == 'watch'")
+    .ui.item(ng-show="vm.currentStateIs('watch')")
       .ui.breadcrumb
         .section {{ vm.TvonlineWrapper.title.name }}
         i.right.angle.icon.divider
@@ -22,7 +22,7 @@
         .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} ( {{ vm.TvonlineWrapper.episode.name }} )
 
     .right.item#mine-header-menu-right-buttons
-      #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.$state.current.name == 'watch'")
+      #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.currentStateIs('watch')")
         rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
                  rz-slider-floor="18",
                  rz-slider-ceil="82")
