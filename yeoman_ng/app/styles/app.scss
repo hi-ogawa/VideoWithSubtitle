@@ -33,6 +33,31 @@
     max-height: 195px !important;
 }
 
+.card {
+    width: 200px !important;
+
+    .right.floated.icon {
+        margin-right: 0px;
+        color: grey;
+        &:hover {color: black;}
+    }
+
+    .card-title {
+        font-size: medium !important;
+    }
+
+    .bottom.attached.buttons {
+        .icon.button {
+            width: 10px !important; /* WTF? */
+            padding-left:  0px !important;
+            padding-right: 0px !important;
+            .right.arrow.icon {
+                margin: 0px !important;
+            }
+        }
+    }
+}
+
 
 #video {
     z-index: 0;
