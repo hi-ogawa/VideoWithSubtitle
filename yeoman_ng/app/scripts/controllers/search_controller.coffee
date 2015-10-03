@@ -17,11 +17,13 @@
   vm.springfieldTitlesSelector   = "#springfield-titles"
   vm.springfieldEpisodesSelector = "#springfield-episodes"
 
+
   vm.search = (query) ->
     $(vm.tvonlineTitlesSelector).scrollTop 0
     $(vm.springfieldTitlesSelector).scrollTop 0
     vm.TvonlineWrapper.search query
     vm.SpringfieldWrapper.search query
+
 
   vm.scrollToActiveEntry = (selector) ->
     unless _.isEmpty active = $(selector).find("a.active")
@@ -30,51 +32,67 @@
       , "slow"
     return
 
-  # syncing functions
-  vm.syncTitleTV2SP = (t) ->
-    return unless vm.syncTitle
-    fuse = new Fuse vm.SpringfieldWrapper.titles, {
-                      keys: ["name"]
-                      getFn: (t) -> removeYear(t.name)
-                    }
-    vm.SpringfieldWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
-    $timeout ->
-      vm.scrollToActiveEntry(vm.springfieldTitlesSelector)
 
-  vm.syncTitleSP2TV = (t) ->
-    return unless vm.syncTitle
-    fuse = new Fuse vm.TvonlineWrapper.titles, {
-                      keys: ["name"]
-                      getFn: (t) -> removeYear(t.name)
-                    }
-    vm.TvonlineWrapper.getSeasons(fuse.search(removeYear(t.name))[0])
-    $timeout ->
-      vm.scrollToActiveEntry(vm.tvonlineTitlesSelector)
+  vm.onClickTvonlinTitle = (tvT) ->
+    vm.TvonlineWrapper.setTitleInitSeasons tvT
+    if vm.syncTitle
+      spT = _getSimilarTitle vm.SpringfieldWrapper.titles, tvT
+      vm.SpringfieldWrapper.setTitleInitSeasons spT
+      $timeout -> vm.scrollToActiveEntry(vm.springfieldTitlesSelector)
 
-  vm.syncSeasonTV2SP = (s) ->
-    return unless vm.syncEpisode
-    vm.SpringfieldWrapper.season =
-      _.find vm.SpringfieldWrapper.seasons, (s_) -> s.seasonNumber is s_.seasonNumber
 
-  vm.syncSeasonSP2TV = (s) ->
-    return unless vm.syncEpisode
-    vm.TvonlineWrapper.season =
-      _.find vm.TvonlineWrapper.seasons, (s_) -> s.seasonNumber is s_.seasonNumber
+  vm.onClickSpringfieldTitle = (spT) ->
+    vm.SpringfieldWrapper.setTitleInitSeasons spT
+    if vm.syncTitle
+      tvT = _getSimilarTitle vm.TvonlineWrapper.titles, spT
+      vm.TvonlineWrapper.setTitleInitSeasons tvT
+      $timeout -> vm.scrollToActiveEntry(vm.tvonlineTitlesSelector)
 
-  vm.syncEpisodeTV2SP = (e) ->
-    return unless vm.syncEpisode
-    vm.SpringfieldWrapper.getSubtitles _.find vm.SpringfieldWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
-    $timeout ->
-      vm.scrollToActiveEntry(vm.springfieldEpisodesSelector)
 
-  vm.syncEpisodeSP2TV = (e) ->
-    return unless vm.syncEpisode
-    vm.TvonlineWrapper.getVideos _.find vm.TvonlineWrapper.season.episodes, (e_) -> e.episodeNumber is e_.episodeNumber
-    $timeout ->
-      vm.scrollToActiveEntry(vm.tvonlineEpisodesSelector)
+  vm.onClickTvonlinSeason = (s) ->
+    vm.TvonlineWrapper.season = s
+    if vm.syncEpisode
+      vm.SpringfieldWrapper.season = _getSameSeason vm.SpringfieldWrapper.title.seasons, s
+
+
+  vm.onClickSpringfieldSeason = (s) ->
+    vm.SpringfieldWrapper.season = s
+    if vm.syncEpisode
+      vm.TvonlineWrapper.season = _getSameSeason vm.TvonlineWrapper.title.seasons, s
+
+
+  vm.onClickTvonlinEpisode = (tvE) ->
+    vm.TvonlineWrapper.setEpisodeInitVideos tvE
+    if vm.syncEpisode
+      spE = _getSameEpisode vm.SpringfieldWrapper.season.episodes, tvE
+      vm.SpringfieldWrapper.setEpisodeInitSubtitles spE
+      $timeout -> vm.scrollToActiveEntry(vm.springfieldEpisodesSelector)
+
+  vm.onClickSpringfieldEpisode = (spE) ->
+    vm.SpringfieldWrapper.setEpisodeInitSubtitles spE
+    if vm.syncEpisode
+      tvE = _getSameEpisode vm.TvonlineWrapper.season.episodes, spE
+      vm.TvonlineWrapper.setEpisodeInitVideos tvE
+      $timeout -> vm.scrollToActiveEntry(vm.tvonlineEpisodesSelector)
 
 
   ## only-in-controller functions ##
+
+  # syncing functions
+  _getSimilarTitle = (ts, t) ->
+    fuse = new Fuse ts, {keys: ["name"], getFn: (t) -> removeYear(t.name)}
+    fuse.search(removeYear(t.name))[0]
+
+
+  _getSameSeason = (ss, s) ->
+    # TODO: error handle not-found case
+    _.find ss, (s_) -> s.seasonNumber is s_.seasonNumber
+
+
+  _getSameEpisode = (es, e) ->
+    # TODO: error handle not-found case
+    _.find es, (e_) -> e.episodeNumber is e_.episodeNumber
+
 
   setFixtures = ->
     vm.query               = "modern"

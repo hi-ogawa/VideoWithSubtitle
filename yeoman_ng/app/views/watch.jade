@@ -2,5 +2,5 @@
   iframe(ng-src="{{ vm.$sce.trustAsResourceUrl(vm.TvonlineWrapper.video.url) }}")
 
 .ui.segment#subtitles-wrap(ng-show="vm.Globals.subtitlesMode", ng-style="{left: vm.Globals.subtitlesCssLeft + '%'}")
-  .ui.centered.inline.loader.active(ng-show="vm.SpringfieldWrapper.subtitlesTracker.active()")
-  #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.subtitles)")
+  .ui.centered.inline.loader.active(ng-show="vm.SpringfieldWrapper.episode.subtitlesTracker.active()")
+  #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")
