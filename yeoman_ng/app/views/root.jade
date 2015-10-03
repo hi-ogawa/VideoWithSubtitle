@@ -20,6 +20,8 @@
         .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
         i.right.angle.icon.divider
         .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} ( {{ vm.TvonlineWrapper.episode.name }} )
+        i.right.angle.icon.divider(ng-show="vm.TvonlineWrapper.video")
+        .section {{ vm.TvonlineWrapper.video.name }}
 
     .right.item#mine-header-menu-right-buttons
       #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.currentStateIs('watch')")
@@ -27,10 +29,16 @@
                  rz-slider-floor="18",
                  rz-slider-ceil="82")
       .ui.small.buttons
-        .ui.orange.icon.button.mine-popup.disabled(data-content="Previous Episode" data-position="bottom right")
+        .ui.orange.icon.button.mine-popup(data-content="Previous Episode",
+                                      data-position="bottom right",
+                                      ng-class="{disabled: !vm.TvonlineWrapper.episode}",
+                                      ng-click="vm.goPrevious()")
           i.left.arrow.icon(style="margin-right: 6px; margin-left: -3px;")
         .or(data-text="")
-        .ui.green.icon.button.mine-popup.disabled(data-content="Next Episode" data-position="bottom right")
+        .ui.green.icon.button.mine-popup.disabled(data-content="Next Episode",
+                                             data-position="bottom right",
+                                             ng-class="{disabled: !vm.TvonlineWrapper.episode}",
+                                             ng-click="vm.goNext()")
           i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
       | &nbsp;
       .ui.purple.icon.button.mine-popup.disabled(data-content="Share" data-position="bottom right")
