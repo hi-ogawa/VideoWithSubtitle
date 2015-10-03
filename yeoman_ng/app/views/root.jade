@@ -1,7 +1,9 @@
 .ui.container.fluid
   .ui.menu
     .header.item TV Shows with Subtitles
-    .ui.link.item(ui-sref="search" ng-class="{active: vm.currentStateIs('search')}") Search
+    .ui.link.item(ui-sref="search" ng-class="{active: vm.currentStateIs('search')}")
+      | Search
+      i.search.icon(style="margin-left: 3px;")
     .item.disabled(ui-sref="savedData" ng-class="{active: vm.currentStateIs('savedData')}") Saved Data
       .ui.left.pointing.yellow.label 0
     .ui.dropdown.item(ng-class="{disabled: !vm.TvonlineWrapper.video, 'mine-active': vm.currentStateIs('watch')}")
@@ -20,8 +22,11 @@
         .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
         i.right.angle.icon.divider
         .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} ( {{ vm.TvonlineWrapper.episode.name }} )
-        i.right.angle.icon.divider(ng-show="vm.TvonlineWrapper.video")
-        .section {{ vm.TvonlineWrapper.video.name }}
+        i.right.angle.icon.divider
+        .section
+          span(ng-show="vm.TvonlineWrapper.episode.videosTracker.active()")
+            .ui.inline.mini.loader.active
+          span {{ vm.TvonlineWrapper.video.name }}
 
     .right.item#mine-header-menu-right-buttons
       #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.currentStateIs('watch')")
