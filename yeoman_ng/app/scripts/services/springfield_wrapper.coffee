@@ -3,15 +3,11 @@
   @lastQuery        = null
   @titles           = []
   @titlesTracker    = promiseTracker()
+
   @title            = null
-
-  @seasons          = []
-  @seasonsTracker   = promiseTracker()
   @season           = null
-
   @episode          = null
-  @subtitles        = null
-  @subtitlesTracker = promiseTracker()
+
 
   @search = (query) =>
     @lastQuery = query
@@ -23,40 +19,17 @@
             @titles = titles
     @titlesTracker.addPromise p
 
-  @getSeasons = (title) =>
-    @clearTitle()
-    @title = title
-    p = title.getSeasons()
-        .catch          => throw ""
-        .then (seasons) =>
-          if @title is title
-            @seasonsTracker.cancel()
-            @seasons = seasons
-            @season  = seasons[0]
-    @seasonsTracker.addPromise p
 
-  @getSubtitles = (episode) =>
-    @clearEpisode()
-    @episode = episode
-    p = episode.getSubtitles()
-        .catch            => throw ""
-        .then (subtitles) =>
-          if @episode is episode
-            @subtitlesTracker.cancel()
-            @subtitles = subtitles
-    @subtitlesTracker.addPromise p
-
-  @clearTitle = =>
-    @title   = null
-    @seasons = []
-    @clearSeason()
-
-  @clearSeason = =>
-    @season = null
-    @clearEpisode()
-
-  @clearEpisode = =>
+  @setTitleInitSeasons = (t) =>
+    @title   = t
     @episode = null
-    @subtitles = null
+    @title.fetchSeasons()
+    .then =>
+      @season = @title.seasons[0]
+
+
+  @setEpisodeInitSubtitles = (e) =>
+    @episode = e
+    @episode.fetchSubtitles()
 
   @

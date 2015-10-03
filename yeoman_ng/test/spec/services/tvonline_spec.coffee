@@ -25,7 +25,9 @@ describe "Tvonline", ->
       @Tvonline.search "modern"
       .then (titles) =>
         # console.log JSON.stringify titles, null, 2
-        expect(titles).toContain @exampleTitle
+        expect     omitTrackers titles
+        .toContain omitTracker  @exampleTitle
+
         done()
 
 
@@ -33,22 +35,53 @@ describe "Tvonline", ->
 
     it "#getSeasons", (done) ->
 
-      @exampleTitle.getSeasons()
-      .then (seasons) =>
-        # console.log JSON.stringify episodes, null, 2
-        expect(seasons[1].episodes).toContain @exampleEpisode
+      @exampleTitle.fetchSeasons()
+      .then =>
+        # console.log JSON.stringify @exampleTitle.seasons, null, 2
+        expect     omitTrackers @exampleTitle.seasons[1].episodes
+        .toContain omitTracker  @exampleEpisode
+
         done()
+
+
+    it "#getSeasons (several timing)", (done) ->
+
+      @exampleTitle.fetchSeasons()
+      .then =>
+        console.log "1"
+        expect     omitTrackers @exampleTitle.seasons[1].episodes
+        .toContain omitTracker  @exampleEpisode
+
+        # TODO: this should be false.
+        # I believe this miss behaviour is because of untriggered digest cycle of promiseTracker
+        expect @exampleTitle.seasonsTracker.active()
+        .toBe   true
+
+        @exampleTitle.fetchSeasons()
+        .then =>
+          expect     omitTrackers @exampleTitle.seasons[1].episodes
+          .toContain omitTracker  @exampleEpisode
+          done()
+
+      expect @exampleTitle.seasonsTracker.active()
+      .toBe   true
+
+      @exampleTitle.fetchSeasons()
+      .then =>
+        expect     omitTrackers @exampleTitle.seasons[1].episodes
+        .toContain omitTracker  @exampleEpisode
 
 
   describe "#Episode", ->
 
     it "#getVideos", (done) ->
 
-      @exampleEpisode.getVideos()
-      .then (videos) =>
-        # console.log JSON.stringify videos, null, 2
-        expect(videos).toContain @exampleVideo
+      @exampleEpisode.fetchVideos()
+      .then =>
+        # console.log JSON.stringify @exampleEpisode.videos, null, 2
+        expect(@exampleEpisode.videos).toContain @exampleVideo
         done()
+
 
   describe "#convertVideoUrl", ->
 

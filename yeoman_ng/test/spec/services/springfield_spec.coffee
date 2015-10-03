@@ -21,7 +21,8 @@ describe "Springfield", ->
       @Springfield.search "modern"
       .then (titles) =>
         # console.log JSON.stringify titles, null, 2
-        expect(titles).toContain @exampleTitle
+        expect     omitTrackers titles
+        .toContain omitTracker  @exampleTitle
         done()
 
 
@@ -29,10 +30,11 @@ describe "Springfield", ->
 
     it "#getSeasons", (done) ->
 
-      @exampleTitle.getSeasons()
+      @exampleTitle.fetchSeasons()
       .then (seasons) =>
         # console.log JSON.stringify seasons, null, 2
-        expect(seasons[0].episodes).toContain @exampleEpisode
+        expect     omitTrackers seasons[0].episodes
+        .toContain omitTracker  @exampleEpisode
         done()
 
 
@@ -40,7 +42,7 @@ describe "Springfield", ->
 
     it "#getSubtitles", (done) ->
 
-      @exampleEpisode.getSubtitles()
+      @exampleEpisode.fetchSubtitles()
       .then (subs) ->
         # console.log JSON.stringify subs, null, 2
         expect(subs).toMatch "Kids, breakfast!  Kids?"

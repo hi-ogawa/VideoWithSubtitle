@@ -1,4 +1,4 @@
-@app.service 'Tvonline', ['Yql', (Yql) ->
+@app.service 'Tvonline', (promiseTracker, Yql) ->
 
   _baseUrl = "http://tvonline.tw"
 
@@ -19,32 +19,41 @@
   @Title =
   class Title   # String, String
     constructor: (@name,  @url) ->
+      # [Season]
+      @seasons        = null
+      @seasonsTracker = promiseTracker()
+      @seasonsP       = null
 
-    # -> [Season]
-    getSeasons: ->
+      # promise of [Season]
+    fetchSeasons: ->
+      return @seasonsP if @seasonsP # throw real request only the first time
 
-      Yql.getHTML @url
-      .then (JQhtml) ->
+      @seasonsP =
+        Yql.getHTML @url
+        .then (JQhtml) =>
 
-        quadruples =
-        JQhtml.find('.Season ul a').map ->
-          href    = $(this).attr('href')
-          {
-            name         : $(this).text().match(/\-\ (.*)$/)[1]
-            url          : _baseUrl + href
-            seasonNumber : parseInt href.match(/season-([^\-]*)-/)[1]
-            episodeNumber: parseInt href.match(/episode-(.*)\/$/)[1]
-          }
-        .toArray()
+          quadruples =
+            JQhtml.find('.Season ul a').map ->
+              href    = $(this).attr('href')
+              {
+                name         : $(this).text().match(/\-\ (.*)$/)[1]
+                url          : _baseUrl + href
+                seasonNumber : parseInt href.match(/season-([^\-]*)-/)[1]
+                episodeNumber: parseInt href.match(/episode-(.*)\/$/)[1]
+              }
+            .toArray()
 
-        _(quadruples)
-        .groupBy (q) -> q.seasonNumber
-        .pairs()
-        .map (seasonNumber_episodes) ->
-          new Season seasonNumber_episodes[0]
-                    , _.map seasonNumber_episodes[1], (q) ->
-                        new Episode q.name, q.url, q.episodeNumber
-        .value()
+          @seasons =
+            _(quadruples)
+            .groupBy (q) -> q.seasonNumber
+            .pairs()
+            .map (seasonNumber_episodes) ->
+              new Season seasonNumber_episodes[0]
+                        , _.map seasonNumber_episodes[1], (q) ->
+                            new Episode q.name, q.url, q.episodeNumber
+            .value()
+      @seasonsTracker.addPromise @seasonsP
+      @seasonsP
 
 
   @Season =
@@ -55,24 +64,33 @@
   @Episode =
   class Episode # String, String, Number
     constructor: (@name,  @url,   @episodeNumber) ->
+      # [Video]
+      @videos        = null
+      @videosTracker = promiseTracker()
+      @videosP       = null
 
-    # -> [Video]
-    getVideos: ->
+    # -> promise of [Video]
+    fetchVideos: ->
+      return @videosP if @videosP
 
-      Yql.getHTML @url
-      .then (JQhtml) ->
-
-        JQhtml.find('#linkname_nav a').map ->
-          name = $(this).text()
-          url  = $(this).attr('onclick').match(/'(.*)'/)[1]
-          new Video name, url
-        .toArray()
+      @videosP =
+        Yql.getHTML @url
+        .then (JQhtml) =>
+          @videos =
+            JQhtml.find('#linkname_nav a').map ->
+              name = $(this).text()
+              url  = $(this).attr('onclick').match(/'(.*)'/)[1]
+              new Video name, url
+            .toArray()
+      @videosTracker.addPromise @videosP
+      @videosP
 
 
   @Video =
   class Video   # String, String
     constructor: (@name, @url) ->
       @url = convertVideoUrl @url
+
 
   @convertVideoUrl =
   convertVideoUrl = (url) ->
@@ -99,10 +117,4 @@
       nonEmbedPattern: "http://thevideo.me/(.*)"
       embedUrl: (match, id) -> "http://thevideo.me/embed-#{id}.html"
 
-  # TODO: extend Video class and add check if url is available, like:
-  # class Videoweed extends Video
-  #   # -> Boolean
-  #   isAvailabe: -> ...
-
   @
-]

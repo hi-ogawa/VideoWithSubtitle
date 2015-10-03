@@ -1,4 +1,4 @@
-@app.service 'Springfield', ['Yql', (Yql) ->
+@app.service 'Springfield', (promiseTracker, Yql) ->
 
   _baseUrl = "http://www.springfieldspringfield.co.uk"
 
@@ -19,32 +19,42 @@
   @Title =
   class Title   # String, String
     constructor: (@name,  @url) ->
+      # [Season]
+      @seasons        = null
+      @seasonsTracker = promiseTracker()
+      @seasonsP       = null
 
-    # -> [Season]
-    getSeasons: ->
+    # -> promise of [Season]
+    fetchSeasons: ->
+      return @seasonsP if @seasonsP # throw real request only the first time
 
-      Yql.getHTML @url
-      .then (JQhtml) =>
+      @seasonsP =
+        Yql.getHTML @url
+        .then (JQhtml) =>
 
-        quadruples =
-        JQhtml.find('.season-episode-title').map ->
-          href    = $(this).attr('href')
-          {
-            name         : $(this).text().match(/\-\ (.*)$/)[1]
-            url          : _baseUrl + "/" + href
-            seasonNumber : parseInt href.match(/\&episode\=s(\d*)/)[1]
-            episodeNumber: parseInt href.match(/\&episode\=s\d*e(\d*)/)[1]
-          }
-        .toArray()
+          quadruples =
+            JQhtml.find('.season-episode-title').map ->
+              href    = $(this).attr('href')
+              {
+                name         : $(this).text().match(/\-\ (.*)$/)[1]
+                url          : _baseUrl + "/" + href
+                seasonNumber : parseInt href.match(/\&episode\=s(\d*)/)[1]
+                episodeNumber: parseInt href.match(/\&episode\=s\d*e(\d*)/)[1]
+              }
+            .toArray()
 
-        _(quadruples)
-        .groupBy (q) -> q.seasonNumber
-        .pairs()
-        .map (seasonNumber_episodes) ->
-          new Season seasonNumber_episodes[0]
-                    , _.map seasonNumber_episodes[1], (q) ->
-                        new Episode q.name, q.url, q.episodeNumber
-        .value()
+          @seasons =
+            _(quadruples)
+            .groupBy (q) -> q.seasonNumber
+            .pairs()
+            .map (seasonNumber_episodes) ->
+              new Season seasonNumber_episodes[0]
+                        , _.map seasonNumber_episodes[1], (q) ->
+                            new Episode q.name, q.url, q.episodeNumber
+            .value()
+      @seasonsTracker.addPromise @seasonsP
+      @seasonsP
+
 
   @Season =
   class Season  # Number,         [Episode]
@@ -54,14 +64,23 @@
   @Episode =
   class Episode # String, String, Number
     constructor: (@name,  @url,   @episodeNumber) ->
+      @subtitles        = null
+      @subtitlesTracker = promiseTracker()
+      @subtitlesP       = null
 
-    # -> (Html) String
-    getSubtitles: ->
+    # -> promise of (Html) String
+    fetchSubtitles: ->
+      return @subtitlesP if @subtitlesP
 
-      Yql.getHTML @url
-      .then (JQhtml) ->
-        JQhtml.find("div.scrolling-script-container").html().split("<br>")
-              .map((s) -> "<span> #{s.replace(/(\t|\n|\r)/gm, "").trim()} </span>")
-              .join("<br>")
+      @subtitlesP =
+        Yql.getHTML @url
+        .then (JQhtml) =>
+
+          @subtitles =
+            JQhtml.find("div.scrolling-script-container").html().split("<br>")
+                  .map((s) -> "<span> #{s.replace(/(\t|\n|\r)/gm, "").trim()} </span>")
+                  .join("<br>")
+      @subtitlesTracker.addPromise @subtitlesP
+      @subtitlesP
+
   @
-]
