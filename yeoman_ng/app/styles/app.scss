@@ -19,6 +19,15 @@
     }
 }
 
+#breadcrumb-in-menu {
+    width: calc(100% - 747px) !important;
+    white-space: nowrap !important;
+    overflow-x: scroll !important;
+    &:before {
+        width: 0px !important;
+    }
+}
+
 #mine-header-menu-right-buttons {
     padding-top:    5px;
     padding-bottom: 5px;
