@@ -1,11 +1,3 @@
-/* NOTE: copy the style of `.ui.menu .active.item ` since semantic-ui built-in `.active` prevents dropdown from working */
-.mine-active {
-    background: rgba(0, 0, 0, 0.05) !important;
-    color: rgba(0, 0, 0, 0.95)      !important;
-    font-weight: normal             !important;
-    box-shadow: none                !important;
-}
-
 /* NOTE: overwrite angularjs-slider style */
 #subtitles-position-slider {
     width: 200px;
