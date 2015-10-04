@@ -103,6 +103,10 @@
 
   do ->
     # setFixtures()
-    vm.Globals.initDropdown()
+
+    # NOTE: when apeearing from ngDialog, semantic-ui dropdown needs to wait a sec.
+    $timeout ->
+      vm.Globals.initDropdown()
+    , 10
 
   return

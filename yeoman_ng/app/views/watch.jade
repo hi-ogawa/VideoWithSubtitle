@@ -1,6 +1,7 @@
-#video
+#video(ng-show="vm.TvonlineWrapper.video")
   iframe(ng-src="{{ vm.$sce.trustAsResourceUrl(vm.TvonlineWrapper.video.url) }}")
 
-.ui.segment#subtitles-wrap(ng-show="vm.Globals.subtitlesMode", ng-style="{left: vm.Globals.subtitlesCssLeft + '%'}")
+.ui.segment#subtitles-wrap(ng-show="vm.TvonlineWrapper.video && vm.Globals.subtitlesMode && (vm.SpringfieldWrapper.episode.subtitles || vm.SpringfieldWrapper.episode.subtitlesTracker.active())",
+                        ng-style="{left: vm.Globals.subtitlesCssLeft + '%'}")
   .ui.centered.inline.loader.active(ng-show="vm.SpringfieldWrapper.episode.subtitlesTracker.active()")
   #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")

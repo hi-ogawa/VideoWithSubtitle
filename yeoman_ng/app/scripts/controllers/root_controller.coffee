@@ -1,9 +1,11 @@
-@app.controller 'RootController', (ngDialog, $state, Globals, TvonlineWrapper, SpringfieldWrapper) ->
+@app.controller 'RootController', (ngDialog, SearchDialog, $state, Globals, TvonlineWrapper, SpringfieldWrapper) ->
   vm = @
 
   vm.$state             = $state
   vm.TvonlineWrapper    = TvonlineWrapper
   vm.SpringfieldWrapper = SpringfieldWrapper
+  vm.ngDialog           = ngDialog
+  vm.SearchDialog       = SearchDialog
   vm.Globals            = Globals
 
 
@@ -11,19 +13,12 @@
     vm.$state.current.name is state
 
 
-  vm.showSearchPage = ->
-    ngDialog.open
-      template:     'views/search.html'
-      controller:   'SearchController'
-      controllerAs: 'vm'
-      className:    'ngdialog-theme-default'
-
-
   vm.showSubtitlesSettings = ->
     ngDialog.open
       template:     'views/subtitles_settings.html'
       controller:   'SubtitlesSettingsController'
       controllerAs: 'vm'
+      className:    'ngdialog-theme-default subtitles-settings-dialog'
 
 
   vm.goNext = ->
@@ -40,7 +35,8 @@
 
     else
       # TODO: error message for being sorry about not found
-      vm.$state.go "search"
+      vm.SearchDialog.showDialog()
+
 
     ## use same video provider if possible
     if currentVideo
@@ -51,7 +47,8 @@
         else
           # TODO: error message for being sorry about not found
           #       or find the good provider instead
-          vm.$state.go "search"
+          vm.TvonlineWrapper.video = null
+          vm.SearchDialog.showDialog()
 
     _setSpringfieldBasedOnTvonline()
 
@@ -70,18 +67,21 @@
 
     else
       # TODO: error message for being sorry about not found
-      vm.$state.go "search"
+      vm.SearchDialog.showDialog()
+
 
     ## use same video provider if possible
     if currentVideo
       vm.TvonlineWrapper.episode.videosP
       .then =>
-        if nextVideo = _.find vm.TvonlineWrapper.episode.videos, {name: currentVideo.name}
-          vm.TvonlineWrapper.video = nextVideo
+        if previousVideo = _.find vm.TvonlineWrapper.episode.videos, {name: currentVideo.name}
+          vm.TvonlineWrapper.video = previousVideo
         else
           # TODO: error message for being sorry about not found
           #       or find the good provider instead
-          vm.$state.go "search"
+          vm.TvonlineWrapper.video = null
+          vm.SearchDialog.showDialog()
+
 
     _setSpringfieldBasedOnTvonline()
 

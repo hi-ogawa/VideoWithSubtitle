@@ -23,6 +23,7 @@
 
   @setTitleInitSeasons = (t) =>
     @title   = t
+    @season  = null
     @episode = null
     @video   = null
     @title.fetchSeasons()

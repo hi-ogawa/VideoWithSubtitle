@@ -1,39 +1,45 @@
 .ui.container.fluid
   .ui.menu
     .header.item TV Shows with Subtitles
-    .ui.link.item(ng-click="vm.showSearchPage()" ui-sref="search" ng-class="{active: vm.currentStateIs('search')}")
-      | Search
-      i.search.icon(style="margin-left: 3px;")
-    .ui.link.item(ui-sref="savedData" ng-class="{disabled: true, active: vm.currentStateIs('savedData')}") Saved Data
+    .ui.link.item(ui-sref="watch" ng-class="{active: vm.currentStateIs('watch')}") Watch
+    .ui.link.item(ui-sref="savedData" ng-class="{active: vm.currentStateIs('savedData')}") Saved Data
       .ui.left.pointing.yellow.label 0
-    .ui.link.item(ui-sref="watch" ng-class="{disabled: !vm.TvonlineWrapper.video, active: vm.currentStateIs('watch')}") Watch
 
-    .item#breadcrumb-in-menu(ng-show="vm.currentStateIs('watch')")
+    .item#breadcrumb-in-menu
       .ui.breadcrumb
         .section {{ vm.TvonlineWrapper.title.name }}
-        i.right.angle.icon.divider
-        .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
-        i.right.angle.icon.divider
-        .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} : {{ vm.TvonlineWrapper.episode.name }}
-        i.right.angle.icon.divider
-        .section(ng-show="vm.TvonlineWrapper.episode.videosTracker.active()")
-          .ui.inline.mini.loader.active
-        .section(ng-show="!vm.TvonlineWrapper.episode.videosTracker.active()")
-          | {{ vm.TvonlineWrapper.video.name }}
+        span(ng-show="vm.TvonlineWrapper.season")
+          i.right.angle.icon.divider
+          .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
+        span(ng-show="vm.TvonlineWrapper.episode")
+          i.right.angle.icon.divider
+          .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} : {{ vm.TvonlineWrapper.episode.name }}
+        span(ng-show="vm.TvonlineWrapper.episode.videosTracker.active() && vm.ngDialog.getOpenDialogs().length === 0")
+          i.right.angle.icon.divider
+          .section
+            .ui.inline.mini.loader.active
+        span(ng-show="vm.TvonlineWrapper.video")
+          i.right.angle.icon.divider
+          .section
+            | {{ vm.TvonlineWrapper.video.name }}
 
     .right.item#mine-header-menu-right-buttons
       .ui.small.buttons
         .ui.orange.icon.button.mine-popup(data-content="Previous Episode",
                                       data-position="bottom center",
-                                      ng-class="{disabled: !vm.TvonlineWrapper.episode}",
+                                      ng-class="{disabled: !vm.TvonlineWrapper.video}",
                                       ng-click="vm.goPrevious()")
           i.left.arrow.icon(style="margin-right: 6px; margin-left: -3px;")
         .or(data-text="")
         .ui.green.icon.button.mine-popup.disabled(data-content="Next Episode",
                                              data-position="bottom center",
-                                             ng-class="{disabled: !vm.TvonlineWrapper.episode}",
+                                             ng-class="{disabled: !vm.TvonlineWrapper.video}",
                                              ng-click="vm.goNext()")
           i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
+      | &nbsp;
+      .ui.red.icon.button.mine-popup(data-content="Search Titles" data-position="bottom center",
+                                 ng-click="vm.SearchDialog.showDialog()")
+        i.search.icon
       | &nbsp;
       .ui.olive.icon.button.mine-popup(data-content="Subtitles Settings" data-position="bottom center",
                                    ng-click="vm.showSubtitlesSettings()")
