@@ -28,6 +28,17 @@
     padding-bottom: 5px;
 }
 
+.ngdialog-theme-default.search-dialog {
+    padding-top: 65px              !important;
+    padding-bottom: 0px            !important;
+    .ngdialog-content {
+        width:  calc(100% - 90px)  !important;
+        height: calc(100vh - 85px) !important;
+        margin-left:  45px         !important;
+        margin-right: 45px         !important;
+    }
+}
+
 .mine-scrollable {
     max-height: 220px;
     overflow-y: auto;

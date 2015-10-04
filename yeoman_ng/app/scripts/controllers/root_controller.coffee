@@ -11,6 +11,14 @@
     vm.$state.current.name is state
 
 
+  vm.showSearchPage = ->
+    ngDialog.open
+      template:     'views/search.html'
+      controller:   'SearchController'
+      controllerAs: 'vm'
+      className:    'ngdialog-theme-default'
+
+
   vm.showSubtitlesSettings = ->
     ngDialog.open
       template:     'views/subtitles_settings.html'

@@ -1,7 +1,7 @@
 .ui.container.fluid
   .ui.menu
     .header.item TV Shows with Subtitles
-    .ui.link.item(ui-sref="search" ng-class="{active: vm.currentStateIs('search')}")
+    .ui.link.item(ng-click="vm.showSearchPage()" ui-sref="search" ng-class="{active: vm.currentStateIs('search')}")
       | Search
       i.search.icon(style="margin-left: 3px;")
     .ui.link.item(ui-sref="savedData" ng-class="{disabled: true, active: vm.currentStateIs('savedData')}") Saved Data
