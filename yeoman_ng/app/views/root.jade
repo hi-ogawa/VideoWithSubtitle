@@ -7,20 +7,23 @@
 
     .item#breadcrumb-in-menu
       .ui.breadcrumb
-        .section {{ vm.TvonlineWrapper.title.name }}
+        a.section(ng-href="{{ vm.TvonlineWrapper.title.url }}" target="_blank")
+          | {{ vm.TvonlineWrapper.title.name }}
         span(ng-show="vm.TvonlineWrapper.season")
           i.right.angle.icon.divider
-          .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
+          a.section(ng-href="{{ vm.TvonlineWrapper.title.url + 'season-' + vm.TvonlineWrapper.season.seasonNumber + '/'}}" target="_blank")
+            | Season {{ vm.TvonlineWrapper.season.seasonNumber }}
         span(ng-show="vm.TvonlineWrapper.episode")
           i.right.angle.icon.divider
-          .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} : {{ vm.TvonlineWrapper.episode.name }}
+          a.section(ng-href="{{ vm.TvonlineWrapper.episode.url }}" target="_blank")
+            | Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} : {{ vm.TvonlineWrapper.episode.name }}
         span(ng-show="vm.TvonlineWrapper.episode.videosTracker.active() && vm.ngDialog.getOpenDialogs().length === 0")
           i.right.angle.icon.divider
           .section
             .ui.inline.mini.loader.active
         span(ng-show="vm.TvonlineWrapper.video")
           i.right.angle.icon.divider
-          .section
+          a.section(ng-href="{{ vm.TvonlineWrapper.video.url }}" target="_blank")
             | {{ vm.TvonlineWrapper.video.name }}
 
     .right.item#mine-header-menu-right-buttons
