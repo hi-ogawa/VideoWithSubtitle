@@ -4,6 +4,7 @@
     'ui.router'
     'ajoslin.promise-tracker'
     'rzModule'
+    'ngDialog'
     # 'ngAnimate'
     # 'ngSanitize'
     # 'ngTouch'

@@ -1,4 +1,4 @@
-@app.controller 'RootController', ($state, Globals, TvonlineWrapper, SpringfieldWrapper) ->
+@app.controller 'RootController', (ngDialog, $state, Globals, TvonlineWrapper, SpringfieldWrapper) ->
   vm = @
 
   vm.$state             = $state
@@ -9,6 +9,13 @@
 
   vm.currentStateIs = (state) ->
     vm.$state.current.name is state
+
+
+  vm.showSubtitlesSettings = ->
+    ngDialog.open
+      template:     'views/subtitles_settings.html'
+      controller:   'SubtitlesSettingsController'
+      controllerAs: 'vm'
 
 
   vm.goNext = ->

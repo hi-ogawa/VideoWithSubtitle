@@ -1,0 +1,35 @@
+.ui.container
+  .ui.medium.header
+    | Subtitles Settings
+  .ui.items
+    .item
+      .content
+        .meta Original Urls
+        .description
+          .ui.breadcrumb(ng-show="vm.SpringfieldWrapper.episode")
+            i.right.angle.icon.divider
+            a.section(ng-href="{{ vm.SpringfieldWrapper.title.url }}" target="_blank")
+              | {{ vm.SpringfieldWrapper.title.name }}
+            br
+            i.right.angle.icon.divider
+            .section
+              | Season {{ vm.SpringfieldWrapper.season.seasonNumber }}
+            br
+            i.right.angle.icon.divider
+            a.section(ng-href="{{ vm.SpringfieldWrapper.episode.url }}" target="_blank")
+              | Episode {{ vm.SpringfieldWrapper.episode.episodeNumber }}: {{ vm.SpringfieldWrapper.episode.name }}
+    .item
+      .content
+        .meta On/Off
+        .description
+          .ui.toggle.checkbox
+            input(type="checkbox" ng-model="vm.Globals.subtitlesMode")
+            label
+    .item
+      .content
+        .meta Position (vertical)
+        .description
+          #subtitles-position-slider
+            rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
+                     rz-slider-floor="18",
+                     rz-slider-ceil="82")

@@ -20,7 +20,7 @@
       i.right.angle.icon
       | Season {{ vm.TvonlineWrapper.season.seasonNumber }}
       i.right.angle.icon
-      | Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} ( {{ vm.TvonlineWrapper.episode.name }} )
+      | Episode {{ vm.TvonlineWrapper.episode.episodeNumber }}: {{ vm.TvonlineWrapper.episode.name }}
       i.right.angle.icon
       span(ng-show="vm.TvonlineWrapper.episode.videosTracker.active()")
         .ui.inline.mini.loader.active
@@ -40,7 +40,8 @@
                                              ng-click="vm.goNext()")
           i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
       | &nbsp;
-      .ui.olive.icon.button.mine-popup(data-content="Subtitles Setting" data-position="bottom center")
+      .ui.olive.icon.button.mine-popup(data-content="Subtitles Settings" data-position="bottom center",
+                                   ng-click="vm.showSubtitlesSettings()")
         i.font.icon
       | &nbsp;
       .ui.purple.icon.button.mine-popup(data-content="Share" data-position="bottom center")
@@ -48,31 +49,5 @@
       | &nbsp;
       .ui.yellow.icon.button.mine-popup(data-content="Save" data-position="bottom right")
         i.save.icon
-
-    -// .right.item#mine-header-menu-right-buttons
-    -//   #subtitles-position-slider(ng-show="vm.Globals.subtitlesMode && vm.currentStateIs('watch')")
-    -//     rzslider(rz-slider-model="vm.Globals.subtitlesCssLeft",
-    -//              rz-slider-floor="18",
-    -//              rz-slider-ceil="82")
-    -//   .ui.small.buttons
-    -//     .ui.orange.icon.button.mine-popup(data-content="Previous Episode",
-    -//                                   data-position="bottom right",
-    -//                                   ng-class="{disabled: !vm.TvonlineWrapper.episode}",
-    -//                                   ng-click="vm.goPrevious()")
-    -//       i.left.arrow.icon(style="margin-right: 6px; margin-left: -3px;")
-    -//     .or(data-text="")
-    -//     .ui.green.icon.button.mine-popup.disabled(data-content="Next Episode",
-    -//                                          data-position="bottom right",
-    -//                                          ng-class="{disabled: !vm.TvonlineWrapper.episode}",
-    -//                                          ng-click="vm.goNext()")
-    -//       i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
-    -//   | &nbsp;
-    -//   .ui.purple.icon.button.mine-popup.disabled(data-content="Share" data-position="bottom right")
-    -//     i.share.alternate.icon
-    -//   | &nbsp;
-    -//   .ui.yellow.icon.button.mine-popup.disabled(data-content="Save" data-position="bottom right")
-    -//     i.folder.open.outline.icon
-    -//     i.save.icon
-
 
 div(ui-view="mainView")

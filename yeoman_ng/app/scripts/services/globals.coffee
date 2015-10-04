@@ -1,6 +1,6 @@
 @app.service 'Globals', ->
   {
-    subtitlesMode: false
+    subtitlesMode: true
     subtitlesCssLeft: 50
     initDropdown: (selector, options) ->
       $('.ui.dropdown').dropdown
