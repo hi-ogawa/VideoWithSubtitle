@@ -48,10 +48,10 @@
                                    ng-click="vm.showSubtitlesSettings()")
         i.font.icon
       | &nbsp;
-      .ui.purple.icon.button.mine-popup(data-content="Share" data-position="bottom center")
+      .ui.purple.icon.button.mine-popup.disabled(data-content="Share" data-position="bottom center")
         i.share.alternate.icon
       | &nbsp;
-      .ui.yellow.icon.button.mine-popup(data-content="Save" data-position="bottom right")
+      .ui.yellow.icon.button.mine-popup.disabled(data-content="Save" data-position="bottom right")
         i.save.icon
 
 div(ui-view="mainView")

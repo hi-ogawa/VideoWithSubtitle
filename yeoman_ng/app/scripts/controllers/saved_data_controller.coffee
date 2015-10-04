@@ -7,6 +7,5 @@
   vm.Globals            = Globals
 
   do ->
-    vm.Globals.initDropdown()
 
   return
