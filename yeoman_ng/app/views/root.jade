@@ -16,15 +16,17 @@
           | without Subtitles
 
     .item#breadcrumb-in-menu(ng-show="vm.currentStateIs('watch')")
-      | {{ vm.TvonlineWrapper.title.name }}
-      i.right.angle.icon
-      | Season {{ vm.TvonlineWrapper.season.seasonNumber }}
-      i.right.angle.icon
-      | Episode {{ vm.TvonlineWrapper.episode.episodeNumber }}: {{ vm.TvonlineWrapper.episode.name }}
-      i.right.angle.icon
-      span(ng-show="vm.TvonlineWrapper.episode.videosTracker.active()")
-        .ui.inline.mini.loader.active
-      | {{ vm.TvonlineWrapper.video.name }}
+      .ui.breadcrumb
+        .section {{ vm.TvonlineWrapper.title.name }}
+        i.right.angle.icon.divider
+        .section Season {{ vm.TvonlineWrapper.season.seasonNumber }}
+        i.right.angle.icon.divider
+        .section Episode {{ vm.TvonlineWrapper.episode.episodeNumber }} : {{ vm.TvonlineWrapper.episode.name }}
+        i.right.angle.icon.divider
+        .section(ng-show="vm.TvonlineWrapper.episode.videosTracker.active()")
+          .ui.inline.mini.loader.active
+        .section(ng-show="!vm.TvonlineWrapper.episode.videosTracker.active()")
+          | {{ vm.TvonlineWrapper.video.name }}
 
     .right.item#mine-header-menu-right-buttons
       .ui.small.buttons
