@@ -5,6 +5,7 @@
     'ajoslin.promise-tracker'
     'rzModule'
     'ngDialog'
+    'firebase'
     # 'ngAnimate'
     # 'ngSanitize'
     # 'ngTouch'

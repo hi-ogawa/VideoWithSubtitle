@@ -1,6 +1,6 @@
 @app.config ($stateProvider, $urlRouterProvider) ->
 
-  $urlRouterProvider.otherwise "/watch"
+  $urlRouterProvider.otherwise "/savedData"
 
   $stateProvider
 

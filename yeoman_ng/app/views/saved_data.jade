@@ -1,22 +1,22 @@
 .ui.container
   .ui.cards
-    .card
+    .card(ng-repeat="item in vm.Item.items | orderBy:'tvTitle.name' ")
       .content
-        i.right.floated.remove.link.icon
+        i.right.floated.remove.link.icon(ng-click="vm.removeItem(item)")
         .header.card-title
-          | Person of Interest (2011)
+          | {{ item.tvTitle.name }}
       .extra.content
         .ui.list
           .item
             i.right.angle.icon(style="padding-top: 0;")
             .content.season-content
-              .description Season 6
+              .description Season {{ item.tvSeason.seasonNumber }}
           .item
             i.right.angle.icon(style="padding-top: 0;")
             .content.episode-content
               .description
-                | Episode 16:
+                | Episode {{ item.tvEpisode.episodeNumber }}:
                 br
-                | The Bycycle Theft
-      .ui.bottom.attached.blue.button
+                | {{ item.tvEpisode.name }}
+      .ui.bottom.attached.blue.button(ng-click="vm.restoreItem(item)")
         | Restore
