@@ -125,3 +125,14 @@
                 ng-class="{'active': vm.TvonlineWrapper.video == v}",
                 on-repeat-finished="vm.scrollToActiveEntry(vm.tvonlineVideosSelector)")
             | {{ v.name }}
+
+      .ui.container
+        .ui.right.labeled.icon.blue.button(ng-class="{disabled: !vm.TvonlineWrapper.video}",
+                                       ng-click="vm.ngDialog.closeAll()",
+                                       ui-sref="watch")
+          | Watch
+          i.record.icon
+        .ui.right.labeled.icon.yellow.button(ng-class="{disabled: !vm.TvonlineWrapper.episode}",
+                                        ng-click="vm.Item.saveWrappers()")
+          | Save
+          i.save.icon

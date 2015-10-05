@@ -1,6 +1,9 @@
-@app.service "Item", (TvonlineWrapper, SpringfieldWrapper, Tvonline, Springfield, $firebaseArray, $state, SearchDialog) ->
+@app.service "Item", (TvonlineWrapper, SpringfieldWrapper, Tvonline, Springfield, $firebaseArray, $state, SearchDialog, promiseTracker) ->
 
   @items = $firebaseArray new Firebase "https://substreaming.firebaseio.com/items"
+
+  @initialItemsTracker = promiseTracker()
+  @initialItemsTracker.addPromise @items.$loaded()
 
 
   @saveWrappers = =>
@@ -18,21 +21,18 @@
     # TODO: - code is ugly
     #       - stop using ugly nested promises
 
-    TvonlineWrapper.video = null
+    SearchDialog.showDialog()
 
-    $state.go 'watch'
+    TvonlineWrapper.titles = [item.tvTitle]
+    TvonlineWrapper.setTitleInitSeasons new Tvonline.Title item.tvTitle.name, item.tvTitle.url
     .then ->
+      TvonlineWrapper.season =             _.find TvonlineWrapper.title.seasons,   {seasonNumber: item.tvSeason.seasonNumber}
+      TvonlineWrapper.setEpisodeInitVideos _.find TvonlineWrapper.season.episodes, {episodeNumber: item.tvEpisode.episodeNumber}
 
-      TvonlineWrapper.titles = [item.tvTitle]
-      TvonlineWrapper.setTitleInitSeasons new Tvonline.Title item.tvTitle.name, item.tvTitle.url
-      .then ->
-        TvonlineWrapper.season =             _.find TvonlineWrapper.title.seasons,   {seasonNumber: item.tvSeason.seasonNumber}
-        TvonlineWrapper.setEpisodeInitVideos _.find TvonlineWrapper.season.episodes, {episodeNumber: item.tvEpisode.episodeNumber}
-
-      SpringfieldWrapper.titles = [item.spTitle]
-      SpringfieldWrapper.setTitleInitSeasons new Springfield.Title item.spTitle.name, item.spTitle.url
-      .then ->
-        SpringfieldWrapper.season =                _.find SpringfieldWrapper.title.seasons,   {seasonNumber: item.spSeason.seasonNumber}
-        SpringfieldWrapper.setEpisodeInitSubtitles _.find SpringfieldWrapper.season.episodes, {episodeNumber: item.spEpisode.episodeNumber}
+    SpringfieldWrapper.titles = [item.spTitle]
+    SpringfieldWrapper.setTitleInitSeasons new Springfield.Title item.spTitle.name, item.spTitle.url
+    .then ->
+      SpringfieldWrapper.season =                _.find SpringfieldWrapper.title.seasons,   {seasonNumber: item.spSeason.seasonNumber}
+      SpringfieldWrapper.setEpisodeInitSubtitles _.find SpringfieldWrapper.season.episodes, {episodeNumber: item.spEpisode.episodeNumber}
 
   @

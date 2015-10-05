@@ -9,15 +9,13 @@
 
 
   vm.removeItem = (item) =>
-    # TODO: confirmation
+    # TODO: possibly confirmation, but seems not necessary
     vm.Item.items.$remove(item)
 
 
   vm.restoreItem = (item) =>
     vm.Item.restoreWrappers(item)
 
-
   do ->
-    # TODO: show loading icon while loading data from firebase
 
   return

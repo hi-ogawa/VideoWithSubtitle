@@ -52,7 +52,7 @@
         i.share.alternate.icon
       | &nbsp;
       .ui.yellow.icon.button.mine-popup(data-content="Save" data-position="bottom right",
-                                    ng-class="{disabled: !(vm.TvonlineWrapper.episode && vm.TvonlineWrapper.episode)}"
+                                    ng-class="{disabled: !vm.TvonlineWrapper.episode}"
                                     ng-click="vm.Item.saveWrappers()" )
         i.save.icon
 
