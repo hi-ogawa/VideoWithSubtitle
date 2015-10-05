@@ -3,7 +3,7 @@
     .header.item TV Shows with Subtitles
     .ui.link.item(ui-sref="watch" ng-class="{active: vm.currentStateIs('watch')}") Watch
     .ui.link.item(ui-sref="savedData" ng-class="{active: vm.currentStateIs('savedData')}") Saved Data
-      .ui.left.pointing.yellow.label 0
+      .ui.left.pointing.yellow.label {{ vm.Item.items.length }}
 
     .item#breadcrumb-in-menu
       .ui.breadcrumb

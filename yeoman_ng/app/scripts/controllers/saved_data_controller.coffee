@@ -1,4 +1,4 @@
-@app.controller "SavedDataController", ($state, Globals, TvonlineWrapper, SpringfieldWrapper, Item) ->
+@app.controller "SavedDataController", ($state, Globals, TvonlineWrapper, SpringfieldWrapper, Item, SearchDialog) ->
   vm = @
 
   vm.$state             = $state
@@ -9,7 +9,6 @@
 
 
   vm.removeItem = (item) =>
-    # TODO: possibly confirmation, but seems not necessary
     vm.Item.items.$remove(item)
 
 
@@ -17,5 +16,9 @@
     vm.Item.restoreWrappers(item)
 
   do ->
+    vm.Item.items.$loaded()
+    .then ->
+      if vm.Item.items.length is 0
+        SearchDialog.showDialog()
 
   return
