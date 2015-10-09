@@ -3,5 +3,7 @@
 
 .ui.segment#subtitles-wrap(ng-show="vm.TvonlineWrapper.video && vm.Globals.subtitlesMode && (vm.SpringfieldWrapper.episode.subtitles || vm.SpringfieldWrapper.episode.subtitlesTracker.active())",
                         ng-style="{left: vm.Globals.subtitlesCssLeft + '%'}")
+  #auto-scroller(ng-mousemove="vm.moveScroller($event)" ng-mouseleave="vm.stopScroller()")
   .ui.centered.inline.loader.active(ng-show="vm.SpringfieldWrapper.episode.subtitlesTracker.active()")
-  #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")
+  #subtitles-scroll-wrap
+    #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")

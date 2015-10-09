@@ -107,12 +107,28 @@
     bottom: 5%;
     position: absolute;
     width:  35%;
-    max-height: 20vh;
+    max-height: 25vh;
     z-index: 1;
 
     color: rgb(238, 127, 61);
     background-color: black;
     opacity: 0.7;
 
-    overflow-y: scroll;
+    padding: 5px;
+    padding-right: 18px;
+
+    #auto-scroller {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 90%;
+        width:  16px;
+        border: 1px solid white;
+    }
+
+    #subtitles-scroll-wrap {
+        height: calc(25vh - 10px);
+        overflow-y: scroll;
+    }
 }
