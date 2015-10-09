@@ -34,6 +34,6 @@
       vm.SpringfieldWrapper.episode.subtitles = resp.data.data
 
   do ->
-    setFixtures()
+    # setFixtures()
 
   return
