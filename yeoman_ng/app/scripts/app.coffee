@@ -6,7 +6,6 @@
     'rzModule'
     'ngDialog'
     'firebase'
-    # 'ngAnimate'
-    # 'ngSanitize'
-    # 'ngTouch'
+    'myConstants'
+    'ngAnimate'
   ]

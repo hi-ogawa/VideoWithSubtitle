@@ -35,6 +35,10 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      ngconstant: {
+        files: ['Gruntfile.js'],
+        tasks: "ngconstant:development"
+      },
       jade: {
         files: ['<%= yeoman.app %>/**/*.jade'],
         tasks: "jade:compile"
@@ -86,6 +90,23 @@ module.exports = function (grunt) {
 		dest: ".tmp/",
 		ext: '.html'
 	    }]
+	}
+    },
+
+    ngconstant: {
+	options: {
+	    name: 'myConstants',
+	    dest: '.tmp/scripts/my_constants.js'
+	},
+	development: {
+	    constants: {
+		FIREBASE_BASE: "https://substreaming.firebaseio.com/development/"
+	    }
+	},
+	dist: {
+	    constants: {
+		FIREBASE_BASE: "https://substreaming.firebaseio.com/production/"
+	    }
 	}
     },
 
@@ -500,6 +521,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -524,6 +546,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:dist',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
