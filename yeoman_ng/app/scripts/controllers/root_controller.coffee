@@ -1,4 +1,4 @@
-@app.controller 'RootController', (ngDialog, SearchDialog, $state, Globals, TvonlineWrapper, SpringfieldWrapper, Item) ->
+@app.controller 'RootController', (ngDialog, SearchDialog, $state, Globals, TvonlineWrapper, SpringfieldWrapper, Item, Auth) ->
   vm = @
 
   vm.$state             = $state
@@ -8,6 +8,7 @@
   vm.SearchDialog       = SearchDialog
   vm.Globals            = Globals
   vm.Item               = Item
+  vm.Auth               = Auth
 
   vm.currentStateIs = (state) ->
     vm.$state.current.name is state

@@ -1,10 +1,11 @@
-@app.controller 'WatchController', (Globals, TvonlineWrapper, SpringfieldWrapper, $sce, $stateParams, $http) ->
+@app.controller 'WatchController', (Globals, TvonlineWrapper, SpringfieldWrapper, $sce, $stateParams, $http, SearchDialog) ->
   vm = @
 
   vm.TvonlineWrapper        = TvonlineWrapper
   vm.SpringfieldWrapper     = SpringfieldWrapper
   vm.$sce                   = $sce
   vm.Globals                = Globals
+  vm.SearchDialog           = SearchDialog
 
   vm.domAutoScroller        = $("#auto-scroller")
   vm.domSubtitlesScrollWrap = $("#subtitles-scroll-wrap")
@@ -35,5 +36,8 @@
 
   do ->
     # setFixtures()
+
+    unless vm.TvonlineWrapper.video
+      vm.SearchDialog.showDialog()
 
   return
