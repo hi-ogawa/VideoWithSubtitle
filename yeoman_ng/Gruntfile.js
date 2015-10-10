@@ -96,16 +96,19 @@ module.exports = function (grunt) {
     ngconstant: {
 	options: {
 	    name: 'myConstants',
-	    dest: '.tmp/scripts/my_constants.js'
+	    dest: '.tmp/scripts/my_constants.js',
+            constants: {
+                FIREBASE_DOMAIN: "https://substreaming.firebaseio.com"
+            }
 	},
 	development: {
 	    constants: {
-		FIREBASE_BASE: "https://substreaming.firebaseio.com/development/"
+		ENV:    "development"
 	    }
 	},
 	dist: {
 	    constants: {
-		FIREBASE_BASE: "https://substreaming.firebaseio.com/production/"
+		ENV:    "production"
 	    }
 	}
     },
