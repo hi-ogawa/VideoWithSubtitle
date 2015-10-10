@@ -14,7 +14,7 @@
     vm.domSubtitlesScrollWrap.stop()
     # -1 < speedRate < 1
     speedRate       = ((ev.pageY - vm.domAutoScroller.offset().top) / vm.domAutoScroller.height()) * 2 - 1
-    speedPxPerSec   = 200 * Math.abs(speedRate)
+    speedPxPerSec   = 100 * Math.pow(Math.abs(speedRate), 2.4)
     moveDestination = if speedRate > 0 then vm.domSubtitles.height() - vm.domSubtitlesScrollWrap.height() else 0
     moveDistancePx  = Math.abs(moveDestination - vm.domSubtitlesScrollWrap.scrollTop())
     vm.domSubtitlesScrollWrap.animate
