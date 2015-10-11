@@ -24,7 +24,7 @@
     $state.go "watch"
 
   @setUser = (authData) ->
-    @currentUser = $firebaseObject new Firebase [FIREBASE_DOMAIN, ENV, authData.uid].join "/"
+    @currentUser = $firebaseObject new Firebase [FIREBASE_DOMAIN, ENV, "users", authData.uid].join "/"
     @currentUser.$loaded()
 
   @setItems = ->
@@ -32,6 +32,5 @@
     .then =>
       @userItems = $firebaseArray @currentUser.$ref().child("items")
       @userItems.$loaded()
-      .then => console.log @userItems
 
   @
