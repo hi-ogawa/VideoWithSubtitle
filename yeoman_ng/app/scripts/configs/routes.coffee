@@ -2,10 +2,11 @@
 
   $urlRouterProvider.otherwise "/watch"
 
-  _initAuth = (Auth) ->
-    Auth.authObj.$waitForAuth()
-    .then (authData) ->
-      if authData? then Auth.setUser authData
+  _initAuth = (Auth, Globals) ->
+    p = Auth.authObj.$waitForAuth()
+        .then (authData) -> if authData? then Auth.setUser(authData).then -> Auth.setItems()
+    Globals.initialLoaderTracker.addPromise p
+    p
 
   _requireAuth = (Auth) -> Auth.authObj.$requireAuth()
 

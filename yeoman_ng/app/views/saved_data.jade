@@ -1,9 +1,9 @@
 .ui.container
-  .ui.active.centered.large.inline.loader(ng-show="vm.Item.initialItemsTracker.active()" style="top: 30vh;")
+  .ui.active.centered.large.inline.loader(ng-show="vm.itemsTracker.active()" style="top: 30vh;")
   .ui.cards
-    .card(ng-repeat="item in vm.Item.items | orderBy:'tvTitle.name' ")
+    .card(ng-repeat="item in vm.Auth.userItems | orderBy:'tvTitle.name' ")
       .content
-        i.right.floated.remove.link.icon(ng-click="vm.removeItem(item)")
+        i.right.floated.remove.link.icon(ng-click="vm.Auth.userItems.$remove(item)")
         .header.card-title
           | {{ item.tvTitle.name }}
       .extra.content
@@ -19,6 +19,6 @@
                 | Episode {{ item.tvEpisode.episodeNumber }}:
                 br
                 | {{ item.tvEpisode.name }}
-      .ui.bottom.attached.blue.button(ng-click="vm.restoreItem(item)")
+      .ui.bottom.attached.blue.button(ng-click="vm.Item.restoreWrappers(item)")
         | Restore
         i.share.icon(style="padding-left: 10px;")

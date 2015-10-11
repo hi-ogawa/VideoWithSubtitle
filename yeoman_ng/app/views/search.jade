@@ -132,7 +132,7 @@
                                        ui-sref="watch")
           | Watch
           i.record.icon
-        .ui.right.labeled.icon.yellow.button(ng-class="{disabled: !vm.TvonlineWrapper.episode}",
-                                        ng-click="vm.Item.saveWrappers()")
+        .ui.right.labeled.icon.yellow.button(ng-class="{disabled: !vm.TvonlineWrapper.episode || !vm.Auth.userItems}"
+                                        ng-click="vm.Item.saveCurrentWrappers(vm.Auth.userItems)")
           | Save
           i.save.icon

@@ -1,13 +1,8 @@
-@app.service "Item", (TvonlineWrapper, SpringfieldWrapper, Tvonline, Springfield, $firebaseArray, $state, SearchDialog, promiseTracker) ->
-
-  @items = $firebaseArray new Firebase "https://substreaming.firebaseio.com/items"
-
-  @initialItemsTracker = promiseTracker()
-  @initialItemsTracker.addPromise @items.$loaded()
+@app.service "Item", (TvonlineWrapper, SpringfieldWrapper, Tvonline, Springfield, SearchDialog) ->
 
 
-  @saveWrappers = =>
-    @items.$add
+  @saveCurrentWrappers = (fireBaseArr) ->
+    fireBaseArr.$add
       tvTitle:   _.pick TvonlineWrapper.title,      ['name', 'url']
       tvSeason:  _.pick TvonlineWrapper.season,     ['seasonNumber']
       tvEpisode: _.pick TvonlineWrapper.episode,    ['name', 'url', 'episodeNumber']
@@ -16,10 +11,7 @@
       spEpisode: _.pick SpringfieldWrapper.episode, ['name', 'url', 'episodeNumber']
 
 
-  @restoreWrappers = (item) =>
-
-    # TODO: - code is ugly
-    #       - stop using ugly nested promises
+  @restoreWrappers = (item) ->
 
     SearchDialog.showDialog()
 

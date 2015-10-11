@@ -1,5 +1,6 @@
-@app.service 'Globals', ->
+@app.service 'Globals', (promiseTracker) ->
   {
+    initialLoaderTracker: promiseTracker()
     subtitlesMode: true
     subtitlesCssLeft: 50
     initDropdown: (selector, options) ->

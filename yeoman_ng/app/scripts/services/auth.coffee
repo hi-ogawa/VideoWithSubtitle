@@ -1,14 +1,17 @@
-@app.service "Auth", ($firebaseObject, $firebaseAuth, FIREBASE_DOMAIN, ENV, $state) ->
+@app.service "Auth", ($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_DOMAIN, ENV, $state) ->
   @authObj = $firebaseAuth new Firebase FIREBASE_DOMAIN
 
   @currentUser = null
+  @userItems   = null
 
   @login = ->
     @authObj.$authWithOAuthPopup "facebook", scope: "public_profile"
     .then  (authData) =>
       @setUser authData
-      @currentUser.name = authData.facebook.cachedUserProfile.first_name
-      @currentUser.$save()
+      .then =>
+        @currentUser.name = authData.facebook.cachedUserProfile.first_name
+        @currentUser.$save()
+        $state.go $state.current, {}, {reload: true}
 
     .catch (err) ->
       # TODO: handle error
@@ -17,9 +20,17 @@
   @logout = ->
     @authObj.$unauth()
     @currentUser = null
+    @useritems = null
     $state.go "watch"
 
   @setUser = (authData) ->
     @currentUser = $firebaseObject new Firebase [FIREBASE_DOMAIN, ENV, authData.uid].join "/"
+    @currentUser.$loaded()
+
+  @setItems = ->
+    @currentUser.$loaded()
+    .then =>
+      @userItems ||= $firebaseArray @currentUser.$ref().child("items")
+      @userItems.$loaded()
 
   @

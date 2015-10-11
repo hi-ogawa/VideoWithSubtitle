@@ -3,7 +3,7 @@
     .header.item TV Shows with Subtitles
     .ui.link.item(ui-sref="watch" ng-class="{active: vm.currentStateIs('watch')}") Watch
     .ui.link.item(ui-sref="savedData" ng-class="{active: vm.currentStateIs('savedData'), disabled: !vm.Auth.currentUser}") Saved Data
-      .ui.left.pointing.yellow.label {{ vm.Item.items.length }}
+      .ui.left.pointing.yellow.label(ng-show="vm.Auth.currentUser") {{ vm.Auth.userItems.length }}
 
     .item#breadcrumb-in-menu
       .ui.breadcrumb
@@ -42,8 +42,8 @@
       | &nbsp;
       .ui.facebook.icon.button.mine-popup(
         ng-show="!vm.Auth.currentUser"
-        data-html="Login via Facebook <div style='font-size: 0.8em; color: rgba(0,0,0,.4);'> you can save data after logged in </div>"
-        data-position="bottom left",
+        data-html="Signup/Login via Facebook <div style='font-size: 0.8em; color: rgba(0,0,0,.4);'> you can save data after logged in </div>"
+        data-position="bottom left"
         ng-click="vm.Auth.login()"
       )
         i.facebook.icon
@@ -53,20 +53,20 @@
           .header Hi, {{vm.Auth.currentUser.name}}
           .item(ng-click="vm.Auth.logout()") Logout
       | &nbsp;
-      .ui.red.icon.button.mine-popup(data-content="Search Titles" data-position="bottom left",
+      .ui.red.icon.button.mine-popup(data-content="Search Titles" data-position="bottom left"
                                  ng-click="vm.SearchDialog.showDialog()")
         i.search.icon
       | &nbsp;
-      .ui.olive.icon.button.mine-popup(data-content="Subtitles Settings" data-position="bottom left",
+      .ui.olive.icon.button.mine-popup(data-content="Subtitles Settings" data-position="bottom left"
                                    ng-click="vm.showSubtitlesSettings()")
         i.font.icon
       | &nbsp;
       .ui.purple.icon.button.mine-popup.disabled(data-content="Share" data-position="bottom left")
         i.share.alternate.icon
       | &nbsp;
-      .ui.yellow.icon.button.mine-popup(data-content="Save" data-position="bottom right",
-                                    ng-class="{disabled: !vm.TvonlineWrapper.episode}"
-                                    ng-click="vm.Item.saveWrappers()" )
+      .ui.yellow.icon.button.mine-popup(data-content="Save" data-position="bottom right"
+                                    ng-class="{disabled: !vm.TvonlineWrapper.episode || !vm.Auth.userItems}"
+                                    ng-click="vm.Item.saveCurrentWrappers(vm.Auth.userItems)")
         i.save.icon
 
 div(ui-view="mainView")

@@ -1,4 +1,4 @@
-@app.controller 'SearchController', (Globals, TvonlineWrapper, SpringfieldWrapper, $state, $scope, $timeout, TvonlineFixtures, SpringfieldFixtures, Item, ngDialog) ->
+@app.controller 'SearchController', (Globals, TvonlineWrapper, SpringfieldWrapper, $state, $scope, $timeout, TvonlineFixtures, SpringfieldFixtures, Item, ngDialog, Auth) ->
   vm = @
 
 
@@ -9,6 +9,7 @@
   vm.Globals            = Globals
   vm.ngDialog           = ngDialog
   vm.Item               = Item
+  vm.Auth               = Auth
 
   vm.syncTitle   = true
   vm.syncEpisode = true
