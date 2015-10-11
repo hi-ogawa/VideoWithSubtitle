@@ -2,13 +2,16 @@
 
   $urlRouterProvider.otherwise "/watch"
 
-  _initAuth = (Auth, Globals) ->
+  _initAuth = ["Auth", "Globals", (Auth, Globals) ->
     p = Auth.authObj.$waitForAuth()
         .then (authData) -> if authData? then Auth.setUser(authData).then -> Auth.setItems()
     Globals.initialLoaderTracker.addPromise p
     p
+  ]
 
-  _requireAuth = (Auth) -> Auth.authObj.$requireAuth()
+  _requireAuth = ["Auth", (Auth) ->
+    Auth.authObj.$requireAuth()
+  ]
 
   $stateProvider
 
@@ -39,5 +42,6 @@
 @app.run ($rootScope, $state) ->
 
   $rootScope.$on "$stateChangeError", (e, toState, toParams, fromState, fromParams, err) ->
+    console.log "$rootScope.$on '$stateChangeError': #{err}"
     if err is "AUTH_REQUIRED"
       $state.go "watch"

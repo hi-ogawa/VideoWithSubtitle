@@ -36,7 +36,6 @@
 
   do ->
     # setFixtures()
-
     unless vm.TvonlineWrapper.video
       vm.SearchDialog.showDialog()
 

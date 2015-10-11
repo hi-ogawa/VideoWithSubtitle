@@ -20,7 +20,7 @@
   @logout = ->
     @authObj.$unauth()
     @currentUser = null
-    @useritems = null
+    @userItems = null
     $state.go "watch"
 
   @setUser = (authData) ->
@@ -30,7 +30,8 @@
   @setItems = ->
     @currentUser.$loaded()
     .then =>
-      @userItems ||= $firebaseArray @currentUser.$ref().child("items")
+      @userItems = $firebaseArray @currentUser.$ref().child("items")
       @userItems.$loaded()
+      .then => console.log @userItems
 
   @

@@ -1,5 +1,5 @@
 .ui.container
-  .ui.active.centered.large.inline.loader(ng-show="vm.itemsTracker.active()" style="top: 30vh;")
+  -// .ui.active.centered.large.inline.loader(ng-show="vm.itemsTracker.active()" style="top: 30vh;")
   .ui.cards
     .card(ng-repeat="item in vm.Auth.userItems | orderBy:'tvTitle.name' ")
       .content
