@@ -1,4 +1,4 @@
-@app.service "Auth", ($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_DOMAIN, ENV, $state) ->
+@app.service "Auth", ($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_DOMAIN, ENV, $state, $window) ->
   @authObj = $firebaseAuth new Firebase FIREBASE_DOMAIN
 
   @currentUser = null
@@ -21,7 +21,7 @@
     @authObj.$unauth()
     @currentUser = null
     @userItems = null
-    $state.go "watch"
+    $window.location.reload()
 
   @setUser = (authData) ->
     @currentUser = $firebaseObject new Firebase [FIREBASE_DOMAIN, ENV, "users", authData.uid].join "/"

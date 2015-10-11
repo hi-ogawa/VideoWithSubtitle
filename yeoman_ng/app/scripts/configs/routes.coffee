@@ -42,6 +42,5 @@
 @app.run ($rootScope, $state) ->
 
   $rootScope.$on "$stateChangeError", (e, toState, toParams, fromState, fromParams, err) ->
-    console.log "$rootScope.$on '$stateChangeError': #{err}"
     if err is "AUTH_REQUIRED"
       $state.go "watch"
