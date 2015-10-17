@@ -9,11 +9,12 @@
   _recognition.lang           = "en-US" # TODO: should be selectable https://github.com/GoogleChrome/webplatform-samples/blob/master/webspeechdemo/webspeechdemo.html#L137-L199
   _recognition.onerror  = (ev) => console.log "_recognition.onerror"; console.log ev; @off()
   _recognition.onresult = (ev) =>
+
     console.log ev.results
     console.log _.map ev.results, (result) -> result.isFinal
     $timeout =>
       @results = ev.results
-      @recentWords = _.last(ev.results)[0].transcript
+      @recentWords = _.takeRight _.last(ev.results)[0].transcript.split(" "), 5
 
   @state           = false
   @results         = []

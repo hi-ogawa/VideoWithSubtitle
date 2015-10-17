@@ -31,6 +31,7 @@ module.exports = (config) ->
       'bower_components/fuse.js/src/fuse.js'
       'bower_components/angularjs-slider/dist/rzslider.js'
       'bower_components/ng-dialog/js/ngDialog.js'
+      'bower_components/jQuery.highlightRegex/highlightRegex.js'
       'bower_components/angular-mocks/angular-mocks.js'
       # endbower
       # bower:coffee
