@@ -22,3 +22,15 @@
       .ui.bottom.attached.blue.button(ng-click="vm.Item.restoreWrappers(item)")
         | Restore
         i.share.icon(style="padding-left: 10px;")
+
+.ui.container(style="margin-top: 50px;")
+  .ui.icon.button(ng-click="vm.SpeechApi.toggle()", ng-class="{pink: vm.SpeechApi.state}")
+    i.icon(ng-class="{unmute: vm.SpeechApi.state, mute: !vm.SpeechApi.state}")
+  .ui.icon.button(ng-click="vm.SpeechApi.restart()" ng-class="{disabled: !vm.SpeechApi.state}")
+    i.bomb.icon
+  .ui.top.attached.header Testing Speech API
+  .ui.attached.segment {{ vm.SpeechApi.recentWords }}
+  .ui.attached.segment(
+    ng-repeat="result in vm.SpeechApi.results"
+    ng-class="{bottom: $last}"
+  ) {{ result[0].transcript }}
