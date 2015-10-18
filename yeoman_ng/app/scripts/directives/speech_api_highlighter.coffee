@@ -1,4 +1,4 @@
-@app.directive "speechApiHighlighter", (SpeechApi) ->
+@app.directive "speechApiHighlighter", (SpeechApi, TextRating) ->
   restrict: "A"
   controller: ($scope, $element, $interval) ->
 
@@ -29,20 +29,13 @@
       _($("#subtitles").children("span"))
         .map    (span) ->
           dom:  $(span)
-          rate: lengthOfLongestConsecutiveMatch($(span).text(), words)
-        .filter (obj)  -> obj.rate >= 4
+          rate: calculateRate($(span).text(), words)
+        .filter (obj)  -> obj.rate >= 5
         .sortBy (obj)  -> - obj.rate
         .first()
 
-    lengthOfLongestConsecutiveMatch = (text, words) ->
-      result =
-        _(text.split(" "))
-          .map (word) -> _.contains words, word
-          .reduce (memo, b) ->
-                    currentScore: (c = if b then memo.currentScore + 1 else 0)
-                    biggestScore: Math.max(c, memo.biggestScore)
-                 , {currentScore: 0, biggestScore: 0}
-      result.biggestScore
+    # calculateRate = (text, words) -> TextRating.longestConsecutiveMatch text, words
+    calculateRate = (text, words) -> TextRating.wordLengthAndConsecutiveRating text, words
 
     scrollToSpan = (dom) ->
       unless isVisible dom

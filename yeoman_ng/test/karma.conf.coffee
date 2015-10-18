@@ -37,6 +37,7 @@ module.exports = (config) ->
       # bower:coffee
       # endbower
       "app/scripts/**/*.coffee"
+      ".tmp/scripts/my_constants.js"
       "test/mock/**/*.coffee"
       "test/spec/**/*.coffee"
     ],
