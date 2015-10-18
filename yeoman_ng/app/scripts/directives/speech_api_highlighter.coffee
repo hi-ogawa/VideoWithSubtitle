@@ -2,8 +2,14 @@
   restrict: "A"
   controller: ($scope, $element) ->
 
-    highlightWord = (word) -> $element.highlightRegex new RegExp word, "ig"
-    deHighlightWord =      -> $element.highlightRegex()
+    highlightWord = (word) ->
+      try
+        re = new RegExp word, "ig"
+      catch err
+        console.log err
+      $element.highlightRegex re if re
+
+    deHighlightWord = -> $element.highlightRegex()
 
     $scope.$watch (-> SpeechApi.recentWords), (words) ->
       deHighlightWord()

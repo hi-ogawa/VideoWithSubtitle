@@ -6,4 +6,4 @@
   #auto-scroller(ng-mousemove="vm.moveScroller($event)" ng-mouseleave="vm.stopScroller()")
   .ui.centered.inline.loader.active(ng-show="vm.SpringfieldWrapper.episode.subtitlesTracker.active()")
   #subtitles-scroll-wrap
-    #subtitles(ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")
+    #subtitles(speech-api-highlighter ng-bind-html="vm.$sce.trustAsHtml(vm.SpringfieldWrapper.episode.subtitles)")
