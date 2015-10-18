@@ -40,6 +40,9 @@
                                              ng-click="vm.goNext()")
           i.right.arrow.icon(style="margin-left: 6px; margin-right: -3px;")
       | &nbsp;
+      .ui.icon.button(ng-click="vm.SpeechApi.toggle()", ng-class="{pink: vm.SpeechApi.state}")
+        i.icon(ng-class="{unmute: vm.SpeechApi.state, mute: !vm.SpeechApi.state}")
+      | &nbsp;
       .ui.facebook.icon.button.mine-popup(
         ng-show="!vm.Auth.currentUser"
         data-html="Signup/Login via Facebook <div style='font-size: 0.8em; color: rgba(0,0,0,.4);'> you can save data after logged in </div>"

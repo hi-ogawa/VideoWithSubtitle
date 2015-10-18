@@ -1,9 +1,8 @@
-@app.controller "SavedDataController", (Item, SearchDialog, Auth, promiseTracker, SpeechApi) ->
+@app.controller "SavedDataController", (Item, SearchDialog, Auth, promiseTracker) ->
   vm = @
 
   vm.Item      = Item
   vm.Auth      = Auth
-  vm.SpeechApi = SpeechApi
 
   do ->
     p = vm.Auth.setItems().then ->
