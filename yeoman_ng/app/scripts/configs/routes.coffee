@@ -3,8 +3,9 @@
   $urlRouterProvider.otherwise "/watch"
 
   _initAuth = ["Auth", "Globals", (Auth, Globals) ->
+    # TODO: there's something wrong on the returned value
     p = Auth.authObj.$waitForAuth()
-        .then (authData) -> if authData? then Auth.setUser(authData).then -> Auth.setItems()
+        .then (authData) -> console.log authData; if authData? then Auth.setUser(authData).then -> Auth.setItems()
     Globals.initialLoaderTracker.addPromise p
     p
   ]
