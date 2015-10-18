@@ -1,5 +1,11 @@
 @app.service "TextRating", ->
 
+  # TODO: need more refined rating (faster)
+  #       - not only consecutive words
+  #       - put additional weight on uncommon words
+  #       - take closest span from current scroolTop
+  #       - long word should have bigger weight
+
   @filterAndPartition = (ar, pred) ->
     partitions = []
     current = []

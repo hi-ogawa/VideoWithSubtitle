@@ -1,4 +1,4 @@
-@app.directive "speechApiHighlighter", (SpeechApi, TextRating) ->
+@app.directive "speechApiHighlighter", (SpeechApi, TextRating, Globals) ->
   restrict: "A"
   controller: ($scope, $element, $interval) ->
 
@@ -20,11 +20,6 @@
 
     deHighlightWord = -> $element.highlightRegex()
 
-    # TODO: need more refined rating
-    #       - not only consecutive words
-    #       - put additional weight on uncommon words
-    #       - take closest span from current scroolTop
-    #       - long word should have bigger weight
     spanMatchedTo = (words) ->
       _($("#subtitles").children("span"))
         .map    (span) ->
@@ -34,7 +29,6 @@
         .sortBy (obj)  -> - obj.rate
         .first()
 
-    # calculateRate = (text, words) -> TextRating.longestConsecutiveMatch text, words
     calculateRate = (text, words) -> TextRating.wordLengthAndConsecutiveRating text, words
 
     scrollToSpan = (dom) ->
@@ -46,7 +40,8 @@
       if SpeechApi.state
         deHighlightWord()
         _.each SpeechApi.recentWords, highlightWord
-        scrollToSpan result.dom if result = spanMatchedTo(SpeechApi.recentWords)
+        if Globals.trackSubtitles
+          scrollToSpan result.dom if result = spanMatchedTo(SpeechApi.recentWords)
     , 500
 
     return

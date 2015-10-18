@@ -4,8 +4,4 @@
   vm.Globals            = Globals
   vm.SpringfieldWrapper = SpringfieldWrapper
 
-
-  do ->
-    vm.syncEpisode = true
-
   return

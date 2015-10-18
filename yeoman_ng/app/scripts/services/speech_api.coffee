@@ -1,7 +1,6 @@
-@app.service "SpeechApi", ($window, $timeout, promiseTracker, $q, $rootScope, $interval) ->
+@app.service "SpeechApi", ($window, $timeout, promiseTracker, $q, $rootScope, $interval, Globals) ->
 
-  # TODO: handle error for unsuppoted browsers
-  console.log "speech recognition is not suppoted on your browser" unless $window.webkitSpeechRecognition?
+  alert "sorry, we only support Google Chrome" unless $window.webkitSpeechRecognition
 
   _recognition                = new $window.webkitSpeechRecognition
   _recognition.continuous     = true
@@ -20,7 +19,7 @@
                                   .flatten()
                                   .filter (word) -> word.length > 1
                                   .unique()
-                                  .takeRight 15
+                                  .takeRight Globals.recentWordsNumber
                                   .value()
 
   @state           = false
@@ -29,7 +28,7 @@
   @startingTracker = promiseTracker()
   @endingTracker   = promiseTracker()
 
-  @on = -> 
+  @on = ->
     _recognition.start()
     p = $q (resolve, reject) => _recognition.onstart = (ev) => $timeout (=> @state = true; resolve ev)
     @startingTracker.addPromise p

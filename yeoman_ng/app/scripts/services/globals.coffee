@@ -10,4 +10,6 @@
     initPopup: (selector, options) ->
       $(".mine-popup").popup()
       return
+    trackSubtitles: false
+    recentWordsNumber: 7
   }
