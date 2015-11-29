@@ -37,7 +37,7 @@
               href    = $(this).attr('href')
               {
                 name         : $(this).text().match(/\-\ (.*)$/)[1]
-                url          : _baseUrl + href
+                url          : href
                 seasonNumber : parseInt href.match(/season-([^\-]*)-/)[1]
                 episodeNumber: parseInt href.match(/episode-(.*)\/$/)[1]
               }
